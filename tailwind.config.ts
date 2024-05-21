@@ -8,7 +8,10 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      'primary': '#FFEBD6',
+      'primary': '#FEC26F',
+      'secondary': '#801313',
+      'flagGreen': '#52B202',
+      'flagRed': '#FF1744',
     },
     extend: {
       backgroundImage: {
@@ -17,12 +20,6 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
-  },
-  color: {
-    'primary': '#FEC26F',
-    'secondary': '#801313',
-    'flagGreen': '#52B202',
-    'flagRed': '#FF1744',
   },
   plugins: [],
 };
