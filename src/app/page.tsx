@@ -1,9 +1,10 @@
 
+
 export default function Home() {
 
   return (
-    <main className="flex min-h-screen flex-col bg-primary">
-      <header className="flex flex-row justify-between items-center p-6 w-full border-2">
+    <main className="flex flex-col">
+      {/* <header className="flex flex-row justify-between items-center p-6 w-full border-2">
         <div className="">
           <img src='assets/flag.png' className="max-h-28"/>
         </div>
@@ -11,14 +12,14 @@ export default function Home() {
         <div>
           <img src='assets/menuButton.svg' />
         </div>
-      </header>
-      <section className="grid grid-cols-2 mt-4">
+      </header> */}
+      <section className="grid grid-cols-2">
         <div className="col-span-1">
           <img src='assets/truck.jpg'/>
         </div>
         <div className="col-span-1 flex flex-col border-2 w-full py-4 px-8">
           <div className="text-4xl font-bold text-right">Location & Hours</div>
-          <div className="flex flex-col text-2xl gap-x-1 text-right my-2">
+          <div className="flex flex-col text-2xl gap-x-4 text-right my-2">
             <div>Mon: 11am - 8pm</div>
             <div>Tue: 11am - 8pm</div>
             <div>Wed: 11am - 8pm</div>
