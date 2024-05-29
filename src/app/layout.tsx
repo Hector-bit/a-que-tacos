@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-primary`}>
         <AsideMenu/>
-        <div className="relative mt-40">
+        <div className="mt-40">
           {children}
         </div>
       </body>
