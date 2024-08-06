@@ -21,8 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-primary`}>
         <AsideMenu/>
-        <div className="mt-40">
-          {children}
+        <div className="flex flex-row mt-40">
+          {children}  
         </div>
       </body>
     </html>
