@@ -7,8 +7,8 @@ export default function Home() {
       <div className="">
         <img src='assets/truck.jpg'/>
       </div>
-      <div className="flex flex-col w-full py-4">
-        <div className="flex flex-col text-lg sm:text-2xl text-left sm:text-right my-2 gap-3">
+      <div className="flex flex-col w-full py-4 sm:py-0">
+        <div className="flex flex-col text-lg sm:text-2xl text-left sm:text-right gap-3">
           <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right">Location links</div>
           <a className="flex flex-col px-2 border-x-2 border-flagGreen" href="https://maps.app.goo.gl/TV7Q6t4ghB4GtFpQ9">
             <div>A Que Tacos:</div>
@@ -23,7 +23,7 @@ export default function Home() {
             <address>117 W Main St, Everson, WA 98247</address>
           </a>
         </div>
-        <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right">Hours {'(for all trucks)'}</div>
+        <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right mt-6">Hours {'(for all trucks)'}</div>
         <div className="flex flex-col text-lg sm:text-2xl gap-x-4 text-left sm:text-right my-2">
           <div>Mon: 11am - 8pm</div>
           <div>Tue: 11am - 8pm</div>

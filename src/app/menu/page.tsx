@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import MenuCard from "@/components/MenuCard";
 
 export default function Menu() {
-  const imgBase = 'assets/menuImages'
+  const imgBase = '/assets/menuImages'
   
   const menu_items = [
     { 
@@ -110,6 +110,7 @@ export default function Menu() {
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {menu_items.map((item) => (
           <MenuCard 
+            key={`${item.name}-food`}
             img={item.img} 
             name={item.name} 
             description={item.description}

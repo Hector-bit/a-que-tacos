@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, useAnimationControls, Variants } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const AsideMenuVariants: Variants = {
   'closed': {
@@ -58,12 +59,13 @@ const AsideMenu = ({  }:AsideMenuProps) => {
     <>
       <motion.div 
         className="fixed backdrop-blur-sm z-[2] w-full h-full"
+        initial={'closed'}
         variants={BlurBgVariants} 
         animate={AsideMenuControls} 
       />
       <div className="sticky z-[1] bg-primary top-0 flex flex-row justify-between items-center p-2 sm:p-6 w-full">
         <div className="">
-          <img src='assets/flag.png' className="max-h-12 sm:max-h-28"/>
+          <Image className="max-h-12 sm:max-h-28 w-auto" src='/assets/flag.png' alt="mexico flag" width={999} height={999}/>
         </div>
         <div className="text-black text-xl sm:text-5xl uppercase font-bold">a que tacos</div>
         <div 
@@ -71,7 +73,7 @@ const AsideMenu = ({  }:AsideMenuProps) => {
           className="cursor-pointer"
           onClick={() => setIsOpen(true)}
         >
-          <img className="max-h-12 sm:max-h-28" src='assets/menuButton.svg' />
+          <Image className="max-h-12 sm:max-h-28 w-auto" src='/assets/menuButton.svg' alt="menu button" width={999} height={999}/>
         </div>
       </div>
       {/* ASIDE MENU */}
@@ -89,7 +91,7 @@ const AsideMenu = ({  }:AsideMenuProps) => {
             className="cursor-pointer self-end"
             onClick={() => setIsOpen(false)}
           >
-            <img className="max-h-12 sm:max-h-28" src='assets/menuButton.svg' />
+            <Image className="max-h-12 sm:max-h-28 w-auto" src='assets/menuButton.svg' alt="menu button" width={999} height={999}/>
           </div>
           <div
             id='_menuListItems'

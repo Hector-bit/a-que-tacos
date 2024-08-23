@@ -1,4 +1,5 @@
 'use client'
+import Image from "next/image"
 import { useState } from "react"
 import { motion, Variants, AnimatePresence } from "framer-motion"
 
@@ -31,14 +32,14 @@ const MenuCard = ({ img, name, description }: MenuCardInterface) => {
 
   return (
     <div className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-      <img className="rounded-lg" src={img} alt={`item ${name}`} />
+      <Image className="rounded-lg" src={img} alt={`item ${name}`} width={999} height={999}/>
       <div className="flex flex-row justify-between items-center w-full">
         <div className="text-center font-semibold">{name}</div>
         <motion.div 
           animate={{ rotate: isOpen?180:0}}
           transition={{ ease: 'linear', duration: 0.15 }}
         >
-          <img src="/assets/ui/dropdown.png" alt={"drop down arrow"} width={20} height={20}/>
+          <Image src="/assets/ui/dropdown.png" alt={"drop down arrow"} width={20} height={20}/>
         </motion.div>
       </div>
       <AnimatePresence initial={false}>
