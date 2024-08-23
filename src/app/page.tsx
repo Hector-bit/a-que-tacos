@@ -3,34 +3,37 @@
 export default function Home() {
 
   return (
-    <main className="flex flex-col">
-      {/* <header className="flex flex-row justify-between items-center p-6 w-full border-2">
-        <div className="">
-          <img src='assets/flag.png' className="max-h-28"/>
+    <main className="flex flex-col sm:flex-row px-2 sm:px-8 gap-x-4">
+      <div className="">
+        <img src='assets/truck.jpg'/>
+      </div>
+      <div className="flex flex-col w-full py-4">
+        <div className="flex flex-col text-lg sm:text-2xl text-left sm:text-right my-2 gap-3">
+          <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right">Location links</div>
+          <a className="flex flex-col px-2 border-x-2 border-flagGreen" href="https://maps.app.goo.gl/TV7Q6t4ghB4GtFpQ9">
+            <div>A Que Tacos:</div>
+            <address>1315 W Connecticut St, Bellingham, WA 98225</address>
+          </a>
+          <a className="flex flex-col px-2 border-x-2 border-white" href="https://maps.app.goo.gl/aoEUDDNcCSM9yKJC8">
+            <div>A Que Tacos Two:</div>
+            <address>8101 Blaine Rd, Blaine, WA 98230</address>
+          </a>
+          <a className="flex flex-col px-2 border-x-2 border-flagRed" href="https://maps.app.goo.gl/pKbf5SVuCk7nyL817">
+            <div>A Que Tacos Three:</div>
+            <address>117 W Main St, Everson, WA 98247</address>
+          </a>
         </div>
-        <div className="text-black text-5xl uppercase font-bold">a que tacos</div>
-        <div>
-          <img src='assets/menuButton.svg' />
+        <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right">Hours {'(for all trucks)'}</div>
+        <div className="flex flex-col text-lg sm:text-2xl gap-x-4 text-left sm:text-right my-2">
+          <div>Mon: 11am - 8pm</div>
+          <div>Tue: 11am - 8pm</div>
+          <div>Wed: 11am - 8pm</div>
+          <div>Thu: 11am - 8pm</div>
+          <div>Fri: 11am - 8pm</div>
+          <div>Sat: 11am - 8pm</div>
+          <div>Sun: <span className="px-5">Closed</span></div>
         </div>
-      </header> */}
-      <section className="grid grid-cols-2">
-        <div className="col-span-1">
-          <img src='assets/truck.jpg'/>
-        </div>
-        <div className="col-span-1 flex flex-col border-2 w-full py-4 px-8">
-          <div className="text-4xl font-bold text-right">Location & Hours</div>
-          <div className="flex flex-col text-2xl gap-x-4 text-right my-2">
-            <div>Mon: 11am - 8pm</div>
-            <div>Tue: 11am - 8pm</div>
-            <div>Wed: 11am - 8pm</div>
-            <div>Thu: 11am - 8pm</div>
-            <div>Fri: 11am - 8pm</div>
-            <div>Sat: 11am - 8pm</div>
-            <div>Sun: <span className="px-5">Closed</span></div>
-            <div className="col-span-2 mt-3">8101 Blaine Rd, Blaine, WA 98230</div>
-          </div>
-        </div>
-      </section>
+      </div>
     </main>
   );
 }

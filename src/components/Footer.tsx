@@ -1,0 +1,11 @@
+'use client'
+
+const Footer = () => {
+  return (
+    <div className="flex justify-center items-center border-t-2 border-black p-2 sm:p-8 h-16">
+      Email: aquetaco@gmail.com
+    </div>
+  )
+}
+
+export default Footer;

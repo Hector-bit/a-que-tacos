@@ -20,11 +20,29 @@ const AsideMenuVariants: Variants = {
   }
 }
 
-interface AsideMenuProps {
-  // isOpen: any
-  // closeFn: any
+const BlurBgVariants: Variants = {
+  'closed': {
+    x: '100%',
+    opacity: 0,
+    transition: {
+      ease: 'easeOut',
+      duration: 0.1
+    }
+  },
+  'open': {
+    x: [0, 0],
+    opacity: [0, 1],
+    transition: {
+      ease: 'easeOut',
+      duration: 0.1
+    }
+  }
 }
-const AsideMenu = ({}:AsideMenuProps) => {
+
+interface AsideMenuProps {
+  // isOpen: boolean
+}
+const AsideMenu = ({  }:AsideMenuProps) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false)
   const AsideMenuControls = useAnimationControls();
 
@@ -38,39 +56,44 @@ const AsideMenu = ({}:AsideMenuProps) => {
 
   return (
     <>
-      <div className="fixed top-0 flex flex-row justify-between items-center p-6 w-full">
+      <motion.div 
+        className="fixed backdrop-blur-sm z-[2] w-full h-full"
+        variants={BlurBgVariants} 
+        animate={AsideMenuControls} 
+      />
+      <div className="sticky z-[1] bg-primary top-0 flex flex-row justify-between items-center p-2 sm:p-6 w-full">
         <div className="">
-          <img src='assets/flag.png' className="max-h-28"/>
+          <img src='assets/flag.png' className="max-h-12 sm:max-h-28"/>
         </div>
-        <div className="text-black text-5xl uppercase font-bold">a que tacos</div>
+        <div className="text-black text-xl sm:text-5xl uppercase font-bold">a que tacos</div>
         <div 
           id='_menuOpenButton' 
           className="cursor-pointer"
           onClick={() => setIsOpen(true)}
         >
-          <img src='assets/menuButton.svg' />
+          <img className="max-h-12 sm:max-h-28" src='assets/menuButton.svg' />
         </div>
       </div>
       {/* ASIDE MENU */}
       <motion.div
         id='_menuBackgroundOverlay'
         initial={'closed'}
-        className="flex w-full h-full backdrop-blur-sm flex flex-row justify-end inset-0 fixed border-2 border-fuchsia-500"
+        className="z-[3] w-full h-full flex flex-row justify-end inset-0 fixed"
         variants={AsideMenuVariants}
         animate={AsideMenuControls}
         onClick={() => setIsOpen(false)}
       >
-        <div id='_menuContainer' className="top-0 left-0 bg-primary max-w-[90%] p-8">
+        <div id='_menuContainer' className="flex flex-col items-center top-0 right-0 bg-primary w-[50%] max-w-[90%] p-4 sm:p-8">
           <div 
             id='_menuCloseButton' 
-            className="cursor-pointer w-auto"
+            className="cursor-pointer self-end"
             onClick={() => setIsOpen(false)}
           >
-            <img src='assets/menuButton.svg' />
+            <img className="max-h-12 sm:max-h-28" src='assets/menuButton.svg' />
           </div>
           <div
             id='_menuListItems'
-            className="flex flex-col gap-6 mt-8 text-black text-5xl uppercase font-bold"
+            className="flex flex-col gap-6 mt-8 text-black text-2xl sm:text-5xl uppercase font-bold"
           >
             <Link className="hover:underline " href={"/"}>Home</Link>
             <Link className="hover:underline " href={"/menu"}>Menu</Link>

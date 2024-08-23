@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Oswald } from "next/font/google";
 import "./globals.css";
 import AsideMenu from "@/components/AsideMenu";
+import Footer from "@/components/Footer";
 
 const inter = Oswald({ 
   subsets: ["latin", "cyrillic"] 
@@ -20,10 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-primary`}>
-        <AsideMenu/>
-        <div className="flex flex-row mt-40">
+        <AsideMenu />
+        <div className="">
           {children}  
         </div>
+        <Footer/>
       </body>
     </html>
   );
