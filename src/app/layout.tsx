@@ -10,7 +10,7 @@ const inter = Oswald({
 
 export const metadata: Metadata = {
   title: "A Que Tacos",
-  description: "Opened since 2011, located in Bellingham WA",
+  description: "Opened since 2011, locateds in whatcom county",
 };
 
 export default function RootLayout({
