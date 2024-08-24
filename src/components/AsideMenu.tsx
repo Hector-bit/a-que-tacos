@@ -1,8 +1,8 @@
 "use client"
-import React, { useEffect, useState } from "react";
-import { motion, useAnimationControls, Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { motion, useAnimationControls, Variants } from "framer-motion";
 
 const AsideMenuVariants: Variants = {
   'closed': {
@@ -53,7 +53,7 @@ const AsideMenu = ({  }:AsideMenuProps) => {
     } else {
       AsideMenuControls.start('closed')
     }
-  },[isOpen])
+  },[isOpen, AsideMenuControls])
 
   return (
     <>
@@ -73,7 +73,7 @@ const AsideMenu = ({  }:AsideMenuProps) => {
           className="cursor-pointer"
           onClick={() => setIsOpen(true)}
         >
-          <Image className="max-h-12 sm:max-h-28 w-auto" src='/assets/menuButton.svg' alt="menu button" width={999} height={999}/>
+          <Image className="max-h-12 sm:max-h-28 w-auto z-[3]" src='/assets/menuButton.svg' alt="menu button" width={999} height={999}/>
         </div>
       </div>
       {/* ASIDE MENU */}

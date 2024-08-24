@@ -1,5 +1,4 @@
 'use client'
-import { motion } from "framer-motion";
 import MenuCard from "@/components/MenuCard";
 
 export default function Menu() {
@@ -106,8 +105,10 @@ export default function Menu() {
 
   return (
     <main className="flex flex-col items-center justify-between p-2 sm:p-6 bg-primary">
-      <div className="my-3 text-2xl sm:text-3xl font-bold text-center">Availability may vary by location</div>
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="text-xl sm:text-3xl text-left w-full font-bold">Disclaimers:</div>
+      <div className="text-lg sm:text-xl text-left w-full">Availability may vary by location</div>
+      <div className="text-lg sm:text-xl text-left w-full">All rice is cooked with chicken broth</div>
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-3">
         {menu_items.map((item) => (
           <MenuCard 
             key={`${item.name}-food`}

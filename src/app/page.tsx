@@ -1,11 +1,12 @@
-
+'use client'
+import Image from "next/image";
 
 export default function Home() {
 
   return (
     <main className="flex flex-col sm:flex-row px-2 sm:px-8 gap-x-4">
       <div className="">
-        <img src='assets/truck.jpg'/>
+        <Image className="w-auto h-auto" src='/assets/truck.jpg' alt="food truck" width={999} height={999}/>
       </div>
       <div className="flex flex-col w-full py-4 sm:py-0">
         <div className="flex flex-col text-lg sm:text-2xl text-left sm:text-right gap-3">

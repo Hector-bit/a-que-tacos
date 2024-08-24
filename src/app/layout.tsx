@@ -11,6 +11,9 @@ const inter = Oswald({
 export const metadata: Metadata = {
   title: "A Que Tacos",
   description: "Opened since 2011, locateds in whatcom county",
+  icons: {
+    icon: '/taco.ico', // /public path
+  },
 };
 
 export default function RootLayout({
