@@ -24,9 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-primary`}>
+      <body className={`flex flex-col min-h-screen ${inter.className} bg-primary`}>
         <AsideMenu />
-        <div className="">
+        <div className="grow">
           {children}  
         </div>
         <Footer/>
