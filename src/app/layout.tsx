@@ -3,6 +3,7 @@ import { Oswald } from "next/font/google";
 import "./globals.css";
 import AsideMenu from "@/components/AsideMenu";
 import Footer from "@/components/Footer";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Oswald({ 
   subsets: ["latin", "cyrillic"] 
@@ -30,6 +31,7 @@ export default function RootLayout({
         </div>
         <Footer/>
       </body>
+      <GoogleAnalytics gaId='G-LTNF1EG4YR'/>
     </html>
   );
 }
