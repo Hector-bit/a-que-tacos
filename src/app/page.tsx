@@ -11,15 +11,15 @@ export default function Home() {
       <div className="flex flex-col w-full py-4 sm:py-0">
         <div className="flex flex-col text-lg sm:text-2xl text-left sm:text-right gap-3">
           <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right">Location links</div>
-          <a className="flex flex-col px-2 border-x-2 border-flagGreen" href="https://maps.app.goo.gl/TV7Q6t4ghB4GtFpQ9">
+          <a className="flex flex-col px-2 border-x-4 border-flagGreen" href="https://maps.app.goo.gl/TV7Q6t4ghB4GtFpQ9">
             <div>A Que Tacos:</div>
             <address>1315 W Connecticut St, Bellingham, WA 98225</address>
           </a>
-          <a className="flex flex-col px-2 border-x-2 border-white" href="https://maps.app.goo.gl/aoEUDDNcCSM9yKJC8">
+          <a className="flex flex-col px-2 border-x-4 border-white" href="https://maps.app.goo.gl/aoEUDDNcCSM9yKJC8">
             <div>A Que Tacos Two:</div>
             <address>8101 Blaine Rd, Blaine, WA 98230</address>
           </a>
-          <a className="flex flex-col px-2 border-x-2 border-flagRed" href="https://maps.app.goo.gl/pKbf5SVuCk7nyL817">
+          <a className="flex flex-col px-2 border-x-4 border-flagRed" href="https://maps.app.goo.gl/pKbf5SVuCk7nyL817">
             <div>A Que Tacos Three:</div>
             <address>117 W Main St, Everson, WA 98247</address>
           </a>
