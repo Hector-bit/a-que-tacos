@@ -4,11 +4,11 @@ import Image from "next/image";
 export default function Home() {
 
   return (
-    <main className="flex flex-col sm:flex-row px-2 sm:px-8 gap-x-4">
-      <div className="">
-        <Image className="w-auto h-auto" src='/assets/truck.jpg' alt="food truck" width={999} height={999}/>
+    <main className="flex flex-col sm:flex-row px-3 sm:px-8 gap-x-4">
+      <div className="grow-0 sm:grow">
+        <Image className="w-auto h-auto mx-auto sm:mx-0" src='/assets/truck.jpg' alt="food truck" width={999} height={999}/>
       </div>
-      <div className="flex flex-col w-full py-4 sm:py-0">
+      <div className="flex flex-col w-full sm:w-fit py-4 sm:py-0">
         <div className="flex flex-col text-lg sm:text-2xl text-left sm:text-right gap-3">
           <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right">Location links</div>
           <a className="flex flex-col px-2 border-x-4 border-flagGreen" href="https://maps.app.goo.gl/TV7Q6t4ghB4GtFpQ9">

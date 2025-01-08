@@ -63,7 +63,7 @@ const AsideMenu = ({  }:AsideMenuProps) => {
         variants={BlurBgVariants} 
         animate={AsideMenuControls} 
       />
-      <div className="sticky z-[1] bg-primary top-0 flex flex-row justify-between items-center p-2 sm:p-6 w-full">
+      <div className="sticky z-[1] bg-primary top-0 flex flex-row justify-between items-center p-3 sm:p-6 w-full">
         <div className="">
           <Image className="max-h-12 sm:max-h-28 w-auto" src='/assets/flag.png' alt="mexico flag" width={999} height={999}/>
         </div>
