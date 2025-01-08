@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="flex flex-col sm:flex-row px-3 sm:px-8 gap-x-4">
       <div className="grow-0 sm:grow">
-        <Image className="w-auto h-auto mx-auto sm:mx-0" src='/assets/truck.jpg' alt="food truck" width={999} height={999}/>
+        <Image className="w-full max-w-[600px] h-auto mx-auto sm:mx-0" src='/assets/truck.jpg' alt="food truck" width={999} height={999}/>
       </div>
       <div className="flex flex-col w-full sm:w-fit py-4 sm:py-0">
         <div className="flex flex-col text-lg sm:text-2xl text-left sm:text-right gap-3">
