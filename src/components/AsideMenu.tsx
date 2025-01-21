@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { motion, useAnimationControls, Variants } from "framer-motion";
+import { useContext } from "react";
 
 const AsideMenuVariants: Variants = {
   'closed': {
@@ -78,9 +79,9 @@ const AsideMenu = ({  }:AsideMenuProps) => {
       </div>
       {/* ASIDE MENU */}
       <motion.div
-        id='_menuBackgroundOverlay'
+        id='_menuOverlay'
         initial={'closed'}
-        className="z-[3] w-full h-full flex flex-row justify-end inset-0 fixed"
+        className="z-[3] border border-red-500 w-full h-full flex flex-row justify-end inset-0 fixed"
         variants={AsideMenuVariants}
         animate={AsideMenuControls}
         onClick={() => setIsOpen(false)}
