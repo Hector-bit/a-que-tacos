@@ -1,4 +1,4 @@
-import { stat } from "fs";
+'use client'
 import { createContext, useReducer, useState } from "react";
 
 // type ThemeContextType = "light" | "dark"

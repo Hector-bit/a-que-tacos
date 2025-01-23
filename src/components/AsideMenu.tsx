@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { motion, useAnimationControls, Variants } from "framer-motion";
-import { useContext } from "react";
 
 const AsideMenuVariants: Variants = {
   'closed': {
@@ -44,6 +43,7 @@ const BlurBgVariants: Variants = {
 interface AsideMenuProps {
   // isOpen: boolean
 }
+
 const AsideMenu = ({  }:AsideMenuProps) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false)
   const AsideMenuControls = useAnimationControls();
@@ -64,39 +64,31 @@ const AsideMenu = ({  }:AsideMenuProps) => {
         variants={BlurBgVariants} 
         animate={AsideMenuControls} 
       />
-      <div className="sticky z-[1] bg-primary top-0 flex flex-row justify-between items-center p-3 sm:p-6 w-full">
+      <div className="bg-primary top-0 flex flex-row justify-between items-center p-3 sm:p-6 w-full">
         <div className="">
           <Image className="max-h-12 sm:max-h-28 w-auto" src='/assets/flag.png' alt="mexico flag" width={999} height={999}/>
         </div>
         <div className="text-black text-xl sm:text-5xl uppercase font-bold">a que tacos</div>
-        <div 
-          id='_menuOpenButton' 
-          className="cursor-pointer"
-          onClick={() => setIsOpen(true)}
-        >
-          <Image className="max-h-12 sm:max-h-28 w-auto z-[3]" src='/assets/menuButton.svg' alt="menu button" width={999} height={999}/>
+        <div id="nav-icon3" className={`z-[4] ${isOpen?'open':''}`} onClick={() => setIsOpen(!isOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
       </div>
       {/* ASIDE MENU */}
       <motion.div
         id='_menuOverlay'
         initial={'closed'}
-        className="z-[3] border border-red-500 w-full h-full flex flex-row justify-end inset-0 fixed"
+        className="z-[3] w-full h-full flex flex-row justify-end inset-0 fixed"
         variants={AsideMenuVariants}
         animate={AsideMenuControls}
         onClick={() => setIsOpen(false)}
       >
         <div id='_menuContainer' className="flex flex-col items-center top-0 right-0 bg-primary w-[50%] max-w-[90%] p-4 sm:p-8">
-          <div 
-            id='_menuCloseButton' 
-            className="cursor-pointer self-end"
-            onClick={() => setIsOpen(false)}
-          >
-            <Image className="max-h-12 sm:max-h-28 w-auto" src='assets/menuButton.svg' alt="menu button" width={999} height={999}/>
-          </div>
           <div
             id='_menuListItems'
-            className="flex flex-col gap-6 mt-8 text-black text-2xl sm:text-5xl uppercase font-bold"
+            className="flex flex-col gap-6 mt-20 text-black text-2xl sm:text-5xl uppercase font-bold"
           >
             <Link className="hover:underline " href={"/"}>Home</Link>
             <Link className="hover:underline " href={"/menu"}>Menu</Link>
