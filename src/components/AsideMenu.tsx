@@ -46,6 +46,7 @@ interface AsideMenuProps {
 const AsideMenu = ({  }:AsideMenuProps) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false)
   const AsideMenuControls = useAnimationControls();
+  let header = (process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true'?'A QUE TACOS 34':'DEVELOPMENT')
 
   useEffect(() => {
     if(isOpen){
@@ -55,8 +56,11 @@ const AsideMenu = ({  }:AsideMenuProps) => {
     }
   },[isOpen, AsideMenuControls])
 
+
+
   return (
     <>
+      {/* HEADER STUFF  */}
       <motion.div 
         className="fixed backdrop-blur-sm z-[2] w-full h-full"
         initial={'closed'}
@@ -67,7 +71,7 @@ const AsideMenu = ({  }:AsideMenuProps) => {
         <div className="">
           <Image className="max-h-12 sm:max-h-28 w-auto" src='/assets/flag.png' alt="mexico flag" width={999} height={999}/>
         </div>
-        <div className="text-black text-xl sm:text-5xl uppercase font-bold">a que tacos</div>
+        <div className="text-black text-xl sm:text-5xl uppercase font-bold">{header}</div>
         <div 
           id='_menuOpenButton' 
           className="cursor-pointer"
@@ -76,6 +80,7 @@ const AsideMenu = ({  }:AsideMenuProps) => {
           <Image className="max-h-12 sm:max-h-28 w-auto z-[3]" src='/assets/menuButton.svg' alt="menu button" width={999} height={999}/>
         </div>
       </div>
+      {/* END OF HEADER STUFF  */}
       {/* ASIDE MENU */}
       <motion.div
         id='_menuBackgroundOverlay'
@@ -95,10 +100,11 @@ const AsideMenu = ({  }:AsideMenuProps) => {
           </div>
           <div
             id='_menuListItems'
-            className="flex flex-col gap-6 mt-8 text-black text-2xl sm:text-5xl uppercase font-bold"
+            className="flex flex-col gap-y-12 mt-8 text-black text-2xl sm:text-5xl uppercase font-bold"
           >
-            <Link className="hover:underline " href={"/"}>Home</Link>
-            <Link className="hover:underline " href={"/menu"}>Menu</Link>
+            <Link className="hover:underline text-center" href={"/"}>Home</Link>
+            <Link className="hover:underline text-center" href={"/menu"}>Menu</Link>
+            <Link className="hover:underline text-center" href={"/order-pickup"}>Order Pickup</Link>
           </div>
         </div>
       </motion.div>
