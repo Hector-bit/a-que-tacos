@@ -2,7 +2,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { motion, useAnimationControls, Variants } from "framer-motion";
 
 const AsideMenuVariants: Variants = {
   'closed': {
