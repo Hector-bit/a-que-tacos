@@ -12,7 +12,7 @@ const HeaderMenu = ({  }:HeaderMenuProps) => {
 
   return (
     <>
-      <div className="fixed z-[1] h-[90px] sm:h-[140px] bg-primary top-0 flex flex-row justify-between items-center p-3 sm:p-6 w-full">
+      <div className="mx-auto max-w-[1200px] fixed z-[1] h-[90px] sm:h-[140px] bg-primary top-0 flex flex-row justify-between items-center p-3 sm:p-6 w-full">
         <div className="">
           <Image className="max-h-16 sm:max-h-28 w-auto" src='/assets/flag.png' alt="mexico flag" width={999} height={999}/>
         </div>
@@ -31,6 +31,10 @@ const HeaderMenu = ({  }:HeaderMenuProps) => {
           id='_menuOverlay'
           className={`z-[2] flex flex-row justify-end inset-0 fixed duration-300 ${isOpen?'translate-x-0':'translate-x-full'}`}
         >
+          <div 
+            className={`grow z-[2] ${isOpen?'z-[1] backdrop-blur-sm block':'backdrop-blur-none z-[-1]'}`}
+            onClick={() => setIsOpen(false)}
+          />
           <div id='_menuContainer' className="flex flex-col items-center top-0 right-0 bg-primary w-[50%] max-w-[70%] h-ful p-4 sm:p-8">
             <div
               id='_menuListItems'
