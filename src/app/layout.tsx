@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Oswald } from "next/font/google";
 import "./globals.css";
-import AsideMenu from "@/components/AsideMenu";
+import HeaderMenu from "@/components/HeaderMenu";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import UIProvider from "@/context/uicontext";
@@ -25,10 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`flex flex-col min-h-screen ${inter.className} bg-primary`}>
+      <body className={`flex flex-col mx-auto max-w-[1200px] min-h-screen ${inter.className} bg-primary`}>
         <UIProvider>
-          <AsideMenu />
-          <div className="grow">
+          <HeaderMenu />
+          <div className="grow mt-[90px] sm:mt-[140px]">
             {children}  
           </div>
           <Footer/>
