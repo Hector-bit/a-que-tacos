@@ -12,7 +12,7 @@ const HeaderMenu = ({  }:HeaderMenuProps) => {
 
   return (
     <>
-      <div className="mx-auto max-w-[1200px] fixed z-[1] h-[90px] sm:h-[140px] bg-primary top-0 flex flex-row justify-between items-center p-3 sm:p-6 w-full">
+      <div className="mx-auto max-w-[1400px] sticky z-[1] h-[90px] sm:h-[140px] bg-primary top-0 flex flex-row justify-between items-center p-3 sm:p-6 w-full">
         <div className="">
           <Image className="max-h-16 sm:max-h-28 w-auto" src='/assets/flag.png' alt="mexico flag" width={999} height={999}/>
         </div>
@@ -29,7 +29,7 @@ const HeaderMenu = ({  }:HeaderMenuProps) => {
         /> */}
         <div
           id='_menuOverlay'
-          className={`z-[2] flex flex-row justify-end inset-0 fixed duration-300 ${isOpen?'translate-x-0':'translate-x-full'}`}
+          className={`mx-auto max-w-[1400px] z-[2] flex flex-row justify-end inset-0 fixed duration-300 ${isOpen?'translate-x-0':'translate-x-full'}`}
         >
           <div 
             className={`grow z-[2] ${isOpen?'z-[1] backdrop-blur-sm block':'backdrop-blur-none z-[-1]'}`}
