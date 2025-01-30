@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className={`flex flex-col min-h-screen ${inter.className} bg-primary`}>
         <UIProvider>
           <HeaderMenu />
-          <div className="grow mt-[90px] sm:mt-[140px]">
+          <div className="grow">
             {children}  
           </div>
           <Footer/>
