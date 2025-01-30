@@ -4,6 +4,7 @@ import "./globals.css";
 import AsideMenu from "@/components/AsideMenu";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import UIProvider from "@/context/uicontext";
 
 const inter = Oswald({ 
   subsets: ["latin", "cyrillic"] 
@@ -25,11 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`flex flex-col min-h-screen ${inter.className} bg-primary`}>
-        <AsideMenu />
-        <div className="grow">
-          {children}  
-        </div>
-        <Footer/>
+        <UIProvider>
+          <AsideMenu />
+          <div className="grow">
+            {children}  
+          </div>
+          <Footer/>
+        </UIProvider>
       </body>
       <GoogleAnalytics gaId='G-LTNF1EG4YR'/>
     </html>
