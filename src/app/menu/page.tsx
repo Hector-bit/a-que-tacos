@@ -41,15 +41,15 @@ export default function Menu() {
       price: 2.75,
       description: 'Beans, rice, lettuce, cheese, pico de gallo, -choice of chips or tortilla-'
     },
-    // { 
-    //   img: `${imgBase}/plateTamale3Final.jpg`,
-    //   name: 'Tamale Plate', 
-    //   price: 2.75,
-    //   description: ''
-    // },
+    { 
+      img: `${imgBase}/comboPlate.jpg`,
+      name: 'Combo Plate', 
+      price: 2.75,
+      description: 'Choice of meat, beans, rice, onions, cilantro'
+    },
     { 
       img: `${imgBase}/plateVeggie1Final.jpg`,
-      name: 'Veggie Plate', 
+      name: 'Veggie Combo Plate', 
       price: 2.75,
       description: 'Beans, rice, onions, cilantro, avocado, tomato, lettuce'
     },
@@ -89,18 +89,24 @@ export default function Menu() {
       price: 2.75,
       description: 'Choice of meat, beans, avocado, tomato, onions, cilantro'
     },
-    // { 
-    //   img: `${imgBase}/jarritosFinal.jpg`,
-    //   name: 'Jarritos', 
-    //   price: 2.75,
-    //   description: ''
-    // },
-    // { 
-    //   img: `${imgBase}/horchataOneFinal.jpg`,
-    //   name: 'Horchata', 
-    //   price: 2.75,
-    //   description: ''
-    // },
+    { 
+      img: `${imgBase}/ricebeans.jpg`,
+      name: 'Rice & Beans', 
+      price: 2.75,
+      description: 'Rice & Beans'
+    },
+    { 
+      img: `${imgBase}/kidsburrito.jpg`,
+      name: 'Kids Burrito', 
+      price: 2.75,
+      description: 'Rice, beans & cheese'
+    },
+    { 
+      img: `${imgBase}/chipsypico.jpg`,
+      name: 'Chips & Pico', 
+      price: 2.75,
+      description: 'Chips & Pico de gallo'
+    },
   ]
 
   return (

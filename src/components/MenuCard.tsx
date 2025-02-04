@@ -13,7 +13,7 @@ const MenuCard = ({ img, name, description }: MenuCardInterface) => {
 
   return (
     <div className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-      <Image className="rounded-lg" src={img} alt={`item ${name}`} width={999} height={999}/>
+      <Image className="rounded-lg" src={img} alt={`${name}`} width={999} height={999}/>
       <div className="flex flex-row justify-between items-center w-full">
         <div className="text-center font-semibold">{name}</div>
         <div 
