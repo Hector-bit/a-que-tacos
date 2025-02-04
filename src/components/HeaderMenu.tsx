@@ -38,10 +38,11 @@ const HeaderMenu = ({  }:HeaderMenuProps) => {
           <div id='_menuContainer' className="flex flex-col items-center top-0 right-0 bg-primary w-[50%] max-w-[70%] h-ful p-4 sm:p-8">
             <div
               id='_menuListItems'
-              className="flex flex-col gap-6 mt-20 text-black text-2xl sm:text-5xl uppercase font-bold"
+              className="flex flex-col gap-6 mt-20 text-black text-2xl sm:text-5xl uppercase font-bold text-center"
             >
               <Link className="hover:underline " href={"/"} onClick={() => setIsOpen(false)}>Home</Link>
               <Link className="hover:underline " href={"/menu"} onClick={() => setIsOpen(false)}>Menu</Link>
+              <Link className="hover:underline " href={"/order-pickup"} onClick={() => setIsOpen(false)}>Order</Link>
             </div>
           </div>
         </div>
