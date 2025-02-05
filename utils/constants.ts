@@ -1,6 +1,8 @@
+import { menuItemType } from "./types"
+
 const imgBase = '/assets/menuImages'
 
-export const menu_items = [
+export const menu_items:menuItemType[] = [
   { 
     img: `${imgBase}/burritoFishFinal.jpg`,
     name: 'Fish Burrito', 
@@ -104,3 +106,4 @@ export const menu_items = [
     description: 'Chips & Pico de gallo'
   },
 ]
+
