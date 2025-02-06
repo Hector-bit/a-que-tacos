@@ -3,4 +3,5 @@ export type menuItemType = {
   name: string
   price: number
   description: string
+  ingredients: string[]
 }
