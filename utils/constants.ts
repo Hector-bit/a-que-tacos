@@ -1,4 +1,4 @@
-import { menuItemType } from "./types"
+import { menuItemType, ingredientsType } from "./types"
 
 const imgBase = '/assets/menuImages'
 
@@ -9,7 +9,7 @@ export const menu_items:menuItemType[] = [
     name: 'Fish Burrito', 
     price: 9,
     description: 'Tilapia fish, beans, rice, lettuce, cheese, sourcream, pico de gallo',
-    ingredients: ['beans', 'rice', 'lettuce', 'cheese', 'sourcream', 'pico de gallo']
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 2,
@@ -17,7 +17,7 @@ export const menu_items:menuItemType[] = [
     name: 'Regular Burrito', 
     price: 8,
     description: 'Choice of meat, beans, rice, onion, cilantro',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 3,
@@ -25,7 +25,7 @@ export const menu_items:menuItemType[] = [
     name: 'Veggie Burrito', 
     price: 9,
     description: 'Beans, rice, tomato, onions, cilantro, avocado',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 4,
@@ -33,7 +33,7 @@ export const menu_items:menuItemType[] = [
     name: 'Supreme Burrito', 
     price: 2.75,
     description: 'Beans, rice, sourcream, cheese, tomato, onions, cilantro, avocado',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 5,
@@ -41,7 +41,7 @@ export const menu_items:menuItemType[] = [
     name: 'Nachos', 
     price: 2.75,
     description: 'Choice of meat, cheese, sourcream, pico de gallo, jalepenos',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 6,
@@ -49,7 +49,7 @@ export const menu_items:menuItemType[] = [
     name: 'Fish Plate', 
     price: 2.75,
     description: 'Beans, rice, lettuce, cheese, pico de gallo, -choice of chips or tortilla-',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 7,
@@ -57,7 +57,7 @@ export const menu_items:menuItemType[] = [
     name: 'Combo Plate', 
     price: 2.75,
     description: 'Choice of meat, beans, rice, onions, cilantro',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 8,
@@ -65,7 +65,7 @@ export const menu_items:menuItemType[] = [
     name: 'Veggie Combo Plate', 
     price: 2.75,
     description: 'Beans, rice, onions, cilantro, avocado, tomato, lettuce',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 9,
@@ -73,7 +73,7 @@ export const menu_items:menuItemType[] = [
     name: 'Quesadilla', 
     price: 2.75,
     description: 'Choice of meat, sourcream, lettuce, pico de gallo',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 10,
@@ -81,7 +81,7 @@ export const menu_items:menuItemType[] = [
     name: 'Salad', 
     price: 2.75,
     description: 'Choice of meat, rice, beans, lettuce, pico de gallo, -choice of chips or tortilla-',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 11,
@@ -89,7 +89,7 @@ export const menu_items:menuItemType[] = [
     name: 'Taco', 
     price: 2.75,
     description: 'Choice of meat, onions, cilantro',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 12,
@@ -97,7 +97,7 @@ export const menu_items:menuItemType[] = [
     name: 'Fish Taco', 
     price: 2.75,
     description: 'Tilapia fish, sourcream, lettuce, pico de gallo',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 13,
@@ -105,7 +105,7 @@ export const menu_items:menuItemType[] = [
     name: 'Veggie Taco', 
     price: 2.75,
     description: 'Beans, rice, onions, cilantro, tomato, avocado',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 14,
@@ -113,7 +113,7 @@ export const menu_items:menuItemType[] = [
     name: 'Torta', 
     price: 2.75,
     description: 'Choice of meat, beans, avocado, tomato, onions, cilantro',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 15,
@@ -121,7 +121,7 @@ export const menu_items:menuItemType[] = [
     name: 'Rice & Beans', 
     price: 2.75,
     description: 'Rice & Beans',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 16,
@@ -129,7 +129,7 @@ export const menu_items:menuItemType[] = [
     name: 'Kids Burrito', 
     price: 2.75,
     description: 'Rice, beans & cheese',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
   { 
     menu_id: 17,
@@ -137,7 +137,7 @@ export const menu_items:menuItemType[] = [
     name: 'Chips & Pico', 
     price: 2.75,
     description: 'Chips & Pico de gallo',
-    ingredients: []
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'PICO_DE_GALLO']
   },
 ]
 
@@ -159,4 +159,15 @@ export const order_items:any = {
   15: {foodItem: menu_items[14]},
   16: {foodItem: menu_items[15]},
   17: {foodItem: menu_items[16]},
+}
+
+export const ingredientDictionary = {
+  'LETTUCE' : "Lettuce",
+  'TOMATO' : "Tomato",
+  'RICE' : "Rice",
+  'BEANS' : "Beans",
+  'SOURCREAM' : "Sourcream",
+  'CHEESE' : "Cheese",
+  'AVOCADO' : "Avocado",
+  'PICO_DE_GALLO' : "Pico de gallo",
 }

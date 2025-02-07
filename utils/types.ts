@@ -1,5 +1,14 @@
 type sideOptionType = 'TORTILLA' | 'CHIPS'
-type ingredientsType = ''
+
+export type ingredientsType = 
+  'LETTUCE' |
+  'TOMATO' |
+  'RICE' |
+  'BEANS' |
+  'SOURCREAM' |
+  'CHEESE' |
+  'AVOCADO' |
+  'PICO_DE_GALLO'
 
 export type menuItemType = {
   menu_id: number
@@ -7,7 +16,7 @@ export type menuItemType = {
   name: string
   price: number
   description: string
-  ingredients: string[]
+  ingredients: ingredientsType[]
   sideOption?: sideOptionType
 }
 
@@ -39,5 +48,15 @@ type orderItemType =
 export type orderItem = {
   menu_id: number
   orderItem: orderItemType
-  removeIngrdients: []
+  removeIngrdients: ingredientsType[]
+}
+
+export type IconType = {
+  classname?: string
+  viewBox?: string
+  width?: number
+  height?: number
+  fill?: string
+  stroke?: string
+  strokeWidth?: number
 }

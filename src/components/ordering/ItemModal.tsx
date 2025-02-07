@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { menuItemType } from "../../../utils/types";
 import Image from "next/image";
+import { ingredientsType, menuItemType } from "../../../utils/types";
+import { ingredientDictionary } from "../../../utils/constants";
+import IngredientButton from "./IngredientButton";
 
-const btn_one = 'drop-shadow rounded-[20px] py-3 px-5 text-white'
-const btn_two = 'drop-shadow rounded-xl py-3 px-5 text-white'
+const btn_one = 'drop-shadow-2xl rounded-[20px] py-3 px-5 text-white'
 
 interface ItemModalProps {
   isOpen: boolean
@@ -12,7 +13,8 @@ interface ItemModalProps {
 }
 
 const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
-  const [ingredients, setIngredients] = useState<any>()
+  const [ingredients, setIngredients] = useState<ingredientsType[]>(foodItem.ingredients)
+  const [removeIngredients, setremoveIngredients] = useState<ingredientsType[]>([])
 
   return (
     isOpen && (
@@ -34,13 +36,17 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
             <button className={`${btn_one} bg-flagGreen`}>ADD TO ORDER</button>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap mt-2 gap-2">
+        <div className="flex flex-row flex-wrap mt-6 gap-2">
           {foodItem.ingredients.map((ingredient) => {
             return (
-              <div className={`${btn_one} bg-secondary`}>
-                <span>{ingredient}</span>
-                <Image src={""} alt={""}/>
-              </div>
+              // <button className={`${btn_two} bg-secondary `}>
+              //   <span>{ingredientDictionary[ingredient]}</span>
+              //   <Image src={"/assets/ui/addition.svg"} alt={"add ingredient"}/>
+              // </button>
+              <IngredientButton 
+                name={ingredientDictionary[ingredient]} 
+                onClickFn={() => console.log('ingredient click')}
+              />
             )
           })}
         </div>
