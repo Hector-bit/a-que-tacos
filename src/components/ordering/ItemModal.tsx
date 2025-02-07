@@ -32,20 +32,20 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
         <div className="flex flex-row mt-2 ">
           <Image className="rounded-[20px]" src={foodItem.img} alt={`${foodItem.name}`} width={120} height={120}/>
           <div className="grow flex flex-col gap-2 justify-end items-end">
-            <div className={`${btn_one} bg-flagRed`}>
-              <Image 
+            <div className={`flex flex-row gap-2 align-center ${btn_one} bg-flagRed`}>
+              {/* <Image 
                 className="cursor-pointer" 
-                src='/assets/ui/close.svg' 
+                src='/assets/ui/dollar.svg' 
                 onClick={closeFn}
-                width={30} height={30} alt='close'
-            />
-              ${foodItem.price}
+                width={20} height={20} alt='price'
+              /> */}
+              <div>${foodItem.price.toFixed(2)}</div>
             </div>
             <button className={`${btn_one} bg-flagGreen`}>ADD TO ORDER</button>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap mt-6 gap-2">
-          <h3>Ingredeints: click to remove ingredient</h3>
+        <h3 className="mt-4 mb-2">Ingredient(s): click to remove ingredient</h3>
+        <div className="flex flex-row flex-wrap gap-2">
           {foodItem.ingredients.map((ingredient) => {
             return (
               // <button className={`${btn_two} bg-secondary `}>

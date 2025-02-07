@@ -1,4 +1,4 @@
-type sideOptionType = 'TORTILLA' | 'CHIPS'
+export type SideOptionType = 'TORTILLA' | 'CHIPS'
 
 export type ingredientsType = 
   'LETTUCE' |
@@ -8,7 +8,15 @@ export type ingredientsType =
   'SOURCREAM' |
   'CHEESE' |
   'AVOCADO' |
-  'PICO_DE_GALLO'
+  'PICO_DE_GALLO' |
+  'CILANTRO' |
+  'ONIONS'
+
+export type ChoiceOfMeatType = 
+  'ASADA' | 
+  'CHICKEN' |
+  'AL_PASTOR'
+
 
 export type menuItemType = {
   menu_id: number
@@ -17,7 +25,9 @@ export type menuItemType = {
   price: number
   description: string
   ingredients: ingredientsType[]
-  sideOption?: sideOptionType
+  sideOption: boolean
+  choiceOfMeat: Boolean
+  // meatOptions?: string //TODO LATER 
 }
 
 // TYPES WHEN ORDERING 
