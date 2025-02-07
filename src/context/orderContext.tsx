@@ -1,8 +1,9 @@
+'use client'
 import React, { createContext, useContext, useReducer, ReactNode, useState} from 'react'
 
 const CartContext = createContext<any>({})
 
-export const CartProvider = (children:ReactNode) => {
+export const CartProvider = ({ children }:any) => {
   const [cart, setCart] = useState<any>([])
 
   const addToCart = (item:any) => {
@@ -21,9 +22,11 @@ export const CartProvider = (children:ReactNode) => {
   };
 
   return (
+    <div>
     <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
+    </div>
   );
 }
 

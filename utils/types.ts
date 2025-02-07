@@ -21,7 +21,7 @@ export type menuItemType = {
 }
 
 // TYPES WHEN ORDERING 
-type orderItemType = 
+export type orderItemType = 
   'FISH_BURRITO' |
   'REGULAR_BURRITO' |
   'SUPREME_BURRITO' |
