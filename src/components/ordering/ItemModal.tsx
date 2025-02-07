@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import Image from "next/image";
 import { ingredientsType, menuItemType } from "../../../utils/types";
 import { ingredientDictionary } from "../../../utils/constants";
 import IngredientButton from "./IngredientButton";
+import { CartContext } from "@/context/orderContext";
 
 const btn_one = 'drop-shadow-2xl rounded-[20px] py-3 px-5 text-white'
 
@@ -13,8 +14,39 @@ interface ItemModalProps {
 }
 
 const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
-  const [ingredients, setIngredients] = useState<ingredientsType[]>(foodItem.ingredients)
-  const [removeIngredients, setremoveIngredients] = useState<ingredientsType[]>([])
+  // const [ingredients, setIngredients] = useState<ingredientsType[]>(foodItem.ingredients)
+  const [removeIngredients, setRemoveIngredients] = useState<ingredientsType[]>([])
+  const [item, setItem] = useState<any>({})
+  const { cart, addToCart } = useContext(CartContext)
+
+  useEffect(() => {
+    setRemoveIngredients([])
+  },[foodItem])
+
+  useEffect(() => {
+    console.log('eww yuck: ', removeIngredients)
+  },[removeIngredients])
+
+  const handleIngredientBtn = (ingredient: ingredientsType) => {
+    const isFound = removeIngredients.filter((el) => el !== ingredient)
+    console.log(isFound, 'TEMP')
+    if(isFound){
+      //if we find the ingredient already then remove it
+      
+    } else {
+      //if its not in there then add it
+      setRemoveIngredients([...removeIngredients, ingredient])
+    }
+  } 
+
+  const addIngredientToYuckyList = (ingredient: ingredientsType) => {
+    setRemoveIngredients([...removeIngredients, ingredient])
+  }
+
+  const removeIngredientFromYuckyList = (ingredient: ingredientsType) => {
+    const tempList = removeIngredients.filter((el) => el !== ingredient)
+    setRemoveIngredients(tempList)
+  }
 
   return (
     isOpen && (
@@ -41,10 +73,19 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
               /> */}
               <div>${foodItem.price.toFixed(2)}</div>
             </div>
-            <button className={`${btn_one} bg-flagGreen`}>ADD TO ORDER</button>
+            <button 
+              className={`${btn_one} bg-flagGreen`} 
+              onClick={() => addToCart({ 
+                order_id: cart.length+1, 
+                orderItem:foodItem.name, 
+                removeIngredients:removeIngredients}
+              )}
+            >
+              ADD TO ORDER
+            </button>
           </div>
         </div>
-        <h3 className="mt-4 mb-2">Ingredient(s): click to remove ingredient</h3>
+        {foodItem.ingredients.length > 0 && <h3 className="mt-4 mb-2">Ingredient(s): click to remove ingredient</h3>}
         <div className="flex flex-row flex-wrap gap-2">
           {foodItem.ingredients.map((ingredient) => {
             return (
@@ -53,8 +94,11 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
               //   <Image src={"/assets/ui/addition.svg"} alt={"add ingredient"}/>
               // </button>
               <IngredientButton 
-                name={ingredientDictionary[ingredient]} 
-                onClickFn={() => console.log('ingredient click')}
+                key={`${ingredient}-ingredient`}
+                ingredientName={ingredientDictionary[ingredient]} 
+                ingredient={ingredient}
+                addToListFn={addIngredientToYuckyList}
+                removeFromListFn={removeIngredientFromYuckyList}
               />
             )
           })}

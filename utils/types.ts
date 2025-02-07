@@ -10,7 +10,8 @@ export type ingredientsType =
   'AVOCADO' |
   'PICO_DE_GALLO' |
   'CILANTRO' |
-  'ONIONS'
+  'ONIONS' | 
+  'JALAPENOS'
 
 export type ChoiceOfMeatType = 
   'ASADA' | 
@@ -55,8 +56,8 @@ export type orderItemType =
   'JARRITO'
 
 
-export type orderItem = {
-  menu_id: number
+export type OrderItem = {
+  order_id: number
   orderItem: orderItemType
   removeIngrdients: ingredientsType[]
 }

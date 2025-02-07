@@ -33,7 +33,7 @@ export default function OrderPickup() {
             {menu_items.map((item) => {
               return (
                 <ItemCard 
-                  key={`${item.name}=item`} 
+                  key={`${item.name}-item`} 
                   menuItem={item} 
                   handleOnClick={() => handleMenuCardClick(item)}
                 />

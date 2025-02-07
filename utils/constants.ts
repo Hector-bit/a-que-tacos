@@ -149,7 +149,7 @@ export const menu_items:menuItemType[] = [
     name: 'Veggie Taco', 
     price: 2.50,
     description: 'Beans, rice, onions, cilantro, tomato, avocado',
-    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'CHEESE', 'SOURCREAM', 'ONIONS', 'CILANTRO'],
+    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'TOMATO', 'ONIONS', 'CILANTRO', 'AVOCADO'],
     choiceOfMeat: false,
     sideOption: false
   },
@@ -169,7 +169,7 @@ export const menu_items:menuItemType[] = [
     name: 'Rice & Beans', 
     price: 7.00,
     description: 'Rice & Beans',
-    ingredients: [],
+    ingredients: ['RICE', 'BEANS'],
     choiceOfMeat: false,
     sideOption: false
   },
@@ -205,7 +205,7 @@ export const order_items:any = {
   17: {foodItem: menu_items[16]},
 }
 
-export const ingredientDictionary = {
+export const ingredientDictionary:{ [index:string]:string } = {
   'LETTUCE' : "Lettuce",
   'TOMATO' : "Tomato",
   'RICE' : "Rice",

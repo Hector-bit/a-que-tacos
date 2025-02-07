@@ -1,15 +1,17 @@
 'use client'
-import React, { createContext, useContext, useReducer, ReactNode, useState} from 'react'
+import React, { createContext, useContext, useReducer, ReactNode, useState, useEffect} from 'react'
+import { OrderItem } from '../../utils/types'
 
-const CartContext = createContext<any>({})
+export const CartContext = createContext<any>({})
 
 export const CartProvider = ({ children }:any) => {
-  const [cart, setCart] = useState<any>([])
+  const [cart, setCart] = useState<OrderItem[]>([])
 
-  const addToCart = (item:any) => {
-    setCart((prevCart:any) => {
-      const existingItem = prevCart.find((i:any) => i.id === item.id)
-    })
+  const addToCart = (item:OrderItem) => {
+    // setCart((prevCart:OrderItem[]) => {
+    //   const existingItem = prevCart.find((i:any) => i.id === item.id)
+    // })
+    setCart([...cart, item])
   }
 
   const removeFromCart = (id:number) => {
@@ -20,6 +22,10 @@ export const CartProvider = ({ children }:any) => {
   const clearCart = () => {
     setCart([]);
   };
+
+  useEffect(() => {
+    console.log('updated cart:', cart)
+  },[cart])
 
   return (
     <div>
