@@ -1,3 +1,4 @@
+import { tree } from "next/dist/build/templates/app-page"
 import { menuItemType, ingredientsType } from "./types"
 
 const imgBase = '/assets/menuImages'
@@ -153,7 +154,7 @@ export const menu_items:menuItemType[] = [
     price: 2.00,
     description: 'Choice of meat, onions, cilantro',
     ingredients: ['ONIONS', 'CILANTRO'],
-    choiceOfMeat: false,
+    choiceOfMeat: true,
     sideOption: false,
     chooseAmount: true
   },

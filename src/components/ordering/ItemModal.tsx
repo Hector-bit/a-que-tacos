@@ -23,6 +23,7 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
 
   useEffect(() => {
     setRemoveIngredients([])
+    setChooseAmount(1)
   },[foodItem])
 
 
@@ -74,7 +75,7 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
             </button>
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex flex-row gap-3">
           {foodItem.choiceOfMeat && 
             <select className="p-2 rounded-xl" name="meat choice">
               <option onChange={() => setCarne('ASADA')} value="ASADA">Asada</option>
@@ -83,11 +84,11 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
             </select>
           }
           {foodItem.chooseAmount && 
-            <select className="p-2 rounded-xl" name="meat choice">
-              <option onChange={() => setCarne('ASADA')} value="ASADA">Asada</option>
-              <option onChange={() => setCarne('CHICKEN')} value="CHICKEN">Chicken</option>
-              <option onChange={() => setCarne('AL_PASTOR')} value="AL_PASTOR">Al Pastor</option>
-            </select>
+            <input 
+              className="p-2 rounded-xl w-min"
+              onChange={(e) => setChooseAmount(Number(e.target.value))} 
+              type='number' value={chooseAmount} max={50} 
+            />
           }
         </div>
         {foodItem.ingredients.length > 0 && <h3 className="mt-4 mb-2">Ingredient(s): click to remove ingredient</h3>}

@@ -12,7 +12,7 @@ const BottomNav = () => {
       <div className="flex flex-row">
         TOTAL: {orderTotal.toFixed(2)}
       </div>
-      <div>
+      <div className="flex flex-row items-center gap-2">
         <Link href={"/order-pickup/checkout"} className="rounded-full brightness-">
           <Image src="/assets/ui/shoppingCart.svg" alt={"shopping cart"} width={40} height={40}/>
         </Link>

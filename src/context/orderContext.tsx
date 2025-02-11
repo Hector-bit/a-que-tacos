@@ -12,8 +12,10 @@ export const CartContext = createContext<CartContextType>({
 })
 
 export const CartProvider = ({ children }:any) => {
+  let retrivedOrderCart = localStorage.getItem('CLIENT_ORDER')
+  let initialCartValue = retrivedOrderCart ? JSON.parse(retrivedOrderCart) : []
   const [orderTotal, setOrderTotal] = useState<number>(0)
-  const [cart, setCart] = useState<OrderItem[]>([])
+  const [cart, setCart] = useState<OrderItem[]>(initialCartValue)
 
   const addToCart = (item:OrderItem) => {
     // setCart((prevCart:OrderItem[]) => {
@@ -31,13 +33,19 @@ export const CartProvider = ({ children }:any) => {
     setCart([]);
   };
 
+  // USING LOCAL STORAGE WE WILL SAVE THE USERS ORDER 
   useEffect(() => {
     console.log('updated cart:', cart)
+    localStorage.setItem('CLIENT_ORDER', JSON.stringify(cart))
+
+    // SUMS UP ORDER TOTAL 
     let tempTotal = 0
     cart.forEach((order) => {
       tempTotal += order.price
     })
+    setOrderTotal(tempTotal)
   },[cart])
+
 
   return (
     <div>
