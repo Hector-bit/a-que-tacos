@@ -2,7 +2,7 @@
 import { menu_items } from "../../../utils/constants";
 import ItemCard from "@/components/ordering/ItemCard";
 import BottomNav from "@/components/ordering/BottomNav";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { menuItemType } from "../../../utils/types";
 import ItemModal from "@/components/ordering/ItemModal";
 

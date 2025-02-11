@@ -1,12 +1,25 @@
+import { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CartContext } from "@/context/orderContext";
 
 const BottomNav = () => {
+  const { cart } = useContext(CartContext)
+
+
   return (
-    <div className="fixed bottom-0 flex flex-row h-[80px] rounded-t-[20px] p-2 bg-primary border-2 border-black w-full">
-      <Link href={"/order-pickup/checkout"}>
-        <Image src="/assets/ui/shoppingCart.svg" alt={"shopping cart"} width={20} height={20}/>
-      </Link>
+    <div className="fixed bottom-0 flex flex-row items-center h-[80px] rounded-t-[20px] px-4 p-2 bg-primary border-2 border-black w-full">
+        <Link href={"/order-pickup/checkout"} className="rounded-full brightness-">
+          <Image src="/assets/ui/shoppingCart.svg" alt={"shopping cart"} width={40} height={40}/>
+        </Link>
+        <div 
+          className={
+            `text-xl text-black font-extrabold
+              ${cart.length>0?'':'hidden'}
+            `}
+        >
+          (<span className="text-flagGreen px-1">{cart.length}</span>)
+        </div>
     </div>
   )
 }
