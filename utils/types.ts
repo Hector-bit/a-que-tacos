@@ -22,12 +22,13 @@ export type ChoiceOfMeatType =
 export type menuItemType = {
   menu_id: number
   img: string;
-  name: string
+  name: orderItemType
   price: number
   description: string
   ingredients: ingredientsType[]
   sideOption: boolean
-  choiceOfMeat: Boolean
+  choiceOfMeat: boolean
+  chooseAmount: boolean
   // meatOptions?: string //TODO LATER 
 }
 
@@ -58,8 +59,10 @@ export type orderItemType =
 
 export type OrderItem = {
   order_id: number
+  price: number
   orderItem: orderItemType
-  removeIngrdients: ingredientsType[]
+  removeIngredients: ingredientsType[]
+  amount: number
 }
 
 export type IconType = {
@@ -70,4 +73,13 @@ export type IconType = {
   fill?: string
   stroke?: string
   strokeWidth?: number
+}
+
+// CONTEXT TYPES 
+export type CartContextType = {
+  orderTotal: number
+  cart: OrderItem[]
+  addToCart: (item:OrderItem) => void
+  removeFromCart: (id:number) => void
+  clearCart: () => void 
 }

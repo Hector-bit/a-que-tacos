@@ -1,6 +1,6 @@
 'use client'
 import MenuCard from "@/components/MenuCard";
-import { menu_items } from "../../../utils/constants";
+import { menu_items, MenuNameDictionary } from "../../../utils/constants";
 
 export default function Menu() {
 
@@ -14,7 +14,7 @@ export default function Menu() {
           <MenuCard 
             key={`${item.name}-food`}
             img={item.img} 
-            name={item.name} 
+            name={MenuNameDictionary[item.name]} 
             description={item.description}
           />
           // <div className="">

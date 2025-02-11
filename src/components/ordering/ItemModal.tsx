@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import Image from "next/image";
-import { ingredientsType, menuItemType } from "../../../utils/types";
-import { ingredientDictionary } from "../../../utils/constants";
+import { ingredientsType, menuItemType, ChoiceOfMeatType } from "../../../utils/types";
+import { ingredientDictionary, MenuNameDictionary } from "../../../utils/constants";
 import IngredientButton from "./IngredientButton";
 import { CartContext } from "@/context/orderContext";
 
@@ -15,6 +15,8 @@ interface ItemModalProps {
 
 const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
   // const [ingredients, setIngredients] = useState<ingredientsType[]>(foodItem.ingredients)
+  const [chooseAmount, setChooseAmount] = useState<number>(1)
+  const [carne, setCarne] = useState<ChoiceOfMeatType>('ASADA')
   const [removeIngredients, setRemoveIngredients] = useState<ingredientsType[]>([])
   const [item, setItem] = useState<any>({})
   const { cart, addToCart } = useContext(CartContext)
@@ -23,21 +25,6 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
     setRemoveIngredients([])
   },[foodItem])
 
-  useEffect(() => {
-    console.log('eww yuck: ', removeIngredients)
-  },[removeIngredients])
-
-  const handleIngredientBtn = (ingredient: ingredientsType) => {
-    const isFound = removeIngredients.filter((el) => el !== ingredient)
-    console.log(isFound, 'TEMP')
-    if(isFound){
-      //if we find the ingredient already then remove it
-      
-    } else {
-      //if its not in there then add it
-      setRemoveIngredients([...removeIngredients, ingredient])
-    }
-  } 
 
   const addIngredientToYuckyList = (ingredient: ingredientsType) => {
     setRemoveIngredients([...removeIngredients, ingredient])
@@ -50,9 +37,9 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
 
   return (
     isOpen && (
-      <div className="fixed inset-0 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-[90%] max-w-[420px] border-2 border-black bg-primary rounded-3xl flex-col p-3">
+      <div className="fixed inset-0 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] h-fit w-[92%] max-w-[420px] border-2 border-black bg-primary rounded-3xl flex-col p-3">
         <div className="flex justify-between">
-          <div className="text-2xl font-extrabold">{foodItem.name}</div>
+          <div className="text-2xl font-extrabold">{MenuNameDictionary[foodItem.name]}</div>
           <Image 
             className="cursor-pointer" 
             src='/assets/ui/close.svg' 
@@ -77,13 +64,31 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
               className={`${btn_one} bg-flagGreen`} 
               onClick={() => addToCart({ 
                 order_id: cart.length+1, 
-                orderItem:foodItem.name, 
-                removeIngredients:removeIngredients}
-              )}
+                orderItem: foodItem.name, 
+                price: foodItem.price,
+                removeIngredients: removeIngredients,
+                amount: chooseAmount
+              })}
             >
               ADD TO ORDER
             </button>
           </div>
+        </div>
+        <div className="mt-4">
+          {foodItem.choiceOfMeat && 
+            <select className="p-2 rounded-xl" name="meat choice">
+              <option onChange={() => setCarne('ASADA')} value="ASADA">Asada</option>
+              <option onChange={() => setCarne('CHICKEN')} value="CHICKEN">Chicken</option>
+              <option onChange={() => setCarne('AL_PASTOR')} value="AL_PASTOR">Al Pastor</option>
+            </select>
+          }
+          {foodItem.chooseAmount && 
+            <select className="p-2 rounded-xl" name="meat choice">
+              <option onChange={() => setCarne('ASADA')} value="ASADA">Asada</option>
+              <option onChange={() => setCarne('CHICKEN')} value="CHICKEN">Chicken</option>
+              <option onChange={() => setCarne('AL_PASTOR')} value="AL_PASTOR">Al Pastor</option>
+            </select>
+          }
         </div>
         {foodItem.ingredients.length > 0 && <h3 className="mt-4 mb-2">Ingredient(s): click to remove ingredient</h3>}
         <div className="flex flex-row flex-wrap gap-2">
