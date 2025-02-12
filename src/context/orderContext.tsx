@@ -24,8 +24,10 @@ export const CartProvider = ({ children }:any) => {
     setCart([...cart, item])
   }
 
-  const removeFromCart = (id:number) => {
-    setCart((prevCart:any) => prevCart.filter((item:any) => item.id !== id));
+  const removeFromCart = (orderIndex:number) => {
+    // let tempremove = cart.filter((item:any) => item.orderIndex !== orderIndex)
+    // console.log('new list after remove:', tempremove)
+    setCart((prevCart:any) => prevCart.filter((item:any, index:number) => index !== orderIndex));
   };
 
   // Clear the cart

@@ -224,7 +224,7 @@ export const order_items:any = {
   17: menu_items[16],
 }
 
-export const ingredientDictionary:{ [index:string]:string } = {
+export const IngredientDictionary:{ [index:string]:string } = {
   'LETTUCE' : "Lettuce",
   'TOMATO' : "Tomato",
   'RICE' : "Rice",
@@ -237,20 +237,19 @@ export const ingredientDictionary:{ [index:string]:string } = {
   'ONIONS' : "Onions",
 }
 
-export const ChoiceOfMeatDictionary = {
-  'ASADA' : "Carne Asade | Beef",
-  'CHICKEN' : "Pollo | Chicken",
-  'AL_PASTOR' : "Al Pastor | Pork",
-  'BEANS' : "Beans",
-  'SOURCREAM' : "Sourcream",
-  'CHEESE' : "Cheese",
-  'AVOCADO' : "Avocado",
-  'PICO_DE_GALLO' : "Pico de gallo",
-  'CILANTRO' : "Cilantro",
-  'ONIONS' : "Onions",
+export const ChoiceOfMeatEspanolDictionary:{ [index:string]:string } = {
+  'BEEF' : "Asade",
+  'CHICKEN' : "Pollo",
+  'PORK' : "Al Pastor"
 }
 
-export const MenuNameDictionary:any = {
+export const ChoiceOfMeatEnglishDictionary:{ [index:string]:string } = {
+  'BEEF' : "Beef",
+  'CHICKEN' : "Chicken",
+  'PORK' : "Pork"
+}
+
+export const MenuNameDictionary:{ [index:string]:string } = {
   'FISH_BURRITO' : "Fish Burrito",
   'SUPREME_BURRITO' : "Supreme Burrito",
   'SUPREME_VEGGIE_BURRITO' : "Supreme Veggie Burrito",

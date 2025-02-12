@@ -8,24 +8,21 @@ const BottomNav = () => {
 
 
   return (
-    <div className="fixed bottom-0 flex flex-row justify-between items-center h-[80px] rounded-t-[20px] px-4 p-2 bg-primary border-2 border-black w-full">
-      <div className="flex flex-row">
-        TOTAL: {orderTotal.toFixed(2)}
+    <div className="fixed max-w-[1400px] bottom-0 flex flex-row justify-between items-center h-[80px] rounded-t-[20px] px-4 p-2 bg-primary border-2 border-black w-full">
+      <div className="flex flex-row font-bold text-xl">
+        TOTAL: ${orderTotal.toFixed(2)}
       </div>
-      <div className="flex flex-row items-center gap-2">
-        <Link href={"/order-pickup/checkout"} className="rounded-full brightness-">
-          <Image src="/assets/ui/shoppingCart.svg" alt={"shopping cart"} width={40} height={40}/>
+        <Link href={"/order-pickup/checkout"} className="flex flex-row items-center gap-2">
+          <Image src="/assets/ui/shoppingCart.svg" alt={"shopping cart"} width={32} height={32}/>
+          <div 
+            className={
+              `text-xl text-black font-extrabold
+                ${cart.length>0?'':'hidden'}
+              `}
+          >
+            (<span className="px-1">{cart.length}</span>)
+          </div>
         </Link>
-        <div 
-          className={
-            `text-xl text-black font-extrabold
-              ${cart.length>0?'':'hidden'}
-            `}
-        >
-          (<span className="px-1">{cart.length}</span>)
-        </div>
-
-      </div>
     </div>
   )
 }

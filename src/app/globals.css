@@ -104,3 +104,15 @@ body {
   width: 0%;
   left: 50%;
 }
+
+
+/* BUTTON STUFF */
+
+.btnHover {
+  filter: brightness(0.8);
+  transition-duration: 0.3s;
+}
+
+.btnHover:hover {
+  filter: brightness(1);
+}

@@ -23,13 +23,13 @@ export default function OrderPickup() {
   return (
     <>
       <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
-      <main className="flex flex-col sm:flex-row px-3 sm:px-8 gap-x-4 mb-[100px]">
+      <main className="flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px]">
         <div>NOTICE: We don't do delivery, sorry!</div>
         <div className="mb-8">Online ordering available in Everson only at this moment.</div>
 
         <div>
           <h3>ITEMS</h3>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:md:grid-cols-5 gap-3">
             {menu_items.map((item) => {
               return (
                 <ItemCard 

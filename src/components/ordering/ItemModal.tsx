@@ -1,11 +1,11 @@
 import { useState, useContext, useEffect } from "react";
 import Image from "next/image";
 import { ingredientsType, menuItemType, ChoiceOfMeatType } from "../../../utils/types";
-import { ingredientDictionary, MenuNameDictionary } from "../../../utils/constants";
+import { IngredientDictionary, MenuNameDictionary } from "../../../utils/constants";
 import IngredientButton from "./IngredientButton";
 import { CartContext } from "@/context/orderContext";
 
-const btn_one = 'drop-shadow-2xl rounded-[20px] py-3 px-5 text-white'
+const btn_one = 'rounded-[20px] py-3 px-5 text-white duration-300 brightness-90 hover:brightness-100'
 
 interface ItemModalProps {
   isOpen: boolean
@@ -16,9 +16,9 @@ interface ItemModalProps {
 const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
   // const [ingredients, setIngredients] = useState<ingredientsType[]>(foodItem.ingredients)
   const [chooseAmount, setChooseAmount] = useState<number>(1)
-  const [carne, setCarne] = useState<ChoiceOfMeatType>('ASADA')
+  const [carne, setCarne] = useState<ChoiceOfMeatType>('BEEF')
   const [removeIngredients, setRemoveIngredients] = useState<ingredientsType[]>([])
-  const [item, setItem] = useState<any>({})
+  // const [item, setItem] = useState<any>({})
   const { cart, addToCart } = useContext(CartContext)
 
   useEffect(() => {
@@ -64,23 +64,24 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
             <button 
               className={`${btn_one} bg-flagGreen`} 
               onClick={() => addToCart({ 
-                order_id: cart.length+1, 
+                // order_id: cart.length+1, 
                 orderItem: foodItem.name, 
                 price: foodItem.price,
                 removeIngredients: removeIngredients,
-                amount: chooseAmount
+                amount: chooseAmount,
+                meatChoice: foodItem.choiceOfMeat? carne : 'NOT_APPLICABLE'
               })}
             >
-              ADD TO ORDER
+              ADD ORDER
             </button>
           </div>
         </div>
         <div className="mt-4 flex flex-row gap-3">
           {foodItem.choiceOfMeat && 
             <select className="p-2 rounded-xl" name="meat choice">
-              <option onChange={() => setCarne('ASADA')} value="ASADA">Asada</option>
+              <option onChange={() => setCarne('BEEF')} value="BEED">Beef</option>
               <option onChange={() => setCarne('CHICKEN')} value="CHICKEN">Chicken</option>
-              <option onChange={() => setCarne('AL_PASTOR')} value="AL_PASTOR">Al Pastor</option>
+              <option onChange={() => setCarne('PORK')} value="PORK">Pork</option>
             </select>
           }
           {foodItem.chooseAmount && 
@@ -96,12 +97,12 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
           {foodItem.ingredients.map((ingredient) => {
             return (
               // <button className={`${btn_two} bg-secondary `}>
-              //   <span>{ingredientDictionary[ingredient]}</span>
+              //   <span>{IngredientDictionary[ingredient]}</span>
               //   <Image src={"/assets/ui/addition.svg"} alt={"add ingredient"}/>
               // </button>
               <IngredientButton 
                 key={`${ingredient}-ingredient`}
-                ingredientName={ingredientDictionary[ingredient]} 
+                ingredientName={IngredientDictionary[ingredient]} 
                 ingredient={ingredient}
                 addToListFn={addIngredientToYuckyList}
                 removeFromListFn={removeIngredientFromYuckyList}

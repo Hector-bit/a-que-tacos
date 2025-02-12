@@ -14,9 +14,10 @@ export type ingredientsType =
   'JALAPENOS'
 
 export type ChoiceOfMeatType = 
-  'ASADA' | 
+  'BEEF' | 
   'CHICKEN' |
-  'AL_PASTOR'
+  'PORK' |
+  'NOT_APPLICABLE'
 
 
 export type menuItemType = {
@@ -58,11 +59,12 @@ export type orderItemType =
 
 
 export type OrderItem = {
-  order_id: number
+  // order_id: number
   price: number
   orderItem: orderItemType
   removeIngredients: ingredientsType[]
   amount: number
+  meatChoice: ChoiceOfMeatType
 }
 
 export type IconType = {

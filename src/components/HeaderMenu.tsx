@@ -11,7 +11,7 @@ const HeaderMenu = ({  }:HeaderMenuProps) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false)
 
   const handleAside = () => {
-    console.log('HANDLEASIDE FN')
+    // console.log('HANDLEASIDE FN')
     setIsOpen(!isOpen)
   }
 
