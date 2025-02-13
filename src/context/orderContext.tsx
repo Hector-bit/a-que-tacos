@@ -12,8 +12,12 @@ export const CartContext = createContext<CartContextType>({
 })
 
 export const CartProvider = ({ children }:any) => {
-  let retrivedOrderCart = localStorage.getItem('CLIENT_ORDER')
-  let initialCartValue = retrivedOrderCart ? JSON.parse(retrivedOrderCart) : []
+  let initialCartValue:OrderItem[] = []
+  if(typeof window !== 'undefined'){
+    let retrivedOrderCart = localStorage.getItem('CLIENT_ORDER')
+    initialCartValue = retrivedOrderCart ? JSON.parse(retrivedOrderCart) : []
+  }
+
   const [orderTotal, setOrderTotal] = useState<number>(0)
   const [cart, setCart] = useState<OrderItem[]>(initialCartValue)
 

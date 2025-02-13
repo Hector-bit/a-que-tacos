@@ -24,7 +24,7 @@ export default function OrderPickup() {
     <>
       <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
       <main className="flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px]">
-        <div>NOTICE: We don't do delivery, sorry!</div>
+        <div>{`NOTICE: We don't do delivery, sorry!`}</div>
         <div className="mb-8">Online ordering available in Everson only at this moment.</div>
 
         <div>

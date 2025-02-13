@@ -8,7 +8,7 @@ import { MenuNameDictionary, IngredientDictionary, ChoiceOfMeatEspanolDictionary
 
 const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-100 text-white'
 
-export default function() {
+export default function CheckoutPage() {
   const { cart, orderTotal, removeFromCart, clearCart } = useContext<CartContextType>(CartContext)
 
   return (
