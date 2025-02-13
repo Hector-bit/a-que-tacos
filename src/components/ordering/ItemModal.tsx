@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import Image from "next/image";
 import { ingredientsType, menuItemType, ChoiceOfMeatType } from "../../../utils/types";
-import { IngredientDictionary, MenuNameDictionary } from "../../../utils/constants";
+import { IngredientDictionary, MenuNameDictionary, ChoiceOfMeatEspanolDictionary } from "../../../utils/constants";
 import IngredientButton from "./IngredientButton";
 import { CartContext } from "@/context/orderContext";
 
@@ -40,7 +40,10 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
     isOpen && (
       <div className="fixed inset-0 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] h-fit w-[92%] max-w-[420px] border-2 border-black bg-primary rounded-3xl flex-col p-3">
         <div className="flex justify-between">
-          <div className="text-2xl font-extrabold">{MenuNameDictionary[foodItem.name]}</div>
+          <div className="text-2xl font-extrabold">
+            {foodItem.choiceOfMeat?`${ChoiceOfMeatEspanolDictionary[carne]} `:''}
+            {MenuNameDictionary[foodItem.name]}
+          </div>
           <Image 
             className="cursor-pointer" 
             src='/assets/ui/close.svg' 
@@ -59,14 +62,14 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
                 onClick={closeFn}
                 width={20} height={20} alt='price'
               /> */}
-              <div>${foodItem.price.toFixed(2)}</div>
+              <div>${(foodItem.price * chooseAmount).toFixed(2)}</div>
             </div>
             <button 
               className={`${btn_one} bg-flagGreen`} 
               onClick={() => addToCart({ 
                 // order_id: cart.length+1, 
                 orderItem: foodItem.name, 
-                price: foodItem.price,
+                price: (foodItem.price * chooseAmount),
                 removeIngredients: removeIngredients,
                 amount: chooseAmount,
                 meatChoice: foodItem.choiceOfMeat? carne : 'NOT_APPLICABLE'
@@ -77,20 +80,23 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
           </div>
         </div>
         <div className="mt-4 flex flex-row gap-3">
-          {foodItem.choiceOfMeat && 
-            <select className="p-2 rounded-xl" name="meat choice">
-              <option onChange={() => setCarne('BEEF')} value="BEED">Beef</option>
-              <option onChange={() => setCarne('CHICKEN')} value="CHICKEN">Chicken</option>
-              <option onChange={() => setCarne('PORK')} value="PORK">Pork</option>
-            </select>
-          }
-          {foodItem.chooseAmount && 
-            <input 
-              className="p-2 rounded-xl w-min"
-              onChange={(e) => setChooseAmount(Number(e.target.value))} 
-              type='number' value={chooseAmount} max={50} 
-            />
-          }
+          {/* <form className="flex flex-row"> */}
+            {foodItem.choiceOfMeat && 
+              <select className="p-2 rounded-xl" name="meat choice">
+                <option onChange={() => setCarne('BEEF')} value="BEED">Beef</option>
+                <option onChange={() => setCarne('CHICKEN')} value="CHICKEN">Chicken</option>
+                <option onChange={() => setCarne('PORK')} value="PORK">Pork</option>
+              </select>
+            }
+            {foodItem.chooseAmount && 
+              <input 
+                className="p-2 rounded-xl box-content w-auto"
+                onChange={(e) => setChooseAmount(Number(e.target.value))} 
+                type='number' value={chooseAmount} max={50} 
+              />
+            }
+
+          {/* </form> */}
         </div>
         {foodItem.ingredients.length > 0 && <h3 className="mt-4 mb-2">Ingredient(s): click to remove ingredient</h3>}
         <div className="flex flex-row flex-wrap gap-2">
