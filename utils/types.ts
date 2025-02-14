@@ -1,3 +1,10 @@
+export type CustomerInfoType = {
+  firstName: string | undefined
+  lastName: string | undefined
+  phoneNumber: number | undefined
+  email: string | undefined
+}
+
 export type SideOptionType = 'TORTILLA' | 'CHIPS'
 
 export type ingredientsType = 
