@@ -24,15 +24,18 @@ export default function CheckoutPage() {
   const checkoutNow = async() => {
     console.log('CHECKING OUT for: ', customerInfo)
     axios.post('', {
-
     })
   }
 
   return (
     <div className="flex flex-col p-3">
-      <Link href={"/order-pickup"}>
+      <Link href={"/create-order"}>
         <Image className="" src={"/assets/ui/returnArrow.svg"} alt={"return to ordering"} height={40} width={40}/>
       </Link>
+      <div className="flex flex-row justify-between mb-4">
+        <h2 className="text-3xl font-extrabold">Pick up at 117 W Main St Everson</h2>
+        {/* <button className={`bg-flagRed py-2 px-3 ${btnCheckout}`} onClick={clearCart}>Clear Cart</button> */}
+      </div>
       <div className="flex flex-row justify-between mb-4">
         <h2 className="text-3xl font-extrabold">Review Order:</h2>
         <button className={`bg-flagRed py-2 px-3 ${btnCheckout}`} onClick={clearCart}>Clear Cart</button>
@@ -83,7 +86,23 @@ export default function CheckoutPage() {
             </div>
           )
         }))}
-
+      </div>
+      {/* CUSTOMER INFORMATION */}
+      <div className="flex flex-col justify-between mb-4 mt-8 gap-3">
+        <div className="flex flex-row justify-between">
+          <h2 className="text-3xl font-extrabold">Customer Information</h2>
+          <button className={`bg-flagGreen py-2 px-3 ${btnCheckout}`} onClick={clearCart}>Save Info</button>
+        </div>
+        <form className="flex flex-col max-w-[400px]">
+          <label>First Name:</label>
+          <input type="text" name="first name" value={customerInfo.firstName}/>
+          <label>Last Name:</label>
+          <input type="text" name="last name" value={customerInfo.lastName}/>
+          <label>Email:</label>
+          <input type="text" name="email" value={customerInfo.email}/>
+          <label>Phone Number:</label>
+          <input type="tel" name="phone number" value={customerInfo.phoneNumber}/>
+        </form>
       </div>
       {/* TOTAL & BUTTONS  */}
       <div className="flex flex-row justify-between items-center mt-4">
