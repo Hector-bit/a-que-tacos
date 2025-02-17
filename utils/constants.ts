@@ -6,7 +6,7 @@ const imgBase = '/assets/menuImages'
 export const menu_items:menuItemType[] = [
   { 
     menu_id: 1,
-    img: `${imgBase}/burritoFishFinal.jpg`,
+    img: `${imgBase}/burritoFishFinal.webp`,
     name: 'FISH_BURRITO', 
     price: 12.00,
     description: 'Tilapia fish, beans, rice, lettuce, cheese, sourcream, pico de gallo',
@@ -17,7 +17,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 4,
-    img: `${imgBase}/supremeBurrito1Final.jpg`,
+    img: `${imgBase}/supremeBurrito1Final.webp`,
     name: 'SUPREME_BURRITO', 
     price: 12.00,
     description: 'Beans, rice, lettuce, tomato, onions, cilantro, sourcream, cheese,',
@@ -28,7 +28,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 3,
-    img: `${imgBase}/burritoVeggie4Final.jpg`,
+    img: `${imgBase}/burritoVeggie4Final.webp`,
     name: 'SUPREME_VEGGIE_BURRITO', 
     price: 12.00,
     description: 'Beans, rice, tomato, lettuce, onions, cilantro, avocado, cheese, sourcream',
@@ -39,7 +39,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 2,
-    img: `${imgBase}/burritoRegularFinal.jpg`,
+    img: `${imgBase}/burritoRegularFinal.webp`,
     name: 'REGULAR_BURRITO', 
     price: 9.00,
     description: 'Choice of meat, beans, rice, onion, cilantro',
@@ -50,7 +50,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 16,
-    img: `${imgBase}/kidsburrito.jpg`,
+    img: `${imgBase}/kidsburrito.webp`,
     name: 'KIDS_BURRITO', 
     price: 7.00,
     description: 'Rice, beans & cheese',
@@ -61,7 +61,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 14,
-    img: `${imgBase}/tortaFinal.jpg`,
+    img: `${imgBase}/tortaFinal.webp`,
     name: 'TORTA', 
     price: 9.00,
     description: 'Choice of meat, beans, avocado, tomato, onions, cilantro',
@@ -72,7 +72,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 9,
-    img: `${imgBase}/quesadillaFinal.jpg`,
+    img: `${imgBase}/quesadillaFinal.webp`,
     name: 'QUESADILLA', 
     price: 10.00,
     description: 'Choice of meat, sourcream, lettuce, pico de gallo',
@@ -83,7 +83,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 18,
-    img: `${imgBase}/plateTamale3Final.jpg`,
+    img: `${imgBase}/plateTamale3Final.webp`,
     name: 'TAMALE_PLATE', 
     price: 14.00,
     description: 'Tamales, rice & beans',
@@ -94,7 +94,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 6,
-    img: `${imgBase}/platefish1Final.jpg`,
+    img: `${imgBase}/platefish1Final.webp`,
     name: 'FISH_PLATE', 
     price: 14.00,
     description: 'Beans, rice, lettuce, cheese, pico de gallo, -choice of chips or tortilla-',
@@ -105,7 +105,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 7,
-    img: `${imgBase}/comboPlate.jpg`,
+    img: `${imgBase}/comboPlate.webp`,
     name: 'COMBO_PLATE', 
     price: 10,
     description: 'Choice of meat, beans, rice, onions, cilantro',
@@ -116,7 +116,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 8,
-    img: `${imgBase}/plateVeggie1Final.jpg`,
+    img: `${imgBase}/plateVeggie1Final.webp`,
     name: 'VEGGIE_COMBO_PLATE', 
     price: 10.00,
     description: 'Beans, rice, onions, cilantro, avocado, tomato, lettuce',
@@ -127,7 +127,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 10,
-    img: `${imgBase}/salad3Final.jpg`,
+    img: `${imgBase}/salad3Final.webp`,
     name: 'SALAD', 
     price: 13.00,
     description: 'Choice of meat, rice, beans, lettuce, pico de gallo, -choice of chips or tortilla-',
@@ -138,7 +138,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 5,
-    img: `${imgBase}/nacho3Final.jpg`,
+    img: `${imgBase}/nacho3Final.webp`,
     name: 'NACHOS', 
     price: 14.00,
     description: 'Choice of meat, cheese, sourcream, pico de gallo, jalepenos',
@@ -149,7 +149,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 11,
-    img: `${imgBase}/taco1Final.jpg`,
+    img: `${imgBase}/taco1Final.webp`,
     name: 'TACO', 
     price: 2.00,
     description: 'Choice of meat, onions, cilantro',
@@ -160,7 +160,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 13,
-    img: `${imgBase}/tacoVeggie1Final.jpg`,
+    img: `${imgBase}/tacoVeggie1Final.webp`,
     name: 'VEGGIE_TACO', 
     price: 2.50,
     description: 'Beans, rice, onions, cilantro, tomato, avocado',
@@ -171,7 +171,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 12,
-    img: `${imgBase}/tacoFish2Final.jpg`,
+    img: `${imgBase}/tacoFish2Final.webp`,
     name: 'FISH_TACO', 
     price: 3.00,
     description: 'Tilapia fish, sourcream, lettuce, pico de gallo',
@@ -182,7 +182,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 15,
-    img: `${imgBase}/ricebeans.jpg`,
+    img: `${imgBase}/ricebeans.webp`,
     name: 'RICE_BEAN_PLATE', 
     price: 7.00,
     description: 'Rice & Beans',
@@ -193,7 +193,7 @@ export const menu_items:menuItemType[] = [
   },
   { 
     menu_id: 17,
-    img: `${imgBase}/chipsypico.jpg`,
+    img: `${imgBase}/chipsypico.webp`,
     name: 'CHIPS_Y_PICO', 
     price: 7.00,
     description: 'Chips & Pico de gallo',

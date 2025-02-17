@@ -15,6 +15,7 @@ interface UIAction {
 const UIContext = createContext({})
 
 const reducerFn = (state:UIState, action:UIAction) => {
+  const isDevelopment = process.env.IS_DEVELOPMENT
   const { type } = action;
 
   switch(type){
@@ -41,7 +42,7 @@ const UIProvider = ({ children }:any) => {
   // }
 
   return (
-    <UIContext.Provider value={UIState}>
+    <UIContext.Provider value={{ }}>
       {children}
     </UIContext.Provider>
   )

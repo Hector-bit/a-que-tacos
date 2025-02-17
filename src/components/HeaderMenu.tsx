@@ -21,7 +21,7 @@ const HeaderMenu = ({  }:HeaderMenuProps) => {
         <div className="">
           <Image className="max-h-16 sm:max-h-28 w-auto" src='/assets/flag.png' alt="mexico flag" width={999} height={999}/>
         </div>
-        <div className="text-black text-xl sm:text-5xl uppercase font-bold">a que tacos</div>
+        <div className="text-black text-xl sm:text-5xl uppercase font-bold">{process.env.IS_DEVELOPMENT?'development':'a que tacos'}</div>
         <div id="nav-icon3" className={`z-[3] ${isOpen?'open':''}`} onClick={handleAside}>
           <span></span>
           <span></span>
