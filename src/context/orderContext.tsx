@@ -1,49 +1,90 @@
 'use client'
-import React, { createContext, useContext, useReducer, ReactNode, useState, useEffect} from 'react'
+import React, { createContext, useContext, ReactNode, useState, useEffect, useReducer } from 'react'
 import { OrderItem } from '../../utils/types'
-import { CartContextType } from '../../utils/types'
+import { CartContextType, CustomerInfoType, OrderErrorAction, OrderErrorState } from '../../utils/types'
+import { error } from 'console'
+import { stat } from 'fs'
+
+let initialErrorMsgs:OrderErrorState = { errors: [] }
 
 export const CartContext = createContext<CartContextType>({
   orderTotal: 0,
   cart: [],
   addToCart: (item) => console.log('add to cart fn missing'),
   removeFromCart: () => console.log('remove from cart fn missing'),
-  clearCart: () => console.log('clear cart fn missing')
+  clearCart: () => console.log('clear cart fn missing'),
+  saveCustomerInfo: () => console.log('saving customer info'),
+  customerInfo: { firstName: '', lastName: '',email: '', phoneNumber: '' },
+  OrderErrorState: initialErrorMsgs,
+  OrderErrorDispatch: undefined,
+  isDevelopment: true
 })
 
-export const CartProvider = ({ children }:any) => {
-  let initialCartValue:OrderItem[] = []
-  if(typeof window !== 'undefined'){
-    let retrivedOrderCart = localStorage.getItem('CLIENT_ORDER')
-    initialCartValue = retrivedOrderCart ? JSON.parse(retrivedOrderCart) : []
+const orderErrorReducer = ( state:OrderErrorState, action: OrderErrorAction) => {
+  switch(action.type){
+    case 'ADD_ERROR_MSG':{
+      return { errors: [...state.errors, action.payload] }
+    }
+    case 'REMOVE_ERROR_MSG':{
+      return { errors: state.errors.filter(msg => msg.msgType === action.payload) }
+    }
+    case 'CLEAR_ERROR_MSGS': {
+      return initialErrorMsgs
+    }
   }
+}
 
+export const CartProvider = ({ children }:any) => {
+  // let initialCartValue:OrderItem[] = []
+  let initialCustomerInfo:CustomerInfoType = { firstName: '', lastName: '',email: '', phoneNumber: '' }
+  // if(typeof window !== 'undefined'){
+  //   // RETRIVE CUSTOMER ORDER 
+  //   let retrivedOrderCart = localStorage.getItem('CLIENT_ORDER')
+  //   initialCartValue = retrivedOrderCart ? JSON.parse(retrivedOrderCart) : initialCartValue
+
+  //   //RETRIEVE CUSTOMER INFO
+  //   let retrievedCustomerInfo = localStorage.getItem('CLIENT_CUSTOMER_INFO')
+  //   //todo figure out how to clean this up, how to deal with nulls and such
+  //   if(retrievedCustomerInfo){
+  //     initialCustomerInfo = retrivedOrderCart ? JSON.parse(retrievedCustomerInfo) : initialCustomerInfo
+  //   }
+  // }
+
+  // ORDER CONTEXT 
   const [orderTotal, setOrderTotal] = useState<number>(0)
-  const [cart, setCart] = useState<OrderItem[]>(initialCartValue)
+  const [cart, setCart] = useState<OrderItem[]>([])
+  const [customerInfo, setCustomerInfo] = useState<CustomerInfoType>(initialCustomerInfo)
+  const [OrderErrorState, OrderErrorDispatch] = useReducer(orderErrorReducer, initialErrorMsgs)
+  const isDevelopment = true
 
   const addToCart = (item:OrderItem) => {
-    // setCart((prevCart:OrderItem[]) => {
-    //   const existingItem = prevCart.find((i:any) => i.id === item.id)
-    // })
     setCart([...cart, item])
+    localStorage.setItem('CLIENT_ORDER', JSON.stringify([...cart, item]))
+    console.log('updated cart[add]:', [...cart, item])
   }
 
   const removeFromCart = (orderIndex:number) => {
-    // let tempremove = cart.filter((item:any) => item.orderIndex !== orderIndex)
-    // console.log('new list after remove:', tempremove)
-    setCart((prevCart:any) => prevCart.filter((item:any, index:number) => index !== orderIndex));
+    let cartRemovedItem = cart.filter((item:any, index:number) => index !== orderIndex)
+    console.log('filtered cart state: ', cartRemovedItem)
+    setCart(cartRemovedItem);
+    let localCart = localStorage.setItem('CLIENT_ORDER', JSON.stringify(cartRemovedItem))
+    console.log('cart from storage: ', localCart)
+
+    // console.log('updated cart[remove]:', [...cart, item])
   };
 
-  // Clear the cart
   const clearCart = () => {
     setCart([]);
   };
 
+  const saveCustomerInfo = (customerInfo:CustomerInfoType) => {
+    console.log('updating customer info: ', customerInfo)
+    localStorage.setItem('CLIENT_CUSTOMER_INFO', JSON.stringify(customerInfo))
+  }
+
   // USING LOCAL STORAGE WE WILL SAVE THE USERS ORDER 
   useEffect(() => {
     console.log('updated cart:', cart)
-    localStorage.setItem('CLIENT_ORDER', JSON.stringify(cart))
-
     // SUMS UP ORDER TOTAL 
     let tempTotal = 0
     cart.forEach((order) => {
@@ -52,10 +93,24 @@ export const CartProvider = ({ children }:any) => {
     setOrderTotal(tempTotal)
   },[cart])
 
+  useEffect(() => {
+    // RETRIVE CUSTOMER ORDER 
+    let retrivedOrderCart = localStorage.getItem('CLIENT_ORDER')
+    retrivedOrderCart ? setCart(JSON.parse(retrivedOrderCart)) : null
+    // console.log('local storage order cart: ', retrivedOrderCart)
+
+    //todo setup customer info saving???
+    //RETRIEVE CUSTOMER INFO
+    // let retrievedCustomerInfo = localStorage.getItem('CLIENT_CUSTOMER_INFO')
+    // retrievedCustomerInfo ? setCustomerInfo(JSON.parse(retrievedCustomerInfo)) : null
+    // console.log('local storage customer info: ', retrievedCustomerInfo)
+  },[])
+
+
 
   return (
     <div>
-    <CartContext.Provider value={{ orderTotal, cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ orderTotal, cart, addToCart, removeFromCart, clearCart, saveCustomerInfo, customerInfo, OrderErrorState, OrderErrorDispatch, isDevelopment }}>
       {children}
     </CartContext.Provider>
     </div>

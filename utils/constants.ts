@@ -204,6 +204,11 @@ export const menu_items:menuItemType[] = [
   },
 ]
 
+// todo: add drinks 
+const drinks = [
+
+]
+
 export const order_items:any = {
   1: menu_items[0],
   2: menu_items[1],

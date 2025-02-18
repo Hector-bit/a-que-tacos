@@ -1,7 +1,9 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { CartContext } from "@/context/orderContext";
+import { CartContextType } from "../../utils/types";
 
 interface HeaderMenuProps {
   // isOpen: boolean
@@ -9,6 +11,7 @@ interface HeaderMenuProps {
 
 const HeaderMenu = ({  }:HeaderMenuProps) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false)
+  const { isDevelopment } = useContext<CartContextType>(CartContext)
 
   const handleAside = () => {
     // console.log('HANDLEASIDE FN')
@@ -21,7 +24,7 @@ const HeaderMenu = ({  }:HeaderMenuProps) => {
         <div className="">
           <Image className="max-h-16 sm:max-h-28 w-auto" src='/assets/flag.png' alt="mexico flag" width={999} height={999}/>
         </div>
-        <div className="text-black text-xl sm:text-5xl uppercase font-bold">{process.env.IS_DEVELOPMENT?'development':'a que tacos'}</div>
+        <div className="text-black text-xl sm:text-5xl uppercase font-bold">{isDevelopment?'development':'a que tacos'}</div>
         <div id="nav-icon3" className={`z-[3] ${isOpen?'open':''}`} onClick={handleAside}>
           <span></span>
           <span></span>

@@ -1,9 +1,4 @@
-export type CustomerInfoType = {
-  firstName: string | undefined
-  lastName: string | undefined
-  phoneNumber: number | undefined
-  email: string | undefined
-}
+import { Dispatch } from "react"
 
 export type SideOptionType = 'TORTILLA' | 'CHIPS'
 
@@ -84,11 +79,42 @@ export type IconType = {
   strokeWidth?: number
 }
 
+export type CustomerInfoType = {
+  firstName: string | undefined
+  lastName: string | undefined
+  phoneNumber: string | undefined
+  email: string | undefined
+}
+
+type errorMsgType = 'phone' | 'email'
+
+export type OrderErrorType = {
+  msgType: errorMsgType
+  errorMsg: string
+}
+
+export type OrderErrorState = {
+  errors: OrderErrorType[]
+}
+
+export type OrderErrorAction = 
+  | {type: 'ADD_ERROR_MSG'; payload: OrderErrorType }
+  | {type: 'REMOVE_ERROR_MSG'; payload: errorMsgType }
+  | {type: 'CLEAR_ERROR_MSGS' }
+
+
 // CONTEXT TYPES 
 export type CartContextType = {
   orderTotal: number
   cart: OrderItem[]
   addToCart: (item:OrderItem) => void
   removeFromCart: (id:number) => void
-  clearCart: () => void 
+  clearCart: () => void
+  //customer related things
+  customerInfo: CustomerInfoType
+  saveCustomerInfo: (customerInfo:CustomerInfoType) => void
+  //other
+  OrderErrorState: OrderErrorState
+  OrderErrorDispatch: Dispatch<OrderErrorAction> | undefined
+  isDevelopment: boolean
 }
