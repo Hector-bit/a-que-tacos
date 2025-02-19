@@ -6,6 +6,7 @@ import { CartContext } from "@/context/orderContext"
 import { CartContextType, CustomerInfoType } from "../../../../utils/types"
 import { MenuNameDictionary, IngredientDictionary, ChoiceOfMeatEspanolDictionary, ChoiceOfMeatEnglishDictionary } from "../../../../utils/constants"
 import axios from "axios"
+// import { CloverAPISession } from "@/axios/cloverRequests"
 
 let validator = require('validator')
 
@@ -13,21 +14,64 @@ const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-
 
 export default function CheckoutPage() {
   const { cart, orderTotal, removeFromCart, clearCart, saveCustomerInfo, customerInfo, OrderErrorState, OrderErrorDispatch } = useContext<CartContextType>(CartContext)
-  const AuthKey = process.env.API_KEY
+
+  const AuthKey = `Bearer ${process.env.API_KEY}`
   const MID = process.env.MERCHANT_ID
+
+  console.log('WHYYY', AuthKey, MID)
   
   const [customerState, setCustomerState] = useState<CustomerInfoType>(customerInfo)
   const [errorMessages, setErrorMessages] = useState<any>([])
 
   const checkoutNow = async() => {
+    // axios.defaults.headers.common['Authorization'] = AuthKey;
+    // axios.defaults.headers.post['X-Clover-Merchant-ID'] = MID;
+
     //check cart
-    if(cart.length > 1){
+    // if(cart.length > 1){
 
-    }
+    // }
 
-    console.log('CHECKING OUT for: ', customerInfo)
+    console.log('CHECKING OUT for: ', customerInfo, AuthKey, MID)
+    // let checkoutCartDetails = cart.map((item) => {
+    //   return { "name": item.orderItem, 'unitQty': item.amount, 'price': 100 }
+    // })
     // axios.post('', {
     // })
+    const requestUrl = 'https://sandbox.dev.clover.com/invoicingcheckoutservice/v1/checkouts'
+    const cloverTestAPI = 'https://sandbox.dev.clover.com/'
+    const options = { headers: { 'Authorization': AuthKey, 'X-Clover-Merchant-ID': MID } }
+    const checkoutBody = {
+      "shoppingCart": {
+        "lineItems": [
+          {
+            "name": "Apple",
+            "unitQty": 1,
+            "price": 100
+          },
+          {
+            "name": "Orange",
+            "unitQty": 2,
+            "price": 75
+          }
+        ]
+      },
+      "customer": {
+        "email": "email@example.com",
+        "firstName" : "Example",
+        "lastName": "Customer",
+        "phoneNumber": "223-555-0002"
+      }
+    }
+    
+    try {
+      axios.get(cloverTestAPI, options)
+      // console.log(test, 'tested === ')
+      let checkoutSession = await axios.post(requestUrl, checkoutBody, options);
+      console.log('checkout sessoion: ', checkoutSession)
+    } catch (error) {
+      window.alert(error)
+    }
   }
 
   return (
