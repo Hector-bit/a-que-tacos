@@ -1,78 +1,24 @@
 'use client'
 import Link from "next/link"
 import Image from "next/image"
-import { useContext, useEffect, useState, useActionState } from "react"
+import { useContext, useState } from "react"
 import { CartContext } from "@/context/orderContext"
 import { CartContextType, CustomerInfoType } from "../../../../utils/types"
 import { MenuNameDictionary, IngredientDictionary, ChoiceOfMeatEspanolDictionary, ChoiceOfMeatEnglishDictionary } from "../../../../utils/constants"
-import axios from "axios"
-import { createOrder, CustomerState } from "@/actions/actions"
-// import { CloverAPISession } from "@/axios/cloverRequests"
 import { fetchCloverLink } from "@/actions/actions"
-import { redirect } from "next/navigation"
 
 const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-100 text-white'
 
 export default function CheckoutPage() {
   const { cart, orderTotal, removeFromCart, clearCart, OrderErrorState, OrderErrorDispatch, customerInfo } = useContext<CartContextType>(CartContext)
-  // const initialState: CustomerState = { message: null, errors: {} };
-  // const [state, formAction] = useActionState(createOrder, initialState)
 
-  const AuthKey = `Bearer ${process.env.API_KEY}`
-  const MID = process.env.MERCHANT_ID
-
-  // console.log('WHYYY', AuthKey, MID)
   
   const [customerState, setCustomerState] = useState<CustomerInfoType>(customerInfo)
   const [errorMessages, setErrorMessages] = useState<any>([])
 
-  // const checkoutNow = async() => {
-  //   //check cart
-  //   // if(cart.length > 1){
-
-  //   // }
-
-  //   console.log('CHECKING OUT for: ', customerInfo, AuthKey, MID)
-  //   // let checkoutCartDetails = cart.map((item) => {
-  //   //   return { "name": item.orderItem, 'unitQty': item.amount, 'price': 100 }
-  //   // })
-  //   // axios.post('', {
-  //   // })
-  //   const requestUrl = 'https://sandbox.dev.clover.com/invoicingcheckoutservice/v1/checkouts'
-  //   const cloverTestAPI = 'https://sandbox.dev.clover.com/'
-  //   const options = { headers: { 'Authorization': AuthKey, 'X-Clover-Merchant-ID': MID } }
-  //   const checkoutBody = {
-  //     "shoppingCart": {
-  //       "lineItems": cart
-  //     },
-  //     "customer": {
-  //       "email": `${customerState.email}`,
-  //       "firstName" : `${customerState.firstName}`,
-  //       "lastName": `${customerState.lastName}`,
-  //       "phoneNumber": `${customerState.phoneNumber}`
-  //     }
-  //   }
-    
-  //   try {
-  //     axios.get(cloverTestAPI, options)
-  //     // console.log(test, 'tested === ')
-  //     let checkoutSession = await axios.post(requestUrl, checkoutBody, options);
-  //     console.log('checkout sessoion: ', checkoutSession)
-  //     window.open(checkoutSession.data.href, '_blank')
-  //   } catch (error) {
-  //     window.alert(error)
-  //   }
-  // }
-
-  useEffect(() => {
-    console.log(errorMessages, 'yuuurrr')
-  },[errorMessages])
-
-  // const fetchCloverLink = async(cartData: any, customerData: any): Promise<String> => {
-  //   console.log(cartData, customerData)
-  //   return ''
-
-  // }
+  // useEffect(() => {
+  //   console.log(errorMessages, 'yuuurrr')
+  // },[errorMessages])
 
   return (
     <div className="flex flex-col p-3">
@@ -229,10 +175,7 @@ export default function CheckoutPage() {
             onClick={async() => {
               let testing = await fetchCloverLink(cart, customerState);
               console.log('testing thingy: ', typeof(testing), testing)
-              if(typeof(testing) === 'string'){
-                console.log('woohoo got link', testing)
-                // redirect(testing)
-              } else {
+              if(testing){
                 setErrorMessages(testing)
               }
             }}

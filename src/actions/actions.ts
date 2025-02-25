@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation';
 import { CloverInstance } from '@/app/axios';
 import axios, { AxiosResponse } from 'axios';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
+import { MenuNameDictionary, IngredientDictionary } from '../../utils/constants';
+import { NextResponse } from "next/server"
 
 export type CustomerState = {
   errors?: {
@@ -82,9 +84,9 @@ const dummyData =  {
   }
 }
 
-export const fetchCloverLink = async(cartData: OrderItem[], customerData: CustomerInfoType): Promise<string | ErrorState> => {
+export const fetchCloverLink = async(cartData: OrderItem[], customerData: CustomerInfoType) => {
 
-  console.log('customer data', customerData)
+  let link = 'undefined'
 
   const validatedFields = CreateOrder.safeParse({
     firstname: customerData.firstName,
@@ -93,23 +95,25 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
     phoneNumber: customerData.phoneNumber
   })
 
-  console.log('VALIDATED FIELDS:', validatedFields)
+  // console.log('VALIDATED FIELDS:', validatedFields)
 
   if(!validatedFields.success){
-    // console.log('uh oh', validatedFields.error)
     return validatedFields.error.flatten().fieldErrors
-    //   message: 'Missing fields, failed to create order'
-    // }
   }
+
+  console.log('testing note')
 
 
   const formatData = {
     "shoppingCart": {
       "lineItems": cartData.map((item) => {
         return {
-          "name": item.orderItem,
+          "name": MenuNameDictionary[item.orderItem],
           "unitQty": item.amount,
-          "price": itemToPrice[item.orderItem]
+          "price": itemToPrice[item.orderItem],
+          "note": "No: " + item.removeIngredients.map(ing => {
+            return `${IngredientDictionary[ing]}`
+          })
         }
       })
       },
@@ -120,7 +124,8 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
       "phoneNumber": customerData.phoneNumber
       }
   }
-  // console.log('running on server')
+  // console.log('running on server', formatData)
+  // return formatData
   await axios.post(
     'https://sandbox.dev.clover.com/invoicingcheckoutservice/v1/checkouts',
     JSON.stringify(formatData),
@@ -132,15 +137,17 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
       }
     }
     ).then ((res) => {
-      console.log('thennnnn', typeof(res.data))
+      // console.log('thennnnn', typeof(res.data))
     // const parsed = JSON.parse(res.data)
-    console.log(res.data.href, 'should not run on the client', res.data)
-    return res.data.href
+    // console.log(res.data.href, 'should not run on the client', res.data)
+      link = res.data.href
+      return link
   }).catch((error) => {
     // console.error('MY_ERROR_P:', error)
-    return error
+      return error
   }) 
-  return 'undefined'
+  
+  redirect(link)
 }
 
 const CreateOrder = CustomerScheme.omit({})
