@@ -107,7 +107,7 @@ export const menu_items:menuItemType[] = [
     menu_id: 7,
     img: `${imgBase}/comboPlate.webp`,
     name: 'COMBO_PLATE', 
-    price: 10,
+    price: 10.00,
     description: 'Choice of meat, beans, rice, onions, cilantro',
     ingredients: ['BEANS', 'RICE','ONIONS', 'CILANTRO'],
     choiceOfMeat: true,

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CartContext } from "@/context/orderContext";
 import { CartContextType } from "../../utils/types";
+import clsx from "clsx";
 
 interface HeaderMenuProps {
   // isOpen: boolean

@@ -55,9 +55,7 @@ export type orderItemType =
   'VEGGIE_TACO' |
   'FISH_TACO' |
   'RICE_BEAN_PLATE' |
-  'CHIPS_Y_PICO' |
-  'HORCHATA' |
-  'JARRITO'
+  'CHIPS_Y_PICO'
 
 
 export type OrderItem = {

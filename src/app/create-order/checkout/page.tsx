@@ -1,78 +1,78 @@
 'use client'
 import Link from "next/link"
 import Image from "next/image"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState, useActionState } from "react"
 import { CartContext } from "@/context/orderContext"
 import { CartContextType, CustomerInfoType } from "../../../../utils/types"
 import { MenuNameDictionary, IngredientDictionary, ChoiceOfMeatEspanolDictionary, ChoiceOfMeatEnglishDictionary } from "../../../../utils/constants"
 import axios from "axios"
+import { createOrder, CustomerState } from "@/actions/actions"
 // import { CloverAPISession } from "@/axios/cloverRequests"
-
-let validator = require('validator')
+import { fetchCloverLink } from "@/actions/actions"
+import { redirect } from "next/navigation"
 
 const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-100 text-white'
 
 export default function CheckoutPage() {
-  const { cart, orderTotal, removeFromCart, clearCart, saveCustomerInfo, customerInfo, OrderErrorState, OrderErrorDispatch } = useContext<CartContextType>(CartContext)
+  const { cart, orderTotal, removeFromCart, clearCart, OrderErrorState, OrderErrorDispatch, customerInfo } = useContext<CartContextType>(CartContext)
+  // const initialState: CustomerState = { message: null, errors: {} };
+  // const [state, formAction] = useActionState(createOrder, initialState)
 
   const AuthKey = `Bearer ${process.env.API_KEY}`
   const MID = process.env.MERCHANT_ID
 
-  console.log('WHYYY', AuthKey, MID)
+  // console.log('WHYYY', AuthKey, MID)
   
   const [customerState, setCustomerState] = useState<CustomerInfoType>(customerInfo)
   const [errorMessages, setErrorMessages] = useState<any>([])
 
-  const checkoutNow = async() => {
-    // axios.defaults.headers.common['Authorization'] = AuthKey;
-    // axios.defaults.headers.post['X-Clover-Merchant-ID'] = MID;
+  // const checkoutNow = async() => {
+  //   //check cart
+  //   // if(cart.length > 1){
 
-    //check cart
-    // if(cart.length > 1){
+  //   // }
 
-    // }
-
-    console.log('CHECKING OUT for: ', customerInfo, AuthKey, MID)
-    // let checkoutCartDetails = cart.map((item) => {
-    //   return { "name": item.orderItem, 'unitQty': item.amount, 'price': 100 }
-    // })
-    // axios.post('', {
-    // })
-    const requestUrl = 'https://sandbox.dev.clover.com/invoicingcheckoutservice/v1/checkouts'
-    const cloverTestAPI = 'https://sandbox.dev.clover.com/'
-    const options = { headers: { 'Authorization': AuthKey, 'X-Clover-Merchant-ID': MID } }
-    const checkoutBody = {
-      "shoppingCart": {
-        "lineItems": [
-          {
-            "name": "Apple",
-            "unitQty": 1,
-            "price": 100
-          },
-          {
-            "name": "Orange",
-            "unitQty": 2,
-            "price": 75
-          }
-        ]
-      },
-      "customer": {
-        "email": "email@example.com",
-        "firstName" : "Example",
-        "lastName": "Customer",
-        "phoneNumber": "223-555-0002"
-      }
-    }
+  //   console.log('CHECKING OUT for: ', customerInfo, AuthKey, MID)
+  //   // let checkoutCartDetails = cart.map((item) => {
+  //   //   return { "name": item.orderItem, 'unitQty': item.amount, 'price': 100 }
+  //   // })
+  //   // axios.post('', {
+  //   // })
+  //   const requestUrl = 'https://sandbox.dev.clover.com/invoicingcheckoutservice/v1/checkouts'
+  //   const cloverTestAPI = 'https://sandbox.dev.clover.com/'
+  //   const options = { headers: { 'Authorization': AuthKey, 'X-Clover-Merchant-ID': MID } }
+  //   const checkoutBody = {
+  //     "shoppingCart": {
+  //       "lineItems": cart
+  //     },
+  //     "customer": {
+  //       "email": `${customerState.email}`,
+  //       "firstName" : `${customerState.firstName}`,
+  //       "lastName": `${customerState.lastName}`,
+  //       "phoneNumber": `${customerState.phoneNumber}`
+  //     }
+  //   }
     
-    try {
-      axios.get(cloverTestAPI, options)
-      // console.log(test, 'tested === ')
-      let checkoutSession = await axios.post(requestUrl, checkoutBody, options);
-      console.log('checkout sessoion: ', checkoutSession)
-    } catch (error) {
-      window.alert(error)
-    }
-  }
+  //   try {
+  //     axios.get(cloverTestAPI, options)
+  //     // console.log(test, 'tested === ')
+  //     let checkoutSession = await axios.post(requestUrl, checkoutBody, options);
+  //     console.log('checkout sessoion: ', checkoutSession)
+  //     window.open(checkoutSession.data.href, '_blank')
+  //   } catch (error) {
+  //     window.alert(error)
+  //   }
+  // }
+
+  useEffect(() => {
+    console.log(errorMessages, 'yuuurrr')
+  },[errorMessages])
+
+  // const fetchCloverLink = async(cartData: any, customerData: any): Promise<String> => {
+  //   console.log(cartData, customerData)
+  //   return ''
+
+  // }
 
   return (
     <div className="flex flex-col p-3">
@@ -140,37 +140,106 @@ export default function CheckoutPage() {
           <h2 className="text-3xl font-extrabold">Customer Information</h2>
           {/* <button className={`bg-flagGreen py-2 px-3 ${btnCheckout}`} onClick={() => saveCustomerInfo(customerState)}>Save Info</button> */}
         </div>
-        <form className="flex flex-col max-w-[400px]">
-          <label>First Name:</label>
-          <input 
-            type="text" name="first name" 
-            onChange={(e) => setCustomerState({...customerState, firstName: e.target.value })}
-            value={customerState.firstName}
-          />
-          <label>Last Name:</label>
-          <input 
-            type="text" name="last name" 
-            onChange={(e) => setCustomerState({...customerState, lastName: e.target.value })}
-            value={customerState.lastName}
-          />
-          <label>Email:</label>
-          <input 
-            type="text" name="email" 
-            onChange={(e) => setCustomerState({...customerState, email: e.target.value })}
-            value={customerState.email}
-          />
-          <label>Phone Number:</label>
-          <input 
-            type="tel" name="phone number" 
-            onChange={(e) => setCustomerState({...customerState, phoneNumber: e.target.value })}
-            value={customerState.phoneNumber}
-          />
+        <form className="flex flex-col ">
+          <div className="max-w-[450px] flex flex-col">
+            <label>First Name:</label>
+            <input 
+              // id="firstname"
+              // name="formFirstname"
+              className="peer"
+              aria-describedby="customer-error"
+              type="text"
+              onChange={(e) => setCustomerState({...customerState, firstName: e.target.value })}
+              value={customerState.firstName}
+              placeholder=" first name"
+            />
+            <div id="customer-error" aria-live="polite" aria-atomic="true">
+              {errorMessages?.firstname &&
+                errorMessages.firstname.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+              ))}
+            </div>
+            <label htmlFor="lastname">Last Name:</label>
+            <input 
+              // id="lastname"
+              // name="formLastname" 
+              className="peer"
+              aria-describedby="customer-error"
+              type="text"
+              onChange={(e) => setCustomerState({...customerState, lastName: e.target.value })}
+              value={customerState.lastName}
+              placeholder=" last name"
+            />
+            <div id="customer-error" aria-live="polite" aria-atomic="true">
+              {errorMessages?.lastname &&
+                errorMessages.lastname.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+              ))}
+            </div>
+            <label>Email:</label>
+            <input 
+              // id="email"
+              // name="formEmail" 
+              className="peer"
+              aria-describedby="customer-error"
+              type="text"
+              onChange={(e) => setCustomerState({...customerState, email: e.target.value })}
+              value={customerState.email}
+              placeholder=" email"
+            />
+            <div id="customer-error" aria-live="polite" aria-atomic="true">
+              {errorMessages?.email &&
+                errorMessages.email.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+              ))}
+            </div>
+            <label htmlFor="phone number">Phone Number:</label>
+            <input 
+              // id='phone_number'
+              // name="formPhone" 
+              className="peer"
+              type="tel"
+              aria-describedby="customer-error"
+              onChange={(e) => setCustomerState({...customerState, phoneNumber: e.target.value })}
+              value={customerState.phoneNumber}
+              placeholder=" phone number"
+            />
+            <div id="customer-error" aria-live="polite" aria-atomic="true">
+              {errorMessages?.phoneNumber &&
+                errorMessages.phoneNumber.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+                ))}
+            </div>
+
+          </div>
+          {/* TOTAL & BUTTONS  */}
         </form>
-      </div>
-      {/* TOTAL & BUTTONS  */}
-      <div className="flex flex-row justify-between items-center mt-4">
-        <div className="font-bold text-lg">Total: ${orderTotal.toFixed(2)}</div>
-        <button className={`text-lg bg-flagGreen py-2 px-5  ${btnCheckout}`} onClick={checkoutNow}>Checkout</button>
+        <div className="flex flex-row justify-between items-center mt-4">
+          <div className="font-bold text-lg">Total: ${orderTotal.toFixed(2)}</div>
+          <button 
+            className={`text-lg bg-flagGreen py-2 px-5  ${btnCheckout}`} 
+            onClick={async() => {
+              let testing = await fetchCloverLink(cart, customerState);
+              console.log('testing thingy: ', typeof(testing), testing)
+              if(typeof(testing) === 'string'){
+                console.log('woohoo got link', testing)
+                // redirect(testing)
+              } else {
+                setErrorMessages(testing)
+              }
+            }}
+          >
+              Checkout
+          </button>
+        </div>
       </div>
     </div>
   )

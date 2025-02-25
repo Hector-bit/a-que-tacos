@@ -1,0 +1,182 @@
+'use server'
+import { string, z } from 'zod';
+import { redirect } from 'next/navigation';
+import { CloverInstance } from '@/app/axios';
+import axios, { AxiosResponse } from 'axios';
+import { CustomerInfoType, OrderItem } from '../../utils/types';
+
+export type CustomerState = {
+  errors?: {
+    firstname?: string[];
+    lastname?: string[];
+    email?: string[];
+    phoneNumber?: string[];
+  };
+  message?: string | null
+};
+
+type ErrorState =  {
+  firstname?: string[];
+  lastname?: string[];
+  email?: string[];
+  phoneNumber?: string[];
+};
+
+const CustomerScheme = z.object({
+  firstname: z.string({
+    invalid_type_error: 'Please enter a first name'
+  }).min(2),
+  lastname: z.string({
+    invalid_type_error: 'Please enter a last name'
+  }).min(2),
+  email: z.string({
+    invalid_type_error: 'Please enter an email'
+  }).email("Invalid email"),
+  phoneNumber: z.string({
+    invalid_type_error: 'Please enter a phone number'
+  }).min(10, 'Phone number must be at least 10 digits')
+});
+
+const itemToPrice = {
+  FISH_BURRITO: 1200,
+  SUPREME_BURRITO: 1200,
+  SUPREME_VEGGIE_BURRITO: 1200,
+  REGULAR_BURRITO: 900,
+  KIDS_BURRITO: 700,
+  TORTA: 900,
+  QUESADILLA: 1000,
+  TAMALE_PLATE: 1400,
+  FISH_PLATE: 1400,
+  COMBO_PLATE: 1000,
+  VEGGIE_COMBO_PLATE: 1200,
+  SALAD: 1300,
+  NACHOS: 1400,
+  TACO: 200,
+  VEGGIE_TACO: 250,
+  FISH_TACO: 300,
+  RICE_BEAN_PLATE: 700,
+  CHIPS_Y_PICO: 700,
+
+}
+
+const dummyData =  {
+  "shoppingCart": {
+  "lineItems": [
+      {
+      "name": "Taco",
+      "unitQty": 4,
+      "price": 200
+      },
+      {
+      "name": "Orange",
+      "unitQty": 2,
+      "price": 75
+      }
+  ]
+  },
+  "customer": {
+  "email": "email@example.com",
+  "firstName" : "Example",
+  "lastName": "Customer",
+  "phoneNumber": "223-555-0002"
+  }
+}
+
+export const fetchCloverLink = async(cartData: OrderItem[], customerData: CustomerInfoType): Promise<string | ErrorState> => {
+
+  console.log('customer data', customerData)
+
+  const validatedFields = CreateOrder.safeParse({
+    firstname: customerData.firstName,
+    lastname: customerData.lastName,
+    email: customerData.email,
+    phoneNumber: customerData.phoneNumber
+  })
+
+  console.log('VALIDATED FIELDS:', validatedFields)
+
+  if(!validatedFields.success){
+    // console.log('uh oh', validatedFields.error)
+    return validatedFields.error.flatten().fieldErrors
+    //   message: 'Missing fields, failed to create order'
+    // }
+  }
+
+
+  const formatData = {
+    "shoppingCart": {
+      "lineItems": cartData.map((item) => {
+        return {
+          "name": item.orderItem,
+          "unitQty": item.amount,
+          "price": itemToPrice[item.orderItem]
+        }
+      })
+      },
+      "customer": {
+      "email": customerData.email,
+      "firstName" : customerData.firstName,
+      "lastName": customerData.lastName,
+      "phoneNumber": customerData.phoneNumber
+      }
+  }
+  // console.log('running on server')
+  await axios.post(
+    'https://sandbox.dev.clover.com/invoicingcheckoutservice/v1/checkouts',
+    JSON.stringify(formatData),
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Clover-Merchant-ID': process.env.MERCHANT_ID, 
+        'Authorization': `Bearer ${process.env.API_KEY}`
+      }
+    }
+    ).then ((res) => {
+      console.log('thennnnn', typeof(res.data))
+    // const parsed = JSON.parse(res.data)
+    console.log(res.data.href, 'should not run on the client', res.data)
+    return res.data.href
+  }).catch((error) => {
+    // console.error('MY_ERROR_P:', error)
+    return error
+  }) 
+  return 'undefined'
+}
+
+const CreateOrder = CustomerScheme.omit({})
+
+export async function createOrder(prevState: CustomerState, formData: FormData){
+  console.log('creat order fn running')
+  const validatedFields = CreateOrder.safeParse({
+    firstname: formData.get('formFirstname'),
+    lastname: formData.get('formLastname'),
+    email: formData.get('formEmail'),
+    phoneNumber: formData.get('formPhone')
+  })
+
+  console.log('VALIDATE FORM', validatedFields)
+
+  if(!validatedFields.success){
+    // console.log('uh oh', validatedFields.error)
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing fields, failed to create order'
+    }
+  }
+
+  const { firstname, lastname, email, phoneNumber } = validatedFields.data;
+
+  try {
+    console.log('action run', firstname, lastname, email, phoneNumber)
+  } catch (error) {
+    // We'll log the error to the console for now
+    
+    console.error('failed to create order')
+    return {
+      message: 'Form Error: Failed to Create Order.',
+    };
+  }
+
+  redirect('/create-order/checkout');
+}
+
