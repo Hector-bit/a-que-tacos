@@ -4,10 +4,6 @@ import { useEffect } from "react";
 
 export default function Home() {
 
-
-  // console.log('yuhhhh')
-  // console.log(process.env.NEXT_PUBLIC_IS_PRODUCTION, 'yuhhhh')
-
   return (
     <main className="flex flex-col px-3 sm:px-8 gap-x-4 gap-y-8 mb-6">
       <div className="flex flex-col md:flex-row gap-4">

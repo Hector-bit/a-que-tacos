@@ -25,9 +25,9 @@ export default function CreateOrderPage() {
     setItemModal(!itemModal)
   }
 
-  useEffect(() => {
-    console.log('DEVELOPMENT ENV: ', process.env.IS_DEVELOPMENT)
-  },[])
+  // useEffect(() => {
+  //   console.log('DEVELOPMENT ENV: ', process.env.IS_DEVELOPMENT)
+  // },[])
 
   return (
     <>
@@ -37,7 +37,7 @@ export default function CreateOrderPage() {
         <div className="text-lg mb-8">Online ordering available in Everson only at this moment.</div>
 
         <div>
-          <h3>ITEMS</h3>
+          <h3 className="font-bold text-xl mb-2">ITEMS</h3>
           <div className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:md:grid-cols-5 gap-3">
             {menu_items.map((item) => {
               return (

@@ -22,6 +22,7 @@ type ErrorState =  {
   lastname?: string[];
   email?: string[];
   phoneNumber?: string[];
+  cart?: string[]
 };
 
 const CustomerScheme = z.object({
@@ -36,7 +37,10 @@ const CustomerScheme = z.object({
   }).email("Invalid email"),
   phoneNumber: z.string({
     invalid_type_error: 'Please enter a phone number'
-  }).min(10, 'Phone number must be at least 10 digits')
+  }).min(10, 'Phone number must be at least 10 digits'),
+  cart: z.number({
+    invalid_type_error: 'Please add orders to your cart'
+  }).gt(0)
 });
 
 const itemToPrice = {
@@ -84,7 +88,9 @@ const dummyData =  {
   }
 }
 
-export const fetchCloverLink = async(cartData: OrderItem[], customerData: CustomerInfoType) => {
+const CreateOrder = CustomerScheme.omit({})
+
+export const fetchCloverLink = async(cartData: OrderItem[], customerData: CustomerInfoType):Promise<ErrorState> => {
 
   let link = 'undefined'
 
@@ -92,15 +98,16 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
     firstname: customerData.firstName,
     lastname: customerData.lastName,
     email: customerData.email,
-    phoneNumber: customerData.phoneNumber
+    phoneNumber: customerData.phoneNumber,
+    cart: cartData.length
   })
 
   // console.log('VALIDATED FIELDS:', validatedFields)
 
   if(!validatedFields.success){
+    // console.log('ERRORS', validatedFields.error)
     return validatedFields.error.flatten().fieldErrors
   }
-
   // console.log('testing note')
 
 
@@ -149,41 +156,3 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
   
   redirect(link)
 }
-
-const CreateOrder = CustomerScheme.omit({})
-
-export async function createOrder(prevState: CustomerState, formData: FormData){
-  console.log('creat order fn running')
-  const validatedFields = CreateOrder.safeParse({
-    firstname: formData.get('formFirstname'),
-    lastname: formData.get('formLastname'),
-    email: formData.get('formEmail'),
-    phoneNumber: formData.get('formPhone')
-  })
-
-  console.log('VALIDATE FORM', validatedFields)
-
-  if(!validatedFields.success){
-    // console.log('uh oh', validatedFields.error)
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing fields, failed to create order'
-    }
-  }
-
-  const { firstname, lastname, email, phoneNumber } = validatedFields.data;
-
-  try {
-    console.log('action run', firstname, lastname, email, phoneNumber)
-  } catch (error) {
-    // We'll log the error to the console for now
-    
-    console.error('failed to create order')
-    return {
-      message: 'Form Error: Failed to Create Order.',
-    };
-  }
-
-  redirect('/create-order/checkout');
-}
-

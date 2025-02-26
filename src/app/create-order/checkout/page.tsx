@@ -34,7 +34,17 @@ export default function CheckoutPage() {
         <button className={`bg-flagRed py-2 px-3 ${btnCheckout}`} onClick={clearCart}>Clear Cart</button>
       </div>
       {cart.length < 1 && 
-        <div className="text-center text-xl mx-auto my-12">You have no orders in your cart.</div>
+        <div className="text-center text-xl mx-auto my-12">
+          <span>You have no orders in your cart.</span>
+          <div id="customer-error" aria-live="polite" aria-atomic="true">
+              {errorMessages?.cart &&
+                errorMessages.cart.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    {error}
+                  </p>
+              ))}
+            </div>
+        </div>
       }
       <div className="flex flex-col gap-3">
         {cart.map(((order, index) => {

@@ -36,6 +36,16 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
     setRemoveIngredients(tempList)
   }
 
+  useEffect(() => {
+    console.log('cambio de carne: ', carne)
+  },[carne])
+
+  const optionValues: {[key:string]: ChoiceOfMeatType}[] = [{
+    'BEEF': 'BEEF',
+    'CHICKEN': 'CHICKEN',
+    'PORK': 'PORK',
+  }]
+
   return (
     isOpen && (
       <div className="fixed inset-0 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] h-fit w-[92%] max-w-[420px] border-2 border-black bg-primary rounded-3xl flex-col p-3">
@@ -82,10 +92,10 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
         <div className="mt-4 flex flex-row gap-3">
           {/* <form className="flex flex-row"> */}
             {foodItem.choiceOfMeat && 
-              <select className="p-2 rounded-xl" name="meat choice">
-                <option onChange={() => setCarne('BEEF')} value="BEED">Beef</option>
-                <option onChange={() => setCarne('CHICKEN')} value="CHICKEN">Chicken</option>
-                <option onChange={() => setCarne('PORK')} value="PORK">Pork</option>
+              <select onChange={(e) => setCarne(e.target.value as ChoiceOfMeatType)} className="p-2 rounded-xl" name="meat choice">
+                <option key={"BEEF"} value="BEEF">Beef</option>
+                <option key={"CHICKEN"} value="CHICKEN">Chicken</option>
+                <option key={"PORK"} value="PORK">Pork</option>
               </select>
             }
             {foodItem.chooseAmount && 
