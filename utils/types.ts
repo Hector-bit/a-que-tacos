@@ -114,5 +114,4 @@ export type CartContextType = {
   //other
   OrderErrorState: OrderErrorState
   OrderErrorDispatch: Dispatch<OrderErrorAction> | undefined
-  isDevelopment: boolean
 }

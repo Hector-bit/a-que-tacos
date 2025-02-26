@@ -16,8 +16,7 @@ export const CartContext = createContext<CartContextType>({
   saveCustomerInfo: () => console.log('saving customer info'),
   customerInfo: { firstName: '', lastName: '',email: '', phoneNumber: '' },
   OrderErrorState: initialErrorMsgs,
-  OrderErrorDispatch: undefined,
-  isDevelopment: true
+  OrderErrorDispatch: undefined
 })
 
 const orderErrorReducer = ( state:OrderErrorState, action: OrderErrorAction) => {
@@ -55,7 +54,6 @@ export const CartProvider = ({ children }:any) => {
   const [cart, setCart] = useState<OrderItem[]>([])
   const [customerInfo, setCustomerInfo] = useState<CustomerInfoType>(initialCustomerInfo)
   const [OrderErrorState, OrderErrorDispatch] = useReducer(orderErrorReducer, initialErrorMsgs)
-  const isDevelopment = true
 
   const addToCart = (item:OrderItem) => {
     setCart([...cart, item])
@@ -110,7 +108,7 @@ export const CartProvider = ({ children }:any) => {
 
   return (
     <div>
-    <CartContext.Provider value={{ orderTotal, cart, addToCart, removeFromCart, clearCart, saveCustomerInfo, customerInfo, OrderErrorState, OrderErrorDispatch, isDevelopment }}>
+    <CartContext.Provider value={{ orderTotal, cart, addToCart, removeFromCart, clearCart, saveCustomerInfo, customerInfo, OrderErrorState, OrderErrorDispatch }}>
       {children}
     </CartContext.Provider>
     </div>

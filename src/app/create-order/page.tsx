@@ -32,7 +32,7 @@ export default function CreateOrderPage() {
   return (
     <>
       <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
-      <main className={`"flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px] ${MyCart?.isDevelopment?"border-2 border-white":""}`}>
+      <main className={`"flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px]`}>
         <div className="text-lg">{`NOTICE: We don't do delivery, sorry!`}</div>
         <div className="text-lg mb-8">Online ordering available in Everson only at this moment.</div>
 

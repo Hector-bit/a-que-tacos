@@ -101,7 +101,7 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
     return validatedFields.error.flatten().fieldErrors
   }
 
-  console.log('testing note')
+  // console.log('testing note')
 
 
   const formatData = {
@@ -127,7 +127,7 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
   // console.log('running on server', formatData)
   // return formatData
   await axios.post(
-    'https://sandbox.dev.clover.com/invoicingcheckoutservice/v1/checkouts',
+    `${process.env.CLOVER_BASE_URL}/invoicingcheckoutservice/v1/checkouts`,
     JSON.stringify(formatData),
     {
       headers: {
