@@ -4,7 +4,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const response = await fetch("https://sandbox.dev.clover.com/invoicingcheckoutservice/v1/checkouts", {
+    const response = await fetch(`${process.env.CLOVER_BASE_URL}/invoicingcheckoutservice/v1/checkouts`, {
       method: "POST",
       headers: { 
         'X-Clover-Merchant-ID': `${process.env.MERCHANT_ID}`, 
