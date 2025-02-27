@@ -81,17 +81,17 @@ export const menu_items:menuItemType[] = [
     sideOption: false,
     chooseAmount: false
   },
-  { 
-    menu_id: 18,
-    img: `${imgBase}/plateTamale3Final.webp`,
-    name: 'TAMALE_PLATE', 
-    price: 14.00,
-    description: 'Tamales, rice & beans',
-    ingredients: ['RICE', 'BEANS'],
-    choiceOfMeat: false,
-    sideOption: false,
-    chooseAmount: false
-  },
+  // { 
+  //   menu_id: 18,
+  //   img: `${imgBase}/plateTamale3Final.webp`,
+  //   name: 'TAMALE_PLATE', 
+  //   price: 14.00,
+  //   description: 'Tamales, rice & beans',
+  //   ingredients: ['RICE', 'BEANS'],
+  //   choiceOfMeat: false,
+  //   sideOption: false,
+  //   chooseAmount: false
+  // },
   { 
     menu_id: 6,
     img: `${imgBase}/platefish1Final.webp`,
@@ -147,39 +147,39 @@ export const menu_items:menuItemType[] = [
     sideOption: false,
     chooseAmount: false
   },
-  { 
-    menu_id: 11,
-    img: `${imgBase}/taco1Final.webp`,
-    name: 'TACO', 
-    price: 2.00,
-    description: 'Choice of meat, onions, cilantro',
-    ingredients: ['ONIONS', 'CILANTRO'],
-    choiceOfMeat: true,
-    sideOption: false,
-    chooseAmount: true
-  },
-  { 
-    menu_id: 13,
-    img: `${imgBase}/tacoVeggie1Final.webp`,
-    name: 'VEGGIE_TACO', 
-    price: 2.50,
-    description: 'Beans, rice, onions, cilantro, tomato, avocado',
-    ingredients: ['BEANS', 'RICE', 'LETTUCE', 'TOMATO', 'ONIONS', 'CILANTRO', 'AVOCADO'],
-    choiceOfMeat: false,
-    sideOption: false,
-    chooseAmount: true
-  },
-  { 
-    menu_id: 12,
-    img: `${imgBase}/tacoFish2Final.webp`,
-    name: 'FISH_TACO', 
-    price: 3.00,
-    description: 'Tilapia fish, sourcream, lettuce, pico de gallo',
-    ingredients: ['LETTUCE','PICO_DE_GALLO','SOURCREAM'],
-    choiceOfMeat: false,
-    sideOption: false,
-    chooseAmount: true
-  },
+  // { 
+  //   menu_id: 11,
+  //   img: `${imgBase}/taco1Final.webp`,
+  //   name: 'TACO', 
+  //   price: 2.00,
+  //   description: 'Choice of meat, onions, cilantro',
+  //   ingredients: ['ONIONS', 'CILANTRO'],
+  //   choiceOfMeat: true,
+  //   sideOption: false,
+  //   chooseAmount: true
+  // },
+  // { 
+  //   menu_id: 13,
+  //   img: `${imgBase}/tacoVeggie1Final.webp`,
+  //   name: 'VEGGIE_TACO', 
+  //   price: 2.50,
+  //   description: 'Beans, rice, onions, cilantro, tomato, avocado',
+  //   ingredients: ['BEANS', 'RICE', 'LETTUCE', 'TOMATO', 'ONIONS', 'CILANTRO', 'AVOCADO'],
+  //   choiceOfMeat: false,
+  //   sideOption: false,
+  //   chooseAmount: true
+  // },
+  // { 
+  //   menu_id: 12,
+  //   img: `${imgBase}/tacoFish2Final.webp`,
+  //   name: 'FISH_TACO', 
+  //   price: 3.00,
+  //   description: 'Tilapia fish, sourcream, lettuce, pico de gallo',
+  //   ingredients: ['LETTUCE','PICO_DE_GALLO','SOURCREAM'],
+  //   choiceOfMeat: false,
+  //   sideOption: false,
+  //   chooseAmount: true
+  // },
   { 
     menu_id: 15,
     img: `${imgBase}/ricebeans.webp`,

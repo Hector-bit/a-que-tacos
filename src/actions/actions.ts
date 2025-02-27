@@ -1,11 +1,15 @@
 'use server'
-import { string, z } from 'zod';
+import { boolean, string, z } from 'zod';
 import { redirect } from 'next/navigation';
 import { CloverInstance } from '@/app/axios';
 import axios, { AxiosResponse } from 'axios';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { MenuNameDictionary, IngredientDictionary } from '../../utils/constants';
 import { NextResponse } from "next/server"
+
+const clover_url = process.env.CLOVER_BASE_URL
+const merchant_id = process.env.MERCHANT_ID
+const hosted_token = process.env.API_KEY
 
 export type CustomerState = {
   errors?: {
@@ -131,16 +135,18 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
       "phoneNumber": customerData.phoneNumber
       }
   }
+
+  // console.log('LINE ITEMS', formatData.shoppingCart.lineItems)
   // console.log('running on server', formatData)
   // return formatData
   await axios.post(
-    `${process.env.CLOVER_BASE_URL}/invoicingcheckoutservice/v1/checkouts`,
+    `${clover_url}/invoicingcheckoutservice/v1/checkouts`,
     JSON.stringify(formatData),
     {
       headers: {
         'Content-Type': 'application/json',
-        'X-Clover-Merchant-ID': process.env.MERCHANT_ID, 
-        'Authorization': `Bearer ${process.env.API_KEY}`
+        'X-Clover-Merchant-ID': merchant_id, 
+        'Authorization': `Bearer ${hosted_token}`
       }
     }
     ).then ((res) => {
@@ -155,4 +161,19 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
   }) 
   
   redirect(link)
+}
+
+export const getIsOpen = async():Promise<boolean> => {
+  const res = await axios.get(
+    `${clover_url}/invoicingcheckoutservice/v1/checkouts`,
+    // JSON.stringify(formatData),
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Clover-Merchant-ID': merchant_id, 
+        'Authorization': `Bearer ${hosted_token}`
+      }
+    }
+  )
+  return false
 }

@@ -4,6 +4,7 @@ import { CartContext } from "@/context/orderContext";
 
 import { CartContextType, menuItemType } from "../../../utils/types";
 import { menu_items } from "../../../utils/constants";
+// import { getIsOpen } from "@/actions/helperFunctions";
 
 import OrderCard from "@/components/ordering/OrderCard";
 import ItemModal from "@/components/ordering/ItemModal";
@@ -14,6 +15,7 @@ export default function CreateOrderPage() {
   const [itemModal, setItemModal] = useState<boolean>(false) 
 
   const MyCart = useContext(CartContext)
+  // const currDay = getIsOpen()
 
   const handleMenuCardClick = (menuItem:menuItemType) => {
     // console.log('menu click: ', whatever)
@@ -26,7 +28,7 @@ export default function CreateOrderPage() {
   }
 
   // useEffect(() => {
-  //   console.log('DEVELOPMENT ENV: ', process.env.IS_DEVELOPMENT)
+  //   console.log('stuff', currDay, typeof(currDay))
   // },[])
 
   return (
