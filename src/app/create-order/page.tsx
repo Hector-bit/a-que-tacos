@@ -10,7 +10,9 @@ import OrderCard from "@/components/ordering/OrderCard";
 import ItemModal from "@/components/ordering/ItemModal";
 import BottomNav from "@/components/ordering/BottomNav";
 
+
 export default function CreateOrderPage() {
+  const onlineOrderingMaintence = process.env.NEXT_PUBLIC_ONLINE_ORDERING_FEAT
   const [menuItem, setMenuItem] = useState<menuItemType>(menu_items[0])
   const [itemModal, setItemModal] = useState<boolean>(false) 
 
@@ -34,7 +36,9 @@ export default function CreateOrderPage() {
   return (
     <>
       <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
-      <main className={`"flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px]`}>
+      {onlineOrderingMaintence === 'true' ? 
+        
+        <main className={`flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px]`}>
         <div className="text-lg">{`NOTICE: We don't do delivery, sorry!`}</div>
         <div className="text-lg mb-8">Online ordering available in Everson only at this moment.</div>
 
@@ -53,6 +57,12 @@ export default function CreateOrderPage() {
           </div>
         </div>
       </main>
+      
+      : 
+      (<div>
+        Sorry online ordering is under maintnence 
+      </div>)
+      }
       <BottomNav/>
     </>
   );

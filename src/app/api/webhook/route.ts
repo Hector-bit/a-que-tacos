@@ -10,7 +10,7 @@ const hosted_token = process.env.API_KEY || ""
 const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => {
   const sliced = str.slice(2)
   const spliced = sliced.split(',')
-  console.debug('TIMESTAMP: ', spliced[0], spliced)
+  // console.debug('TIMESTAMP: ', spliced[0], spliced)
   return { timeStamp: spliced[0], signature: spliced[0].slice(3)}
 }
 
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: 'posted print request'}, {status: 200})
       })
         .catch((err) => {
-          return NextResponse.json({ error: "could not post print request" }, { status: 500 });
+          return NextResponse.json({ error: `could not post print request: payment status${parsedBody.status}`}, { status: 500 });
         })
       // try {
         
