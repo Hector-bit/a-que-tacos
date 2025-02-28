@@ -11,27 +11,28 @@ export async function POST(req: NextRequest) {
   console.debug('ROUTE IS RUNNING')
   try {
     const body = await req.text();
-    console.debug('body ', body)
+    console.debug('body ', body, req)
     const signature = req.headers.get("clover-signature") || "";
 
     // ✅ Verify HMAC signature
     const expectedSignature = crypto.createHmac("sha256", WEBHOOK).update(body).digest("hex");
     if (signature !== expectedSignature) {
+      console.debug('WRONG SIGNING KEY')
       return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
     }
 
-    const parsedBody = JSON.parse(body)
+    const parsedBody = await JSON.parse(body)
 
     console.debug("Verified Webhook:", JSON.parse(body));
 
-    if(parsedBody.type === 'PAYMENT'){
+    if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
       console.debug('parsed: ', parsedBody)
       const printBody = {
         "orderRef": {
           "id": parsedBody.id
         }
       }
-      axios.post(
+      await axios.post(
         `${clover_url}/v3/merchants/${merchant_id}/print_event`,
         JSON.stringify(printBody),
         {
