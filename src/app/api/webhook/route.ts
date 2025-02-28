@@ -4,10 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 const WEBHOOK = process.env.WEBHOOK || "";
 
 export async function POST(req: NextRequest) {
-  console.log('ROUTE IS RUNNING')
+  console.debug('ROUTE IS RUNNING')
   try {
     const body = await req.text();
-    console.log('body ', body)
+    console.debug('body ', body)
     const signature = req.headers.get("clover-signature") || "";
 
     // ✅ Verify HMAC signature
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
     }
 
-    console.log("Verified Webhook:", JSON.parse(body));
+    console.debug("Verified Webhook:", JSON.parse(body));
 
     return NextResponse.json({ message: "Webhook processed" }, { status: 200 });
   } catch (error) {
