@@ -7,23 +7,23 @@ const clover_url = process.env.CLOVER_BASE_URL || ""
 const merchant_id = process.env.MERCHANT_ID || ""
 const hosted_token = process.env.API_KEY || ""
 
-const getTimeFromSig = (str: string){
+const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => {
   const sliced = str.slice(2)
   const spliced = sliced.split(',')
-  console.debug('TIMESTAMP: ', spliced[0], spliced)
-  return spliced[0]
+  // console.debug('TIMESTAMP: ', spliced[0], spliced)
+  return { timeStamp: spliced[0], signature: spliced[1].slice(3)}
 }
 
 export async function POST(req: NextRequest) {
   console.debug('ROUTE IS RUNNING')
   try {
     const body = await req.text();
-    console.debug('body ', body, req)
-    const signature = req.headers.get("clover-signature") || "";
+    console.debug('body ', body)
+    const signatureData = req.headers.get("clover-signature") || "";
 
     const parsedBody =JSON.parse(body)
 
-    const timeStamp = getTimeFromSig(signature)
+    const { timeStamp, signature } = getTimeFromSig(signatureData)
 
     const dateAndBody = `${timeStamp}.${body}`;
 
@@ -55,17 +55,12 @@ export async function POST(req: NextRequest) {
           }
         }
       ) .then((res) => {
+        console.debug('MADE IT TO THE END')
         return NextResponse.json({ message: 'posted print request'}, {status: 200})
       })
         .catch((err) => {
-          return NextResponse.json({ error: "could not post print request" }, { status: 500 });
+          return NextResponse.json({ error: `could not post print request: payment status${parsedBody.status}`}, { status: 500 });
         })
-      // try {
-        
-      // } catch {
-      //   //todo: have a fallback like a message to me or something
-      //   return NextResponse.json({ error: "Could not submit print request" }, { status: 500 });
-      // }
 
     }
 
