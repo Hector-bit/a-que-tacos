@@ -7,6 +7,13 @@ const clover_url = process.env.CLOVER_BASE_URL || ""
 const merchant_id = process.env.MERCHANT_ID || ""
 const hosted_token = process.env.API_KEY || ""
 
+const getTimeFromSig = (str: string){
+  const sliced = str.slice(2)
+  const spliced = sliced.split(',')
+  console.debug('TIMESTAMP: ', spliced[0], spliced)
+  return spliced[0]
+}
+
 export async function POST(req: NextRequest) {
   console.debug('ROUTE IS RUNNING')
   try {
@@ -14,15 +21,19 @@ export async function POST(req: NextRequest) {
     console.debug('body ', body, req)
     const signature = req.headers.get("clover-signature") || "";
 
+    const parsedBody =JSON.parse(body)
+
+    const timeStamp = getTimeFromSig(signature)
+
+    const dateAndBody = `${timeStamp}.${body}`;
+
     // ✅ Verify HMAC signature
-    const expectedSignature = crypto.createHmac("sha256", WEBHOOK).update(body).digest("hex");
+    const expectedSignature = crypto.createHmac("sha256", WEBHOOK).update(dateAndBody).digest("hex");
     console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
     if (signature !== expectedSignature) {
       console.debug('WRONG SIGNING KEY')
       return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
     }
-
-    const parsedBody = await JSON.parse(body)
 
     console.debug("Verified Webhook:", JSON.parse(body));
 
