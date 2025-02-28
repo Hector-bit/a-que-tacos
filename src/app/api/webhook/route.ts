@@ -1,7 +1,11 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
+import axios from "axios";
 
 const WEBHOOK = process.env.WEBHOOK || "";
+const clover_url = process.env.CLOVER_BASE_URL || ""
+const merchant_id = process.env.MERCHANT_ID || ""
+const hosted_token = process.env.API_KEY || ""
 
 export async function POST(req: NextRequest) {
   console.debug('ROUTE IS RUNNING')
@@ -16,7 +20,42 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
     }
 
+    const parsedBody = JSON.parse(body)
+
     console.debug("Verified Webhook:", JSON.parse(body));
+
+    if(parsedBody.type === 'PAYMENT'){
+      console.debug('parsed: ', parsedBody)
+      const printBody = {
+        "orderRef": {
+          "id": parsedBody.id
+        }
+      }
+      axios.post(
+        `${clover_url}/v3/merchants/${merchant_id}/print_event`,
+        JSON.stringify(printBody),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Clover-Merchant-ID': merchant_id, 
+            'Authorization': `Bearer ${hosted_token}`
+          }
+        }
+      ) .then((res) => {
+        return NextResponse.json({ message: 'posted print request'}, {status: 200})
+      })
+        .catch((err) => {
+          return NextResponse.json({ error: "could not post print request" }, { status: 500 });
+        })
+      // try {
+        
+      // } catch {
+      //   //todo: have a fallback like a message to me or something
+      //   return NextResponse.json({ error: "Could not submit print request" }, { status: 500 });
+      // }
+
+    }
+
 
     return NextResponse.json({ message: "Webhook processed" }, { status: 200 });
   } catch (error) {
