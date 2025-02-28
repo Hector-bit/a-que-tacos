@@ -119,6 +119,7 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
   // console.log('LINE ITEMS', formatData.shoppingCart.lineItems)
   // console.log('running on server', formatData)
   // return formatData
+  console.debug('post info: ', clover_url, merchant_id, hosted_token)
   await axios.post(
     `${clover_url}/invoicingcheckoutservice/v1/checkouts`,
     JSON.stringify(formatData),
