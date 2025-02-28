@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
 
     // ✅ Verify HMAC signature
     const expectedSignature = crypto.createHmac("sha256", WEBHOOK).update(body).digest("hex");
+    console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
     if (signature !== expectedSignature) {
       console.debug('WRONG SIGNING KEY')
       return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
