@@ -48,13 +48,16 @@ export default function CheckoutPage() {
       }
       <div className="flex flex-col gap-3">
         {cart.map(((order, index) => {
+          const meatChoice = order.meatChoice !== 'NOT_APPLICABLE' ? `(${ChoiceOfMeatEspanolDictionary[order.meatChoice]})` : ''
+
+
           return (
             <div key={`order-${order.orderItem}-${index}`} className="flex flex-row justify-between items-center">
               <div className="flex flex-col">
                 {/* BASIC ORDER INFORMATION  */}
                 <h2 className="flex flex-row text-xl gap-2">
-                  {order.meatChoice !== 'NOT_APPLICABLE' && <span>{ChoiceOfMeatEspanolDictionary[order.meatChoice]}</span>}
-                  <span>{MenuNameDictionary[order.orderItem]}</span>
+                  {/* {order.meatChoice !== 'NOT_APPLICABLE' && <span>{ChoiceOfMeatEspanolDictionary[order.meatChoice]}</span>} */}
+                  <span>{`${MenuNameDictionary[order.orderItem]} ${meatChoice}`}</span>
                   {order.amount > 1 && <span>(x{order.amount})</span>}
                   <span>| ${order.price.toFixed(2)}</span>
                 </h2>
