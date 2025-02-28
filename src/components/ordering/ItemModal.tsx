@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import Image from "next/image";
 import { ingredientsType, menuItemType, ChoiceOfMeatType } from "../../../utils/types";
-import { IngredientDictionary, MenuNameDictionary, ChoiceOfMeatEspanolDictionary } from "../../../utils/constants";
+import { IngredientDictionary, MenuNameDictionary, ChoiceOfMeatEspanolDictionary, itemToPriceObj } from "@utils/constants";
 import IngredientButton from "./IngredientButton";
 import { CartContext } from "@/context/orderContext";
 
@@ -72,14 +72,14 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
                 onClick={closeFn}
                 width={20} height={20} alt='price'
               /> */}
-              <div>${(foodItem.price * chooseAmount).toFixed(2)}</div>
+              <div>${((itemToPriceObj[foodItem.name]/100) * chooseAmount).toFixed(2)}</div>
             </div>
             <button 
               className={`${btn_one} bg-flagGreen`} 
               onClick={() => addToCart({ 
                 // order_id: cart.length+1, 
                 orderItem: foodItem.name, 
-                price: (foodItem.price * chooseAmount),
+                price: ((itemToPriceObj[foodItem.name]/100) * chooseAmount),
                 removeIngredients: removeIngredients,
                 amount: chooseAmount,
                 meatChoice: foodItem.choiceOfMeat? carne : 'NOT_APPLICABLE'

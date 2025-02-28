@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image"
 import { menuItemType } from "../../../utils/types"
-import { MenuNameDictionary } from "../../../utils/constants"
+import { MenuNameDictionary, itemToPriceObj } from "@utils/constants"
 
 interface OrderCardInterface {
   menuItem: menuItemType

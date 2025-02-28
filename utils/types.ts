@@ -26,7 +26,7 @@ export type menuItemType = {
   menu_id: number
   img: string;
   name: orderItemType
-  price: number
+  // price: number
   description: string
   ingredients: ingredientsType[]
   sideOption: boolean
@@ -46,6 +46,7 @@ export type orderItemType =
   'TORTA' |
   'QUESADILLA' |
   'TAMALE_PLATE' |
+  'ASADA_PLATE' |
   'FISH_PLATE' |
   'COMBO_PLATE' |
   'VEGGIE_COMBO_PLATE' |

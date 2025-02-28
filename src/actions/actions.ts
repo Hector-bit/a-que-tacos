@@ -6,6 +6,7 @@ import axios, { AxiosResponse } from 'axios';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { MenuNameDictionary, IngredientDictionary } from '../../utils/constants';
 import { NextResponse } from "next/server"
+import { itemToPriceObj } from '../../utils/constants';
 
 const clover_url = process.env.CLOVER_BASE_URL
 const merchant_id = process.env.MERCHANT_ID
@@ -47,28 +48,6 @@ const CustomerScheme = z.object({
   }).gt(0)
 });
 
-const itemToPrice = {
-  FISH_BURRITO: 1200,
-  SUPREME_BURRITO: 1200,
-  SUPREME_VEGGIE_BURRITO: 1200,
-  REGULAR_BURRITO: 900,
-  KIDS_BURRITO: 700,
-  TORTA: 900,
-  QUESADILLA: 1000,
-  TAMALE_PLATE: 1400,
-  FISH_PLATE: 1400,
-  COMBO_PLATE: 1000,
-  VEGGIE_COMBO_PLATE: 1200,
-  SALAD: 1300,
-  NACHOS: 1400,
-  TACO: 200,
-  VEGGIE_TACO: 250,
-  FISH_TACO: 300,
-  RICE_BEAN_PLATE: 700,
-  CHIPS_Y_PICO: 700,
-
-}
-
 const dummyData =  {
   "shoppingCart": {
   "lineItems": [
@@ -95,7 +74,7 @@ const dummyData =  {
 const CreateOrder = CustomerScheme.omit({})
 
 export const fetchCloverLink = async(cartData: OrderItem[], customerData: CustomerInfoType):Promise<ErrorState> => {
-
+  console.debug('start fetchclover link call')
   let link = 'undefined'
 
   const validatedFields = CreateOrder.safeParse({
@@ -106,7 +85,7 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
     cart: cartData.length
   })
 
-  // console.log('VALIDATED FIELDS:', validatedFields)
+  console.debug('VALIDATED FIELDS:', validatedFields)
 
   if(!validatedFields.success){
     // console.log('ERRORS', validatedFields.error)
@@ -121,7 +100,7 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
         return {
           "name": MenuNameDictionary[item.orderItem],
           "unitQty": item.amount,
-          "price": itemToPrice[item.orderItem],
+          "price": itemToPriceObj[item.orderItem],
           "note": "No: " + item.removeIngredients.map(ing => {
             return `${IngredientDictionary[ing]}`
           })
