@@ -7,11 +7,11 @@ const clover_url = process.env.CLOVER_BASE_URL || ""
 const merchant_id = process.env.MERCHANT_ID || ""
 const hosted_token = process.env.API_KEY || ""
 
-const getTimeFromSig = (str: string) => {
+const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => {
   const sliced = str.slice(2)
   const spliced = sliced.split(',')
   console.debug('TIMESTAMP: ', spliced[0], spliced)
-  return spliced[0]
+  return { timeStamp: spliced[0], signature: spliced[0].slice(3)}
 }
 
 export async function POST(req: NextRequest) {
@@ -19,11 +19,11 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.text();
     console.debug('body ', body, req)
-    const signature = req.headers.get("clover-signature") || "";
+    const signatureData = req.headers.get("clover-signature") || "";
 
     const parsedBody =JSON.parse(body)
 
-    const timeStamp = getTimeFromSig(signature)
+    const { timeStamp, signature } = getTimeFromSig(signatureData)
 
     const dateAndBody = `${timeStamp}.${body}`;
 
