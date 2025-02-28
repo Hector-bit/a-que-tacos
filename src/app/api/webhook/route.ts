@@ -7,7 +7,7 @@ const clover_url = process.env.CLOVER_BASE_URL || ""
 const merchant_id = process.env.MERCHANT_ID || ""
 const hosted_token = process.env.API_KEY || ""
 
-const getTimeFromSig = (str: string){
+const getTimeFromSig = (str: string) => {
   const sliced = str.slice(2)
   const spliced = sliced.split(',')
   console.debug('TIMESTAMP: ', spliced[0], spliced)
