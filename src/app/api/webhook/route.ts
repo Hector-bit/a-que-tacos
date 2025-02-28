@@ -11,14 +11,14 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
   const sliced = str.slice(2)
   const spliced = sliced.split(',')
   // console.debug('TIMESTAMP: ', spliced[0], spliced)
-  return { timeStamp: spliced[0], signature: spliced[0].slice(3)}
+  return { timeStamp: spliced[0], signature: spliced[1].slice(3)}
 }
 
 export async function POST(req: NextRequest) {
   console.debug('ROUTE IS RUNNING')
   try {
     const body = await req.text();
-    console.debug('body ', body, req)
+    console.debug('body ', body)
     const signatureData = req.headers.get("clover-signature") || "";
 
     const parsedBody =JSON.parse(body)
@@ -55,17 +55,12 @@ export async function POST(req: NextRequest) {
           }
         }
       ) .then((res) => {
+        console.debug('MADE IT TO THE END')
         return NextResponse.json({ message: 'posted print request'}, {status: 200})
       })
         .catch((err) => {
           return NextResponse.json({ error: `could not post print request: payment status${parsedBody.status}`}, { status: 500 });
         })
-      // try {
-        
-      // } catch {
-      //   //todo: have a fallback like a message to me or something
-      //   return NextResponse.json({ error: "Could not submit print request" }, { status: 500 });
-      // }
 
     }
 
