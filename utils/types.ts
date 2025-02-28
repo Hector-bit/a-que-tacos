@@ -13,7 +13,8 @@ export type ingredientsType =
   'PICO_DE_GALLO' |
   'CILANTRO' |
   'ONIONS' | 
-  'JALAPENOS'
+  'JALAPENOS' |
+  'TORTILLA'
 
 export type ChoiceOfMeatType = 
   'BEEF' | 

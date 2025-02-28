@@ -36,23 +36,14 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
     setRemoveIngredients(tempList)
   }
 
-  useEffect(() => {
-    console.log('cambio de carne: ', carne)
-  },[carne])
-
-  const optionValues: {[key:string]: ChoiceOfMeatType}[] = [{
-    'BEEF': 'BEEF',
-    'CHICKEN': 'CHICKEN',
-    'PORK': 'PORK',
-  }]
 
   return (
     isOpen && (
       <div className="fixed inset-0 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] h-fit w-[92%] max-w-[420px] border-2 border-black bg-primary rounded-3xl flex-col p-3">
         <div className="flex justify-between">
           <div className="text-2xl font-extrabold">
-            {foodItem.choiceOfMeat?`${ChoiceOfMeatEspanolDictionary[carne]} `:''}
             {MenuNameDictionary[foodItem.name]}
+            {foodItem.choiceOfMeat?` (${ChoiceOfMeatEspanolDictionary[carne]}) `:''}
           </div>
           <Image 
             className="cursor-pointer" 
@@ -92,7 +83,7 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
         <div className="mt-4 flex flex-row gap-3">
           {/* <form className="flex flex-row"> */}
             {foodItem.choiceOfMeat && 
-              <select onChange={(e) => setCarne(e.target.value as ChoiceOfMeatType)} className="p-2 rounded-xl" name="meat choice">
+              <select value={carne} onChange={(e) => setCarne(e.target.value as ChoiceOfMeatType)} className="p-2 rounded-xl" name="meat choice">
                 <option key={"BEEF"} value="BEEF">Beef</option>
                 <option key={"CHICKEN"} value="CHICKEN">Chicken</option>
                 <option key={"PORK"} value="PORK">Pork</option>

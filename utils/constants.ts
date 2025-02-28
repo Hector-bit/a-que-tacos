@@ -88,8 +88,8 @@ export const menu_items:menuItemType[] = [
     menu_id: 30,
     img: `${imgBase}/asada_plate.jpg`,
     name: 'ASADA_PLATE', 
-    description: 'Choice of meat, cheese, sourcream, pico de gallo, jalepenos',
-    ingredients: ['JALAPENOS', 'PICO_DE_GALLO', 'CHEESE', 'SOURCREAM'],
+    description: 'Choice of meat, rice, beans, onions, cilantro, tortilla',
+    ingredients: ['RICE', 'BEANS', 'ONIONS', 'CILANTRO', 'TORTILLA'],
     choiceOfMeat: true,
     sideOption: false,
     chooseAmount: false
@@ -250,6 +250,7 @@ export const order_items:any = {
 export const IngredientDictionary:{ [index:string]:string } = {
   'LETTUCE' : "Lettuce",
   'TOMATO' : "Tomato",
+  'TORTILLA' : "Tortilla",
   'RICE' : "Rice",
   'BEANS' : "Beans",
   'SOURCREAM' : "Sourcream",
@@ -261,7 +262,7 @@ export const IngredientDictionary:{ [index:string]:string } = {
 }
 
 export const ChoiceOfMeatEspanolDictionary:{ [index:string]:string } = {
-  'BEEF' : "Asade",
+  'BEEF' : "Asada",
   'CHICKEN' : "Pollo",
   'PORK' : "Al Pastor"
 }
