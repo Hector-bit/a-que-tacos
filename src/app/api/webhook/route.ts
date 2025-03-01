@@ -35,10 +35,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
     }
 
-    console.debug("Verified Webhook:", JSON.parse(body));
+    // console.debug("Verified Webhook:", JSON.parse(body));
 
     if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
-      console.debug('parsed: ', parsedBody)
+      // console.debug('parsed: ', parsedBody)
       const printBody = {
         "orderRef": {
           "id": parsedBody.id
@@ -59,6 +59,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: 'posted print request'}, {status: 200})
       })
         .catch((err) => {
+          console.debug('error printing', err)
           return NextResponse.json({ error: `could not post print request: payment status${parsedBody.status}`}, { status: 500 });
         })
 

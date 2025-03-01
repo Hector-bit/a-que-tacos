@@ -9,6 +9,7 @@ import { menu_items } from "../../../utils/constants";
 import OrderCard from "@/components/ordering/OrderCard";
 import ItemModal from "@/components/ordering/ItemModal";
 import BottomNav from "@/components/ordering/BottomNav";
+import MaintenanceWrapper from "@/components/wrappers/Maintenancewrappers";
 
 
 export default function CreateOrderPage() {
@@ -34,7 +35,7 @@ export default function CreateOrderPage() {
   // },[])
 
   return (
-    <>
+    <MaintenanceWrapper>
       <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
       {onlineOrderingMaintence === 'true' ? 
         
@@ -64,6 +65,6 @@ export default function CreateOrderPage() {
       </div>)
       }
       <BottomNav/>
-    </>
+    </MaintenanceWrapper>
   );
 }

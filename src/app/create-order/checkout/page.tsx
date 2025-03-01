@@ -6,6 +6,8 @@ import { CartContext } from "@/context/orderContext"
 import { CartContextType, CustomerInfoType } from "../../../../utils/types"
 import { MenuNameDictionary, IngredientDictionary, ChoiceOfMeatEspanolDictionary, ChoiceOfMeatEnglishDictionary } from "../../../../utils/constants"
 import { fetchCloverLink } from "@/actions/actions"
+import MaintenanceWrapper from "@/components/wrappers/Maintenancewrappers"
+
 
 const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-100 text-white'
 
@@ -21,7 +23,7 @@ export default function CheckoutPage() {
   // },[errorMessages])
 
   return (
-    onlineOrderingMaintence === 'true' ?
+    <MaintenanceWrapper>
       <div className="flex flex-col p-3">
         <Link href={"/create-order"}>
           <Image className="" src={"/assets/ui/returnArrow.svg"} alt={"return to ordering"} height={40} width={40}/>
@@ -199,8 +201,6 @@ export default function CheckoutPage() {
           </div>
         </div>
       </div>
-      :
-      <div></div>
-    
+    </MaintenanceWrapper>
   )
 }
