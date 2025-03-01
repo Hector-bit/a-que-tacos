@@ -37,8 +37,6 @@ export default function CreateOrderPage() {
   return (
     <MaintenanceWrapper>
       <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
-      {onlineOrderingMaintence === 'true' ? 
-        
         <main className={`flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px]`}>
         <div className="text-lg">{`NOTICE: We don't do delivery, sorry!`}</div>
         <div className="text-lg mb-8">Online ordering available in Everson only at this moment.</div>
@@ -58,12 +56,6 @@ export default function CreateOrderPage() {
           </div>
         </div>
       </main>
-      
-      : 
-      (<div>
-        Sorry online ordering is under maintnence 
-      </div>)
-      }
       <BottomNav/>
     </MaintenanceWrapper>
   );
