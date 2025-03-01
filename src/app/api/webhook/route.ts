@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: 'posted print request'}, {status: 200})
       })
         .catch((err) => {
-          console.debug('error printing')
+          console.debug('error printing', err)
           return NextResponse.json({ error: `could not post print request: payment status${parsedBody.status}`}, { status: 500 });
         })
 
