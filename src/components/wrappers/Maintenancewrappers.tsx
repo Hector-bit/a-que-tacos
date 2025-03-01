@@ -7,17 +7,17 @@ type MaintenanceWrapperInterface = {
 
 const MaintenanceWrapper = ({ children }:MaintenanceWrapperInterface) => {
 
-  const isMaintenance = process.env.NEXT_PUBLIC_ONLINE_ORDERING_FEAT
+  const onlineOrderingFeature = process.env.NEXT_PUBLIC_ONLINE_ORDERING_FEAT
 
-  console.log('IS MAINTENANCE: ', isMaintenance, typeof(isMaintenance), (isMaintenance === 'true'))
+  // console.log('IS MAINTENANCE: ', isMaintenance, typeof(isMaintenance), (isMaintenance === 'true'))
 
   return (
-    isMaintenance == 'true' ?
+    onlineOrderingFeature == 'true' ?
+    <>{children}</>
+    :
     <div>
       Sorry online ordering is under maintnence 
     </div>
-    :
-    <>{children}</>
   )
 }
 
