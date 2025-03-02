@@ -18,7 +18,9 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
 }
 
 const getOrderId = async(requestUrl: string) => {
+  console.debug('STARTING DELAY')
   await delay(15000)
+  console.debug('after delay', requestUrl)
   let fetchOrderId = await axios.get(
     requestUrl,
     {
@@ -35,7 +37,7 @@ const getOrderId = async(requestUrl: string) => {
       return NextResponse.json({ error: `could not get order id`}, { status: err.status });
   })
 
-  console.log('order id request data: ', fetchOrderId)
+  console.debug('order id request data: ', fetchOrderId.data)
 
   // REQUEST CLOVER MACHINE TO PRINT RECIEPT
   requestPrint(fetchOrderId.data.order.id)
@@ -97,7 +99,7 @@ export async function POST(req: NextRequest) {
       console.debug('id', parsedBody.id)
 
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
-      console.log('request url:', requestUrl)
+      console.debug('request url:', requestUrl)
 
       getOrderId(requestUrl)
       // console.log('what is this', orderId)
