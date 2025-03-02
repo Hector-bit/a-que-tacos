@@ -7,6 +7,10 @@ const clover_url = process.env.CLOVER_BASE_URL || ""
 const merchant_id = process.env.MERCHANT_ID || ""
 const hosted_token = process.env.API_KEY || ""
 
+function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => {
   const sliced = str.slice(2)
   const spliced = sliced.split(',')
@@ -41,6 +45,8 @@ export async function POST(req: NextRequest) {
       console.debug('parsed', parsedBody)
       console.debug('id', parsedBody.id)
 
+      await delay(5000)
+
       let fetchOrderId = await axios.get(
         `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`,
         {
@@ -56,7 +62,7 @@ export async function POST(req: NextRequest) {
       })
         .catch((err) => {
           console.debug('error fetching order id', err)
-          return NextResponse.json({ error: `could not post print request: payment status`}, { status: 500 });
+          return NextResponse.json({ error: `could not get order id`}, { status: 500 });
       })
 
 
