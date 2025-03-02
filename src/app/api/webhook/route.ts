@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     console.debug('body ', body)
     const signatureData = req.headers.get("clover-signature") || "";
 
-    const parsedBody =JSON.parse(body)
+    const parsedBody = JSON.parse(body)
 
     const { timeStamp, signature } = getTimeFromSig(signatureData)
 
@@ -38,7 +38,8 @@ export async function POST(req: NextRequest) {
     // console.debug("Verified Webhook:", JSON.parse(body));
 
     if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
-      // console.debug('parsed: ', parsedBody)
+      console.debug('parsed', parsedBody)
+      console.debug('id', parsedBody.id)
 
       let fetchOrderId = await axios.get(
         `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`,
@@ -55,7 +56,7 @@ export async function POST(req: NextRequest) {
       })
         .catch((err) => {
           console.debug('error fetching order id', err)
-          return NextResponse.json({ error: `could not post print request: payment status${parsedBody.status}`}, { status: 500 });
+          return NextResponse.json({ error: `could not post print request: payment status`}, { status: 500 });
       })
 
 
