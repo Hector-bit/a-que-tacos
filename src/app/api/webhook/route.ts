@@ -67,7 +67,7 @@ const requestPrint = async(orderId: string) => {
   })
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   console.debug('ROUTE IS RUNNING')
   try {
     // Data from webhook 
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     NextResponse.json({ message: "Processing in background" }, { status: 200 });
-    await delay(20000)
+    await delay(15000)
     // PAYMENT IS APPROVED GET TO PRINTING THE RECIEPT ON THE CLOVER MAHCINE
     if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
       console.debug('parsed', parsedBody)
@@ -103,7 +103,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 
       // REQUEST CLOVER MACHINE TO PRINT RECIEPT
-      requestPrint(orderId)
+      await requestPrint(orderId)
 
     }
 
