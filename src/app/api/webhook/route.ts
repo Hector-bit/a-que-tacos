@@ -31,7 +31,7 @@ const getOrderId = async(requestUrl: string) => {
   })
     .catch((err) => {
       console.debug('error fetching order id', err)
-      return NextResponse.json({ error: `could not get order id`}, { status: 500 });
+      return NextResponse.json({ error: `could not get order id`}, { status: err.status });
   })
 
   console.log('order id request data: ', fetchOrderId)
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
       console.debug('parsed', parsedBody)
       console.debug('id', parsedBody.id)
 
-      await delay(8500)
+      await delay(9500)
 
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       console.log('request url:', requestUrl)
