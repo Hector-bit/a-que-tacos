@@ -41,21 +41,21 @@ export async function POST(req: NextRequest) {
 
     // console.debug("Verified Webhook:", JSON.parse(body));
 
+    // PAYMENT IS APPROVED GET TO PRINTING THE RECIEPT ON THE CLOVER MAHCINE
     if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
       console.debug('parsed', parsedBody)
       console.debug('id', parsedBody.id)
 
-      await delay(5000)
+      await delay(15000)
 
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       console.log('request url:', requestUrl)
 
+      // GETTING THE ORDER ID FIRST BY USING THE PAYMENT ID
       let fetchOrderId = await axios.get(
         requestUrl,
         {
           headers: {
-            'Content-Type': 'application/json',
-            'X-Clover-Merchant-ID': merchant_id, 
             'Authorization': `Bearer ${hosted_token}`
           }
         }
@@ -68,6 +68,8 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({ error: `could not get order id`}, { status: 500 });
       })
 
+      console.log('what is this', fetchOrderId)
+
 
       const printBody = {
         "orderRef": {
@@ -75,6 +77,7 @@ export async function POST(req: NextRequest) {
         }
       }
 
+      // REQUEST CLOVER MACHINE TO PRINT RECIEPT
       await axios.post(
         `${clover_url}/v3/merchants/${merchant_id}/print_event`,
         JSON.stringify(printBody),
