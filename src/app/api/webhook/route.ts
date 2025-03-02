@@ -7,10 +7,6 @@ const clover_url = process.env.CLOVER_BASE_URL || ""
 const merchant_id = process.env.MERCHANT_ID || ""
 const hosted_token = process.env.API_KEY || ""
 
-function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => {
   const sliced = str.slice(2)
   const spliced = sliced.split(',')
@@ -19,7 +15,7 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
 
 const getOrderId = async(requestUrl: string) => {
   console.debug('STARTING DELAY')
-  await delay(5000)
+  // await new Promise(resolve => setTimeout(resolve, 9000));
   console.debug('after delay', requestUrl)
   let fetchOrderId = await axios.get(
     requestUrl,
