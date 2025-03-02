@@ -19,7 +19,7 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
 
 const getOrderId = async(requestUrl: string) => {
   console.debug('STARTING DELAY')
-  await delay(15000)
+  await delay(5000)
   console.debug('after delay', requestUrl)
   let fetchOrderId = await axios.get(
     requestUrl,
