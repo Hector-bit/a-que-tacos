@@ -47,8 +47,11 @@ export async function POST(req: NextRequest) {
 
       await delay(5000)
 
+      const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
+      console.log('request url:', requestUrl)
+
       let fetchOrderId = await axios.get(
-        `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`,
+        requestUrl,
         {
           headers: {
             'Content-Type': 'application/json',
