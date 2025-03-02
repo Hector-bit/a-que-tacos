@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
       console.debug('parsed', parsedBody)
       console.debug('id', parsedBody.id)
 
-      await delay(9500)
+      await delay(9000)
 
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       console.log('request url:', requestUrl)
