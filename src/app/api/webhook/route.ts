@@ -87,13 +87,12 @@ export async function POST(req: NextRequest) {
     }
 
     NextResponse.json({ message: "Processing in background" }, { status: 200 });
-    await delay(15000)
     // PAYMENT IS APPROVED GET TO PRINTING THE RECIEPT ON THE CLOVER MAHCINE
     if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
       console.debug('parsed', parsedBody)
       console.debug('id', parsedBody.id)
 
-      // await delay(6500)
+      await delay(7000)
 
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       console.log('request url:', requestUrl)
@@ -103,7 +102,7 @@ export async function POST(req: NextRequest) {
 
 
       // REQUEST CLOVER MACHINE TO PRINT RECIEPT
-      await requestPrint(orderId)
+      requestPrint(orderId)
 
     }
 
