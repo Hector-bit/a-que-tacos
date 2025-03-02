@@ -39,11 +39,32 @@ export async function POST(req: NextRequest) {
 
     if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
       // console.debug('parsed: ', parsedBody)
+
+      let fetchOrderId = await axios.get(
+        `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Clover-Merchant-ID': merchant_id, 
+            'Authorization': `Bearer ${hosted_token}`
+          }
+        }
+      ) .then((res) => {
+        console.debug('getting order id', res.data)
+        return res.data
+      })
+        .catch((err) => {
+          console.debug('error fetching order id', err)
+          return NextResponse.json({ error: `could not post print request: payment status${parsedBody.status}`}, { status: 500 });
+      })
+
+
       const printBody = {
         "orderRef": {
-          "id": parsedBody.id
+          "id": fetchOrderId.order.id
         }
       }
+
       await axios.post(
         `${clover_url}/v3/merchants/${merchant_id}/print_event`,
         JSON.stringify(printBody),
@@ -61,7 +82,7 @@ export async function POST(req: NextRequest) {
         .catch((err) => {
           console.debug('error printing', err)
           return NextResponse.json({ error: `could not post print request: payment status${parsedBody.status}`}, { status: 500 });
-        })
+      })
 
     }
 
