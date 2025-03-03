@@ -15,7 +15,7 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
 
 const getOrderId = async(requestUrl: string) => {
   console.debug('STARTING DELAY')
-  // await new Promise(resolve => setTimeout(resolve, 9000));
+  await new Promise(resolve => setTimeout(resolve, 5000));
   console.debug('after delay', requestUrl)
   let fetchOrderId = await axios.get(
     requestUrl,
@@ -25,8 +25,8 @@ const getOrderId = async(requestUrl: string) => {
       }
     }
   ) .then((res) => {
-    console.debug('getting order id', res.data)
-    return res.data
+      console.debug('getting order id', res.data)
+      return res.data
   })
     .catch((err) => {
       console.debug('error fetching order id', err)
@@ -43,6 +43,7 @@ const getOrderId = async(requestUrl: string) => {
 
 // REQUEST CLOVER MACHINE TO PRINT RECIEPT
 const requestPrint = async(orderId: string) => {
+  console.debug('starting print request', orderId)
   const printBody = {
     "orderRef": {
       "id": orderId
@@ -60,8 +61,8 @@ const requestPrint = async(orderId: string) => {
       }
     }
   ) .then((res) => {
-    console.debug('MADE IT TO THE END')
-    return NextResponse.json({ message: 'posted print request'}, {status: 200})
+      console.debug('MADE IT TO THE END', res)
+      return NextResponse.json({ message: 'posted print request'}, {status: 200})
   })
     .catch((err) => {
       console.debug('error printing', err)
