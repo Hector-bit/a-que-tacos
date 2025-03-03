@@ -13,33 +13,65 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
   return { timeStamp: spliced[0], signature: spliced[1].slice(3)}
 }
 
-const getOrderId = async(requestUrl: string) => {
-  console.debug('STARTING DELAY: ', requestUrl)
+// const getOrderId = async(requestUrl: string) => {
+//   console.debug('STARTING DELAY: ', requestUrl)
+//   // await new Promise(resolve => setTimeout(resolve, 5000));
+//   console.debug('after delay', requestUrl)
+//   let fetchOrderId = await axios.get(
+//     requestUrl,
+//     {
+//       headers: {
+//         'Authorization': `Bearer ${hosted_token}`
+//       }
+//     }
+//   ).then((res) => {
+//     console.debug('getting order id', res.data)
+//     return res.data
+//   })
+//   .catch((err) => {
+//     console.debug('error fetching order id', err)
+//     return NextResponse.json({ error: `could not get order id`}, { status: err.status });
+//   })
+
+//   console.debug('order id request data: ', fetchOrderId.order.id)
+
+//   // REQUEST CLOVER MACHINE TO PRINT RECIEPT
+//   requestPrint(fetchOrderId.order.id)
+
+//   return fetchOrderId.data.order.id
+// } 
+
+const getOrderId = async (requestUrl: string) => {
+  console.debug('STARTING DELAY: ', requestUrl);
   // await new Promise(resolve => setTimeout(resolve, 5000));
-  console.debug('after delay', requestUrl)
-  let fetchOrderId = await axios.get(
-    requestUrl,
-    {
+  console.debug('after delay', requestUrl);
+
+  try {
+    const response = await fetch(requestUrl, {
+      method: 'GET',
       headers: {
         'Authorization': `Bearer ${hosted_token}`
       }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-  ).then((res) => {
-    console.debug('getting order id', res.data)
-    return res.data
-  })
-  .catch((err) => {
-    console.debug('error fetching order id', err)
-    return NextResponse.json({ error: `could not get order id`}, { status: err.status });
-  })
 
-  console.debug('order id request data: ', fetchOrderId.order.id)
+    const fetchOrderId = await response.json();
+    console.debug('getting order id', fetchOrderId);
 
-  // REQUEST CLOVER MACHINE TO PRINT RECIEPT
-  requestPrint(fetchOrderId.order.id)
+    console.debug('order id request data: ', fetchOrderId.order.id);
 
-  return fetchOrderId.data.order.id
-} 
+    // REQUEST CLOVER MACHINE TO PRINT RECEIPT
+    requestPrint(fetchOrderId.order.id);
+
+    return fetchOrderId.order.id;
+  } catch (err:any) {
+    console.debug('error fetching order id', err);
+    return NextResponse.json({ error: `could not get order id` }, { status: err instanceof Error ? 500 : err.status });
+  }
+};
 
 // REQUEST CLOVER MACHINE TO PRINT RECIEPT
 const requestPrint = async(orderId: string) => {
