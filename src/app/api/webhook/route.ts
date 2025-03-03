@@ -14,8 +14,8 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
 }
 
 const getOrderId = async(requestUrl: string) => {
-  console.debug('STARTING DELAY')
-  await new Promise(resolve => setTimeout(resolve, 5000));
+  console.debug('STARTING DELAY: ', requestUrl)
+  // await new Promise(resolve => setTimeout(resolve, 5000));
   console.debug('after delay', requestUrl)
   let fetchOrderId = await axios.get(
     requestUrl,
@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
     // PAYMENT IS APPROVED GET TO PRINTING THE RECIEPT ON THE CLOVER MAHCINE
     if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
       console.debug('parsed', parsedBody)
-      console.debug('id', parsedBody.id)
+      console.debug('payment id', parsedBody.id)
 
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       console.debug('request url:', requestUrl)
