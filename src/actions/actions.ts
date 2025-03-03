@@ -166,14 +166,18 @@ export const waitToRunNextRoute = async(requestUrl: string) => {
   console.debug('site url: ', siteUrl)
 
   // await new Promise(resolve => setTimeout(resolve, 10000));
-
-  fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ url: requestUrl })
-  })
+  try {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: requestUrl })
+    })
+    return NextResponse.json({ message: 'made fetch to printOrder '}, { status: 200 })
+  } catch(err) {
+    return NextResponse.json({ message: 'could not call printOrder'}, { status: 500 })
+  }
 }
 
 export const getOrderId = async (requestUrl: string) => {
