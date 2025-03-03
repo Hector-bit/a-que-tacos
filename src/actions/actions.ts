@@ -2,6 +2,7 @@
 import { boolean, string, z } from 'zod';
 import { redirect } from 'next/navigation';
 import { CloverInstance } from '@/app/axios';
+import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { MenuNameDictionary, IngredientDictionary, itemToPriceObj, ChoiceOfMeatEspanolDictionary } from '@utils/constants';
@@ -157,4 +158,65 @@ export const getIsOpen = async():Promise<boolean> => {
     }
   )
   return false
+}
+
+export const getOrderId = async (requestUrl: string) => {
+  console.debug('STARTING DELAY: ', requestUrl);
+  // await new Promise(resolve => setTimeout(resolve, 5000));
+  console.debug('after delay', requestUrl);
+
+  try {
+    const response = await fetch(requestUrl, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${hosted_token}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const fetchOrderId = await response.json();
+    console.debug('getting order id', fetchOrderId);
+
+    console.debug('order id request data: ', fetchOrderId.order.id);
+
+    // REQUEST CLOVER MACHINE TO PRINT RECEIPT
+    requestPrint(fetchOrderId.order.id);
+
+    return fetchOrderId.order.id;
+  } catch (err:any) {
+    console.debug('error fetching order id', err);
+    return NextResponse.json({ error: `could not get order id` }, { status: err instanceof Error ? 500 : err.status });
+  }
+};
+
+// REQUEST CLOVER MACHINE TO PRINT RECIEPT
+export const requestPrint = async(orderId: string) => {
+  console.debug('starting print request', orderId)
+  const printBody = {
+    "orderRef": {
+      "id": orderId
+    }
+  }
+
+  axios.post(
+    `${clover_url}/v3/merchants/${merchant_id}/print_event`,
+    JSON.stringify(printBody),
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Clover-Merchant-ID': merchant_id, 
+        'Authorization': `Bearer ${hosted_token}`
+      }
+    }
+  ) .then((res) => {
+      console.debug('MADE IT TO THE END', res)
+      return NextResponse.json({ message: 'posted print request'}, {status: 200})
+  })
+    .catch((err) => {
+      console.debug('error printing', err.response)
+      return NextResponse.json({ error: `could not post print request`}, { status: 500 });
+  })
 }

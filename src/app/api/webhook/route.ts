@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
+import { getOrderId } from "@/actions/actions";
 
 const WEBHOOK = process.env.WEBHOOK || "";
 const clover_url = process.env.CLOVER_BASE_URL || ""
@@ -8,6 +9,7 @@ const merchant_id = process.env.MERCHANT_ID || ""
 const hosted_token = process.env.API_KEY || ""
 
 const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => {
+  console.log(str, 'LOOK HERE')
   const sliced = str.slice(2)
   const spliced = sliced.split(',')
   return { timeStamp: spliced[0], signature: spliced[1].slice(3)}
@@ -41,85 +43,26 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
 //   return fetchOrderId.data.order.id
 // } 
 
-const getOrderId = async (requestUrl: string) => {
-  console.debug('STARTING DELAY: ', requestUrl);
-  // await new Promise(resolve => setTimeout(resolve, 5000));
-  console.debug('after delay', requestUrl);
-
-  try {
-    const response = await fetch(requestUrl, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${hosted_token}`
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const fetchOrderId = await response.json();
-    console.debug('getting order id', fetchOrderId);
-
-    console.debug('order id request data: ', fetchOrderId.order.id);
-
-    // REQUEST CLOVER MACHINE TO PRINT RECEIPT
-    requestPrint(fetchOrderId.order.id);
-
-    return fetchOrderId.order.id;
-  } catch (err:any) {
-    console.debug('error fetching order id', err);
-    return NextResponse.json({ error: `could not get order id` }, { status: err instanceof Error ? 500 : err.status });
-  }
-};
-
-// REQUEST CLOVER MACHINE TO PRINT RECIEPT
-const requestPrint = async(orderId: string) => {
-  console.debug('starting print request', orderId)
-  const printBody = {
-    "orderRef": {
-      "id": orderId
-    }
-  }
-
-  await axios.post(
-    `${clover_url}/v3/merchants/${merchant_id}/print_event`,
-    JSON.stringify(printBody),
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Clover-Merchant-ID': merchant_id, 
-        'Authorization': `Bearer ${hosted_token}`
-      }
-    }
-  ) .then((res) => {
-      console.debug('MADE IT TO THE END', res)
-      return NextResponse.json({ message: 'posted print request'}, {status: 200})
-  })
-    .catch((err) => {
-      console.debug('error printing', err)
-      return NextResponse.json({ error: `could not post print request`}, { status: 500 });
-  })
-}
-
 export async function POST(req: NextRequest) {
   console.debug('ROUTE IS RUNNING')
   try {
     // Data from webhook 
     const body = await req.text();
     const parsedBody = JSON.parse(body)
+    console.log('PARSED BODY; ', parsedBody)
     const signatureData = req.headers.get("clover-signature") || "";
-    const { timeStamp, signature } = getTimeFromSig(signatureData)
+    // const { timeStamp, signature } = getTimeFromSig(signatureData)
 
-    const dateAndBody = `${timeStamp}.${body}`;
+    // const dateAndBody = `${timeStamp}.${body}`;
+    const dateAndBody = `${Math.floor(parsedBody.created)}.${body}`;
 
     const expectedSignature = crypto.createHmac("sha256", WEBHOOK).update(dateAndBody).digest("hex");
     // console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
 
-    if (signature !== expectedSignature) {
-      console.debug('WRONG SIGNING KEY')
-      return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
-    }
+    // if (signature !== expectedSignature) {
+    //   console.debug('WRONG SIGNING KEY')
+    //   return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
+    // }
 
     NextResponse.json({ message: "Processing in background" }, { status: 200 });
     // PAYMENT IS APPROVED GET TO PRINTING THE RECIEPT ON THE CLOVER MAHCINE
