@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import { getOrderId } from "@/actions/actions";
+import { getOrderId, requestPrint } from "@/actions/actions";
 
 const WEBHOOK = process.env.WEBHOOK || "";
 const clover_url = process.env.CLOVER_BASE_URL || ""
@@ -51,18 +51,17 @@ export async function POST(req: NextRequest) {
     const parsedBody = JSON.parse(body)
     console.log('PARSED BODY; ', parsedBody)
     const signatureData = req.headers.get("clover-signature") || "";
-    // const { timeStamp, signature } = getTimeFromSig(signatureData)
+    const { timeStamp, signature } = getTimeFromSig(signatureData)
 
-    // const dateAndBody = `${timeStamp}.${body}`;
-    const dateAndBody = `${Math.floor(parsedBody.created)}.${body}`;
+    const dateAndBody = `${timeStamp}.${body}`;
 
     const expectedSignature = crypto.createHmac("sha256", WEBHOOK).update(dateAndBody).digest("hex");
     // console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
 
-    // if (signature !== expectedSignature) {
-    //   console.debug('WRONG SIGNING KEY')
-    //   return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
-    // }
+    if (signature !== expectedSignature) {
+      console.debug('WRONG SIGNING KEY')
+      return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
+    }
 
     NextResponse.json({ message: "Processing in background" }, { status: 200 });
     // PAYMENT IS APPROVED GET TO PRINTING THE RECIEPT ON THE CLOVER MAHCINE
@@ -73,8 +72,9 @@ export async function POST(req: NextRequest) {
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       console.debug('request url:', requestUrl)
 
-      getOrderId(requestUrl)
+      let clientOrderId = await getOrderId(requestUrl)
       // console.log('what is this', orderId)
+      requestPrint(clientOrderId)
 
     }
 

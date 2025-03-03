@@ -216,7 +216,7 @@ export const requestPrint = async(orderId: string) => {
       return NextResponse.json({ message: 'posted print request'}, {status: 200})
   })
     .catch((err) => {
-      console.debug('error printing', err.response)
+      console.debug('error printing', err.response.data)
       return NextResponse.json({ error: `could not post print request`}, { status: 500 });
   })
 }
