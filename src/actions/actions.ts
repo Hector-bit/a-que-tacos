@@ -165,7 +165,7 @@ export const waitToRunNextRoute = async(requestUrl: string) => {
   const siteUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`
   console.debug('site url: ', siteUrl)
 
-  await new Promise(resolve => setTimeout(resolve, 10000));
+  // await new Promise(resolve => setTimeout(resolve, 10000));
 
   fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`, {
     method: 'POST',
