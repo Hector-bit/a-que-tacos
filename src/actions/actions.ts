@@ -161,9 +161,9 @@ export const getIsOpen = async():Promise<boolean> => {
 }
 
 export const getOrderId = async (requestUrl: string) => {
-  console.debug('STARTING DELAY: ', requestUrl);
+  console.debug('STARTING GET REQ: ', requestUrl);
   // await new Promise(resolve => setTimeout(resolve, 5000));
-  console.debug('after delay', requestUrl);
+  // console.debug('after delay', requestUrl);
 
   try {
     const response = await fetch(requestUrl, {
@@ -183,7 +183,7 @@ export const getOrderId = async (requestUrl: string) => {
     console.debug('order id request data: ', fetchOrderId.order.id);
 
     // REQUEST CLOVER MACHINE TO PRINT RECEIPT
-    requestPrint(fetchOrderId.order.id);
+    // requestPrint(fetchOrderId.order.id);
 
     return fetchOrderId.order.id;
   } catch (err:any) {

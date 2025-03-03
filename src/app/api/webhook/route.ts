@@ -15,34 +15,6 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
   return { timeStamp: spliced[0], signature: spliced[1].slice(3)}
 }
 
-// const getOrderId = async(requestUrl: string) => {
-//   console.debug('STARTING DELAY: ', requestUrl)
-//   // await new Promise(resolve => setTimeout(resolve, 5000));
-//   console.debug('after delay', requestUrl)
-//   let fetchOrderId = await axios.get(
-//     requestUrl,
-//     {
-//       headers: {
-//         'Authorization': `Bearer ${hosted_token}`
-//       }
-//     }
-//   ).then((res) => {
-//     console.debug('getting order id', res.data)
-//     return res.data
-//   })
-//   .catch((err) => {
-//     console.debug('error fetching order id', err)
-//     return NextResponse.json({ error: `could not get order id`}, { status: err.status });
-//   })
-
-//   console.debug('order id request data: ', fetchOrderId.order.id)
-
-//   // REQUEST CLOVER MACHINE TO PRINT RECIEPT
-//   requestPrint(fetchOrderId.order.id)
-
-//   return fetchOrderId.data.order.id
-// } 
-
 export async function POST(req: NextRequest) {
   console.debug('ROUTE IS RUNNING')
   try {
@@ -70,10 +42,11 @@ export async function POST(req: NextRequest) {
       console.debug('payment id', parsedBody.id)
 
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
-      console.debug('request url:', requestUrl)
+      // console.debug('request url:', requestUrl)
 
       let clientOrderId = await getOrderId(requestUrl)
       // console.log('what is this', orderId)
+      console.debug('client order id', clientOrderId)
       requestPrint(clientOrderId)
 
     }
