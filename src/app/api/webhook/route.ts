@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import { getOrderId, requestPrint } from "@/actions/actions";
+import { getOrderId, requestPrint, waitToRunNextRoute } from "@/actions/actions";
 
 const WEBHOOK = process.env.WEBHOOK || "";
 const clover_url = process.env.CLOVER_BASE_URL || ""
@@ -44,12 +44,14 @@ export async function POST(req: NextRequest) {
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       // console.debug('request url:', requestUrl)
 
-      await new Promise(resolve => setTimeout(resolve, 20000));
+      // await new Promise(resolve => setTimeout(resolve, 20000));
 
-      const clientOrderId = await getOrderId(requestUrl)
+      waitToRunNextRoute(requestUrl)
+
+      // const clientOrderId = await getOrderId(requestUrl)
+      // requestPrint(clientOrderId)
       // console.log('what is this', orderId)
       // console.debug('client order id', clientOrderId)
-      requestPrint(clientOrderId)
 
     }
 

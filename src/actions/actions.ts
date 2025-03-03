@@ -160,10 +160,26 @@ export const getIsOpen = async():Promise<boolean> => {
   return false
 }
 
+export const waitToRunNextRoute = async(requestUrl: string) => {
+
+  const siteUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`
+  console.debug('site url: ', siteUrl)
+
+  await new Promise(resolve => setTimeout(resolve, 10000));
+
+  fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ url: requestUrl })
+  })
+}
+
 export const getOrderId = async (requestUrl: string) => {
   console.debug('STARTING GET REQ: ', requestUrl);
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  console.debug('after delay', requestUrl);
+  // await new Promise(resolve => setTimeout(resolve, 2000));
+  // console.debug('after delay', requestUrl);
 
   try {
     const response = await fetch(requestUrl, {
