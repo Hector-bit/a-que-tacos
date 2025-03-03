@@ -24,19 +24,19 @@ const getOrderId = async(requestUrl: string) => {
         'Authorization': `Bearer ${hosted_token}`
       }
     }
-  ) .then((res) => {
-      console.debug('getting order id', res.data)
-      return res.data
+  ).then((res) => {
+    console.debug('getting order id', res.data)
+    return res.data
   })
-    .catch((err) => {
-      console.debug('error fetching order id', err)
-      return NextResponse.json({ error: `could not get order id`}, { status: err.status });
+  .catch((err) => {
+    console.debug('error fetching order id', err)
+    return NextResponse.json({ error: `could not get order id`}, { status: err.status });
   })
 
-  console.debug('order id request data: ', fetchOrderId.data)
+  console.debug('order id request data: ', fetchOrderId.order.id)
 
   // REQUEST CLOVER MACHINE TO PRINT RECIEPT
-  requestPrint(fetchOrderId.data.order.id)
+  requestPrint(fetchOrderId.order.id)
 
   return fetchOrderId.data.order.id
 } 
