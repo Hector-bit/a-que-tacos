@@ -183,7 +183,7 @@ export const getOrderId = async (requestUrl: string) => {
     console.debug('order id request data: ', fetchOrderId.order.id);
 
     // REQUEST CLOVER MACHINE TO PRINT RECEIPT
-    requestPrint(fetchOrderId.order.id);
+    // requestPrint(fetchOrderId.order.id);
 
     return fetchOrderId.order.id;
   } catch (err:any) {

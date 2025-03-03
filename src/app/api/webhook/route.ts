@@ -44,10 +44,12 @@ export async function POST(req: NextRequest) {
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       // console.debug('request url:', requestUrl)
 
-      getOrderId(requestUrl)
+      await new Promise(resolve => setTimeout(resolve, 20000));
+
+      const clientOrderId = await getOrderId(requestUrl)
       // console.log('what is this', orderId)
       // console.debug('client order id', clientOrderId)
-      // requestPrint(clientOrderId)
+      requestPrint(clientOrderId)
 
     }
 
