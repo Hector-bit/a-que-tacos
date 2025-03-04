@@ -51,7 +51,31 @@ export async function POST(req: NextRequest) {
       const clientOrderId = await getOrderId(requestUrl)
       // console.log('what is this', clientOrderId)
       console.debug('client order id', clientOrderId)
-      await requestPrint(clientOrderId)
+      // console.debug('starting print request', orderId)
+      const printBody = {
+        "orderRef": {
+          "id": clientOrderId
+        }
+      }
+    
+      axios.post(
+        `${clover_url}/v3/merchants/${merchant_id}/print_event`,
+        JSON.stringify(printBody),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Clover-Merchant-ID': merchant_id, 
+            'Authorization': `Bearer ${hosted_token}`
+          }
+        }
+      ) .then((res) => {
+          console.debug('MADE IT TO THE END', res)
+          return NextResponse.json({ message: 'posted print request'}, {status: 200})
+      })
+        .catch((err) => {
+          console.debug('error printing', err.response.data)
+          return NextResponse.json({ error: `could not post print request`}, { status: 500 });
+      })
 
     }
 
