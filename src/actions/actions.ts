@@ -160,25 +160,25 @@ export const getIsOpen = async():Promise<boolean> => {
   return false
 }
 
-export const waitToRunNextRoute = async(requestUrl: string) => {
+// export const waitToRunNextRoute = async(requestUrl: string) => {
 
-  const siteUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`
-  console.debug('site url: ', siteUrl)
+//   const siteUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`
+//   console.debug('site url: ', siteUrl)
 
-  // await new Promise(resolve => setTimeout(resolve, 10000));
-  try {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ url: requestUrl })
-    })
-    return NextResponse.json({ message: 'made fetch to printOrder '}, { status: 200 })
-  } catch(err) {
-    return NextResponse.json({ message: 'could not call printOrder'}, { status: 500 })
-  }
-}
+//   // await new Promise(resolve => setTimeout(resolve, 10000));
+//   try {
+//     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`, {
+//       method: 'POST',
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ url: requestUrl })
+//     })
+//     return NextResponse.json({ message: 'made fetch to printOrder '}, { status: 200 })
+//   } catch(err) {
+//     return NextResponse.json({ message: 'could not call printOrder'}, { status: 500 })
+//   }
+// }
 
 export const getOrderId = async (requestUrl: string) => {
   console.debug('STARTING GET REQ: ', requestUrl);
@@ -198,7 +198,7 @@ export const getOrderId = async (requestUrl: string) => {
     }
 
     const fetchOrderId = await response.json();
-    console.debug('getting order id', fetchOrderId);
+    // console.debug('getting order id', fetchOrderId);
 
     console.debug('order id request data: ', fetchOrderId.order.id);
 

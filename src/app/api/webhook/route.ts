@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import { getOrderId, requestPrint, waitToRunNextRoute } from "@/actions/actions";
+import { getOrderId, requestPrint } from "@/actions/actions";
 
 const WEBHOOK = process.env.WEBHOOK || "";
 const clover_url = process.env.CLOVER_BASE_URL || ""
@@ -16,7 +16,7 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
 }
 
 export async function POST(req: NextRequest) {
-  console.debug('ROUTE IS RUNNING')
+  // console.debug('ROUTE IS RUNNING')
   try {
     // Data from webhook 
     const body = await req.text();
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       // console.debug('request url:', requestUrl)
 
-      await new Promise(resolve => setTimeout(resolve, 20000));
+      await new Promise(resolve => setTimeout(resolve, 15000));
 
       // waitToRunNextRoute(requestUrl)
 
