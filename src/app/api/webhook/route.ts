@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     // console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
 
     if (signature !== expectedSignature) {
-      console.debug('WRONG SIGNING KEY')
+      // console.debug('WRONG SIGNING KEY')
       return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
     }
 
@@ -50,32 +50,33 @@ export async function POST(req: NextRequest) {
 
       const clientOrderId = await getOrderId(requestUrl)
       // console.log('what is this', clientOrderId)
-      console.debug('client order id', clientOrderId)
+      // console.debug('client order id', clientOrderId)
       // console.debug('starting print request', orderId)
-      const printBody = {
-        "orderRef": {
-          "id": clientOrderId
-        }
-      }
+      requestPrint(clientOrderId)
+      // const printBody = {
+      //   "orderRef": {
+      //     "id": clientOrderId
+      //   }
+      // }
     
-      axios.post(
-        `${clover_url}/v3/merchants/${merchant_id}/print_event`,
-        JSON.stringify(printBody),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Clover-Merchant-ID': merchant_id, 
-            'Authorization': `Bearer ${hosted_token}`
-          }
-        }
-      ) .then((res) => {
-          console.debug('MADE IT TO THE END', res)
-          return NextResponse.json({ message: 'posted print request'}, {status: 200})
-      })
-        .catch((err) => {
-          console.debug('error printing', err.response.data)
-          return NextResponse.json({ error: `could not post print request`}, { status: 500 });
-      })
+      // axios.post(
+      //   `${clover_url}/v3/merchants/${merchant_id}/print_event`,
+      //   JSON.stringify(printBody),
+      //   {
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       'X-Clover-Merchant-ID': merchant_id, 
+      //       'Authorization': `Bearer ${hosted_token}`
+      //     }
+      //   }
+      // ) .then((res) => {
+      //     console.debug('MADE IT TO THE END', res)
+      //     return NextResponse.json({ message: 'posted print request'}, {status: 200})
+      // })
+      //   .catch((err) => {
+      //     console.debug('error printing', err.response.data)
+      //     return NextResponse.json({ error: `could not post print request`}, { status: 500 });
+      // })
 
     }
 
