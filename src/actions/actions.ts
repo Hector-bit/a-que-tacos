@@ -73,7 +73,7 @@ const dummyData =  {
 const CreateOrder = CustomerScheme.omit({})
 
 export const fetchCloverLink = async(cartData: OrderItem[], customerData: CustomerInfoType):Promise<ErrorState> => {
-  console.debug('start fetchclover link call')
+  // console.debug('start fetchclover link call')
   let link = 'undefined'
 
   const validatedFields = CreateOrder.safeParse({
@@ -84,7 +84,7 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
     cart: cartData.length
   })
 
-  console.debug('VALIDATED FIELDS:', validatedFields)
+  // console.debug('VALIDATED FIELDS:', validatedFields)
 
   if(!validatedFields.success){
     // console.log('ERRORS', validatedFields.error)
@@ -120,7 +120,7 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
   // console.log('LINE ITEMS', formatData.shoppingCart.lineItems)
   // console.log('running on server', formatData)
   // return formatData
-  console.debug('post info: ', clover_url, merchant_id, hosted_token)
+  // console.debug('post info: ', clover_url, merchant_id, hosted_token)
   await axios.post(
     `${clover_url}/invoicingcheckoutservice/v1/checkouts`,
     JSON.stringify(formatData),
@@ -160,25 +160,25 @@ export const getIsOpen = async():Promise<boolean> => {
   return false
 }
 
-export const waitToRunNextRoute = async(requestUrl: string) => {
+// export const waitToRunNextRoute = async(requestUrl: string) => {
 
-  const siteUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`
-  console.debug('site url: ', siteUrl)
+//   const siteUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`
+//   console.debug('site url: ', siteUrl)
 
-  // await new Promise(resolve => setTimeout(resolve, 10000));
-  try {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ url: requestUrl })
-    })
-    return NextResponse.json({ message: 'made fetch to printOrder '}, { status: 200 })
-  } catch(err) {
-    return NextResponse.json({ message: 'could not call printOrder'}, { status: 500 })
-  }
-}
+//   // await new Promise(resolve => setTimeout(resolve, 10000));
+//   try {
+//     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`, {
+//       method: 'POST',
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ url: requestUrl })
+//     })
+//     return NextResponse.json({ message: 'made fetch to printOrder '}, { status: 200 })
+//   } catch(err) {
+//     return NextResponse.json({ message: 'could not call printOrder'}, { status: 500 })
+//   }
+// }
 
 export const getOrderId = async (requestUrl: string) => {
   console.debug('STARTING GET REQ: ', requestUrl);
@@ -198,9 +198,9 @@ export const getOrderId = async (requestUrl: string) => {
     }
 
     const fetchOrderId = await response.json();
-    console.debug('getting order id', fetchOrderId);
+    // console.debug('getting order id', fetchOrderId);
 
-    console.debug('order id request data: ', fetchOrderId.order.id);
+    // console.debug('order id request data: ', fetchOrderId.order.id);
 
     // REQUEST CLOVER MACHINE TO PRINT RECEIPT
     // requestPrint(fetchOrderId.order.id);
@@ -213,30 +213,34 @@ export const getOrderId = async (requestUrl: string) => {
 };
 
 // REQUEST CLOVER MACHINE TO PRINT RECIEPT
-export const requestPrint = async(orderId: string) => {
-  console.debug('starting print request', orderId)
-  const printBody = {
-    "orderRef": {
-      "id": orderId
-    }
-  }
+export const requestPrint = async (orderId: string) => {
+  console.debug("Starting print request", orderId);
 
-  axios.post(
-    `${clover_url}/v3/merchants/${merchant_id}/print_event`,
-    JSON.stringify(printBody),
-    {
+  const printBody = {
+    orderRef: { id: orderId },
+  };
+
+  try {
+    const response = await fetch(`${clover_url}/v3/merchants/${merchant_id}/print_event`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'X-Clover-Merchant-ID': merchant_id, 
-        'Authorization': `Bearer ${hosted_token}`
-      }
+        "Content-Type": "application/json",
+        "X-Clover-Merchant-ID": `${merchant_id}`,
+        "Authorization": `Bearer ${hosted_token}`,
+      },
+      body: JSON.stringify(printBody),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-  ) .then((res) => {
-      console.debug('MADE IT TO THE END', res)
-      return NextResponse.json({ message: 'posted print request'}, {status: 200})
-  })
-    .catch((err) => {
-      console.debug('error printing', err.response.data)
-      return NextResponse.json({ error: `could not post print request`}, { status: 500 });
-  })
-}
+
+    const data = await response.json();
+    console.debug("MADE IT TO THE END", data);
+
+    return NextResponse.json({ message: "Posted print request" }, { status: 200 });
+  } catch (err) {
+    console.debug("Error printing", err);
+    return NextResponse.json({ error: "Could not post print request" }, { status: 500 });
+  }
+};

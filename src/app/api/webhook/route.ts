@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import { getOrderId, requestPrint, waitToRunNextRoute } from "@/actions/actions";
+import { getOrderId, requestPrint } from "@/actions/actions";
 
 const WEBHOOK = process.env.WEBHOOK || "";
 const clover_url = process.env.CLOVER_BASE_URL || ""
@@ -16,7 +16,7 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
 }
 
 export async function POST(req: NextRequest) {
-  console.debug('ROUTE IS RUNNING')
+  // console.debug('ROUTE IS RUNNING')
   try {
     // Data from webhook 
     const body = await req.text();
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     // console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
 
     if (signature !== expectedSignature) {
-      console.debug('WRONG SIGNING KEY')
+      // console.debug('WRONG SIGNING KEY')
       return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
     }
 
@@ -44,14 +44,39 @@ export async function POST(req: NextRequest) {
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       // console.debug('request url:', requestUrl)
 
-      await new Promise(resolve => setTimeout(resolve, 20000));
+      await new Promise(resolve => setTimeout(resolve, 15000));
 
       // waitToRunNextRoute(requestUrl)
 
       const clientOrderId = await getOrderId(requestUrl)
       // console.log('what is this', clientOrderId)
-      console.debug('client order id', clientOrderId)
+      // console.debug('client order id', clientOrderId)
+      // console.debug('starting print request', orderId)
       await requestPrint(clientOrderId)
+      // const printBody = {
+      //   "orderRef": {
+      //     "id": clientOrderId
+      //   }
+      // }
+    
+      // axios.post(
+      //   `${clover_url}/v3/merchants/${merchant_id}/print_event`,
+      //   JSON.stringify(printBody),
+      //   {
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       'X-Clover-Merchant-ID': merchant_id, 
+      //       'Authorization': `Bearer ${hosted_token}`
+      //     }
+      //   }
+      // ) .then((res) => {
+      //     console.debug('MADE IT TO THE END', res)
+      //     return NextResponse.json({ message: 'posted print request'}, {status: 200})
+      // })
+      //   .catch((err) => {
+      //     console.debug('error printing', err.response.data)
+      //     return NextResponse.json({ error: `could not post print request`}, { status: 500 });
+      // })
 
     }
 
