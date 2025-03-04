@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
       // console.log('what is this', clientOrderId)
       // console.debug('client order id', clientOrderId)
       // console.debug('starting print request', orderId)
-      requestPrint(clientOrderId)
+      await requestPrint(clientOrderId)
       // const printBody = {
       //   "orderRef": {
       //     "id": clientOrderId
