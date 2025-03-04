@@ -44,14 +44,14 @@ export async function POST(req: NextRequest) {
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       // console.debug('request url:', requestUrl)
 
-      // await new Promise(resolve => setTimeout(resolve, 20000));
+      await new Promise(resolve => setTimeout(resolve, 20000));
 
-      waitToRunNextRoute(requestUrl)
+      // waitToRunNextRoute(requestUrl)
 
-      // const clientOrderId = await getOrderId(requestUrl)
-      // requestPrint(clientOrderId)
-      // console.log('what is this', orderId)
-      // console.debug('client order id', clientOrderId)
+      const clientOrderId = await getOrderId(requestUrl)
+      requestPrint(clientOrderId)
+      console.log('what is this', clientOrderId)
+      console.debug('client order id', clientOrderId)
 
     }
 
