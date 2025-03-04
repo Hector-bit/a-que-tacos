@@ -49,9 +49,9 @@ export async function POST(req: NextRequest) {
       // waitToRunNextRoute(requestUrl)
 
       const clientOrderId = await getOrderId(requestUrl)
-      requestPrint(clientOrderId)
-      console.log('what is this', clientOrderId)
+      // console.log('what is this', clientOrderId)
       console.debug('client order id', clientOrderId)
+      await requestPrint(clientOrderId)
 
     }
 
