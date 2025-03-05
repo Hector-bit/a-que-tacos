@@ -38,8 +38,9 @@ export default function CreateOrderPage() {
     <MaintenanceWrapper>
       <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
         <main className={`flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px]`}>
-        <div className="text-lg">{`NOTICE: We don't do delivery, sorry!`}</div>
-        <div className="text-lg mb-8">Online ordering available in Everson only at this moment.</div>
+        <div className="text-2xl font-bold">{`NOTICE: We don't do delivery, sorry!`}</div>
+        <div className="text-2xl font-bold mb-4">{`Online ordering available in Everson only at this moment. (pickup only)`}</div>
+        <div className="text-2xl font-bold mb-8">{`Pick up location: 117 W Main St, Everson, WA 98247`}</div>
 
         <div>
           <h3 className="font-bold text-xl mb-2">ITEMS</h3>
