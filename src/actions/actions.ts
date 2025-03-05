@@ -232,7 +232,8 @@ export const requestPrint = async (orderId: string) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response.status}, ${response});
+      }`);
     }
 
     const data = await response.json();
