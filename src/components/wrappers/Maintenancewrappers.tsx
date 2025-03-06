@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react"
-import { getMerchantIsClosed } from "@/actions/helperFunctions"
 
 type MaintenanceWrapperInterface = {
   children: ReactNode,

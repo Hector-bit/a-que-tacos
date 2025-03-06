@@ -58,15 +58,15 @@ export const CartProvider = ({ children }:any) => {
   const addToCart = (item:OrderItem) => {
     setCart([...cart, item])
     localStorage.setItem('CLIENT_ORDER', JSON.stringify([...cart, item]))
-    console.log('updated cart[add]:', [...cart, item])
+    // console.log('updated cart[add]:', [...cart, item])
   }
 
   const removeFromCart = (orderIndex:number) => {
     let cartRemovedItem = cart.filter((item:any, index:number) => index !== orderIndex)
-    console.log('filtered cart state: ', cartRemovedItem)
+    // console.log('filtered cart state: ', cartRemovedItem)
     setCart(cartRemovedItem);
     let localCart = localStorage.setItem('CLIENT_ORDER', JSON.stringify(cartRemovedItem))
-    console.log('cart from storage: ', localCart)
+    // console.log('cart from storage: ', localCart)
 
     // console.log('updated cart[remove]:', [...cart, item])
   };
@@ -76,13 +76,13 @@ export const CartProvider = ({ children }:any) => {
   };
 
   const saveCustomerInfo = (customerInfo:CustomerInfoType) => {
-    console.log('updating customer info: ', customerInfo)
+    // console.log('updating customer info: ', customerInfo)
     localStorage.setItem('CLIENT_CUSTOMER_INFO', JSON.stringify(customerInfo))
   }
 
   // USING LOCAL STORAGE WE WILL SAVE THE USERS ORDER 
   useEffect(() => {
-    console.log('updated cart:', cart)
+    // console.log('updated cart:', cart)
     // SUMS UP ORDER TOTAL 
     let tempTotal = 0
     cart.forEach((order) => {

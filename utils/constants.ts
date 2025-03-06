@@ -1,7 +1,15 @@
 import { tree } from "next/dist/build/templates/app-page"
 import { menuItemType, ingredientsType } from "./types"
 
-
+export const daysOfWeek = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+]
 
 const imgBase = '/assets/menuImages'
 
