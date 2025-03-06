@@ -1,0 +1,1 @@
+export type MerchantLocations = 'EVERSON' | 'BLAINE' | 'BELLINGHAM' | 'TEST'

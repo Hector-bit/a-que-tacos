@@ -88,7 +88,8 @@ export const CartProvider = ({ children }:any) => {
     cart.forEach((order) => {
       tempTotal += order.price
     })
-    setOrderTotal(tempTotal)
+    let withTax = tempTotal + (tempTotal * 0.088)
+    setOrderTotal(withTax)
   },[cart])
 
   useEffect(() => {

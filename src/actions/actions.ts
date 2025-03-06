@@ -105,7 +105,13 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
           "price": itemToPriceObj[item.orderItem],
           "note": "No: " + item.removeIngredients.map(ing => {
             return `${IngredientDictionary[ing]}`
-          })
+          }),
+          "taxRates": [
+            {
+              "name": "Whatcom Sales Tax",
+              "rate": 880000
+            }
+          ]
         }
       })
       },
@@ -207,7 +213,7 @@ export const getOrderId = async (requestUrl: string) => {
 
     return fetchOrderId.order.id;
   } catch (err:any) {
-    console.debug('error fetching order id', err);
+    console.debug('error fetching order id', err.essage);
     return NextResponse.json({ error: `could not get order id` }, { status: err instanceof Error ? 500 : err.status });
   }
 };
@@ -232,7 +238,7 @@ export const requestPrint = async (orderId: string) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}, ${response});
+      throw new Error(`HTTP error! Status: ${response.status});
       }`);
     }
 
