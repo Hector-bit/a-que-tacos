@@ -85,7 +85,7 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
             {foodItem.choiceOfMeat && 
               <select value={carne} onChange={(e) => setCarne(e.target.value as ChoiceOfMeatType)} className="p-2 rounded-xl" name="meat choice">
                 {meatOptions.map((meat) => {
-                  return <option value={meat}>{ChoiceOfMeatEspanolDictionary[meat]}</option>
+                  return <option key={`option-${meat}`} value={meat}>{ChoiceOfMeatEspanolDictionary[meat]}</option>
                 })}
               </select>
             }
