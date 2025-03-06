@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link"
 import Image from "next/image"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { CartContext } from "@/context/orderContext"
 import { CartContextType, CustomerInfoType } from "../../../../utils/types"
 import { MenuNameDictionary, IngredientDictionary, ChoiceOfMeatEspanolDictionary, ChoiceOfMeatEnglishDictionary } from "../../../../utils/constants"
@@ -18,9 +18,6 @@ export default function CheckoutPage() {
   const [customerState, setCustomerState] = useState<CustomerInfoType>(customerInfo)
   const [errorMessages, setErrorMessages] = useState<any>([])
 
-  // useEffect(() => {
-  //   console.log(errorMessages, 'yuuurrr')
-  // },[errorMessages])
 
   return (
     <MaintenanceWrapper>

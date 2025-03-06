@@ -39,15 +39,7 @@ const configVariables = {
   },
 }
 
-export const getBaseAPI = () => {
-  if(isProduction){
-    return api_clover
-  } else {
-    return api_test
-  }
-}
-
-export const getIsOpen = async() => {
+export const getCurrentTime = () => {
   const today = new Date();
   const dayOfWeek = today.getDay()
 
@@ -59,66 +51,3 @@ export const getIsOpen = async() => {
   return hours + minutes
 }
 
-export const getAPIToken = (location: MerchantLocations) => {
-  let locationMID = null
-
-  if(location === 'EVERSON'){
-    locationMID = eversonToken
-  } else if (location === 'BLAINE'){
-    locationMID = blaineToken
-  } else if (location === 'BELLINGHAM'){
-    locationMID = bellinghamToken
-  } else if (location === 'TEST'){
-    locationMID = testToken
-  }
-
-  return locationMID
-} 
-
-export const getMerchantID = (location: MerchantLocations) => {
-  let locationMID = null
-
-  if(location === 'EVERSON'){
-    locationMID = eversonMID
-  } else if (location === 'BLAINE'){
-    locationMID = blaineMID
-  } else if (location === 'BELLINGHAM'){
-    locationMID = bellinghamMID
-  } else if (location === 'TEST'){
-    locationMID = testMID
-  }
-
-
-  return locationMID
-} 
-
-export const getMerchantIsClosed = async(location: MerchantLocations):Promise<any> => {
-
-  let locationMID = getMerchantID(location)
-  let locationToken = getAPIToken(location)
-
-  const fetchHoursUrl = `${api_clover}/v3/merchants/${locationMID}/opening_hours`
-
-  try {
-    let response = await fetch(fetchHoursUrl, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${locationToken}`
-      }
-    })
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json()
-
-    console.log('data from merchanis closed', data)
-    return true
-
-  } 
-  catch(err){
-    console.error(`error fetching hours: ${err}`)
-    return false
-  }
-}
