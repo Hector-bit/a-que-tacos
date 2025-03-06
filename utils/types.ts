@@ -20,6 +20,7 @@ export type ChoiceOfMeatType =
   'BEEF' | 
   'CHICKEN' |
   'PORK' |
+  'CARNITAS' |
   'NOT_APPLICABLE'
 
 

@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import Image from "next/image";
 import { ingredientsType, menuItemType, ChoiceOfMeatType } from "../../../utils/types";
-import { IngredientDictionary, MenuNameDictionary, ChoiceOfMeatEspanolDictionary, itemToPriceObj } from "@utils/constants";
+import { IngredientDictionary, MenuNameDictionary, ChoiceOfMeatEspanolDictionary, itemToPriceObj, meatOptions, ChoiceOfMeatEnglishDictionary } from "@utils/constants";
 import IngredientButton from "./IngredientButton";
 import { CartContext } from "@/context/orderContext";
 
@@ -84,9 +84,9 @@ const ItemModal = ({isOpen, foodItem, closeFn}:ItemModalProps) => {
           {/* <form className="flex flex-row"> */}
             {foodItem.choiceOfMeat && 
               <select value={carne} onChange={(e) => setCarne(e.target.value as ChoiceOfMeatType)} className="p-2 rounded-xl" name="meat choice">
-                <option key={"BEEF"} value="BEEF">Beef</option>
-                <option key={"CHICKEN"} value="CHICKEN">Chicken</option>
-                <option key={"PORK"} value="PORK">Pork</option>
+                {meatOptions.map((meat) => {
+                  return <option key={`option-${meat}`} value={meat}>{ChoiceOfMeatEspanolDictionary[meat]}</option>
+                })}
               </select>
             }
             {foodItem.chooseAmount && 

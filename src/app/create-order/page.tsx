@@ -2,7 +2,8 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/orderContext";
 
-import { CartContextType, menuItemType } from "../../../utils/types";
+import { CartContextType, menuItemType } from "@utils/types";
+import { MerchantLocations } from "@utils/mercchantTypes";
 import { menu_items } from "../../../utils/constants";
 // import { getIsOpen } from "@/actions/helperFunctions";
 
@@ -10,12 +11,14 @@ import OrderCard from "@/components/ordering/OrderCard";
 import ItemModal from "@/components/ordering/ItemModal";
 import BottomNav from "@/components/ordering/BottomNav";
 import MaintenanceWrapper from "@/components/wrappers/Maintenancewrappers";
+import { getMerchantID, getAPIToken, getBaseAPI } from "@/actions/helperFunctions";
 
 
 export default function CreateOrderPage() {
   const onlineOrderingMaintence = process.env.NEXT_PUBLIC_ONLINE_ORDERING_FEAT
   const [menuItem, setMenuItem] = useState<menuItemType>(menu_items[0])
   const [itemModal, setItemModal] = useState<boolean>(false) 
+  const [location, setLocation] = useState<MerchantLocations>('EVERSON')
 
   const MyCart = useContext(CartContext)
   // const currDay = getIsOpen()
@@ -30,13 +33,48 @@ export default function CreateOrderPage() {
     setItemModal(!itemModal)
   }
 
+
   // useEffect(() => {
-  //   console.log('stuff', currDay, typeof(currDay))
+  // const getMerchantIsClosed = async(location: MerchantLocations):Promise<any> => {
+
+  // let locationMID = getMerchantID(location)
+  // let locationToken = getAPIToken(location)
+  // let baseAPI = process.env.CLOVER_BASE_URL
+
+  // const fetchHoursUrl = `${baseAPI}/v3/merchants/${locationMID}/opening_hours`
+  // console.log('fetching fromo this url: ', fetchHoursUrl)
+
+  // try {
+  //     let response = await fetch(fetchHoursUrl, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${locationToken}`
+  //       }
+  //     })
+
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+
+  //     const data = await response.json()
+
+  //     console.log('data from merchanis closed', data)
+  //     return true
+
+  //   } 
+  //   catch(err){
+  //     console.error(`error fetching hours: ${err}`)
+  //     return false
+  //   }
+  // }
+
+  // getMerchantIsClosed('EVERSON')
+
   // },[])
 
   return (
     <MaintenanceWrapper>
-      <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
+        <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
         <main className={`flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px]`}>
         <div className="text-2xl font-bold">{`NOTICE: We don't do delivery, sorry!`}</div>
         <div className="text-2xl font-bold mb-4">{`Online ordering available in Everson only at this moment. (pickup only)`}</div>

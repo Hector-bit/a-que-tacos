@@ -22,18 +22,18 @@ export default function Home() {
         </div>
         <div className="flex flex-col w-full md:w-auto py-4 sm:py-0">
           <div className="flex flex-col text-lg sm:text-2xl text-left md:text-right gap-3">
-            <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right">Location links</div>
+            <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right">Location</div>
             <div className="flex flex-col px-2 border-x-4 border-flagGreen">
               <div>A Que Tacos:</div>
               <address>1315 W Connecticut St, Bellingham, WA 98225</address>
             </div>
             <div className="flex flex-col px-2 border-x-4 border-white">
               <div>A Que Tacos Two:</div>
-              <address>8101 Blaine Rd, Blaine, WA 98230</address>
+              <address>117 W Main St, Everson, WA 98247</address>
             </div>
             <div className="flex flex-col px-2 border-x-4 border-flagRed">
               <div>A Que Tacos Three:</div>
-              <address>117 W Main St, Everson, WA 98247</address>
+              <address>8101 Blaine Rd, Blaine, WA 98230</address>
             </div>
           </div>
           <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right mt-6">Hours {'(for all trucks)'}</div>

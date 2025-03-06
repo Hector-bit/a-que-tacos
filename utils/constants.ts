@@ -1,6 +1,8 @@
 import { tree } from "next/dist/build/templates/app-page"
 import { menuItemType, ingredientsType } from "./types"
 
+
+
 const imgBase = '/assets/menuImages'
 
 export const menu_items:menuItemType[] = [
@@ -261,16 +263,34 @@ export const IngredientDictionary:{ [index:string]:string } = {
   'ONIONS' : "Onions",
 }
 
+export const meatOptions = [
+  'BEEF',
+  'PORK',
+  'CHICKEN',
+  'CARNITAS',
+  'BUCHE',
+  'CHORIZO',
+  'CABEZA'
+]
+
 export const ChoiceOfMeatEspanolDictionary:{ [index:string]:string } = {
   'BEEF' : "Asada",
   'CHICKEN' : "Pollo",
-  'PORK' : "Al Pastor"
+  'PORK' : "Al Pastor",
+  'CARNITAS': 'Carnitas',
+  'BUCHE': 'Buche',
+  'CHORIZO': 'Chorizo',
+  'CABEZA': 'Cabeza'
 }
 
 export const ChoiceOfMeatEnglishDictionary:{ [index:string]:string } = {
   'BEEF' : "Beef",
   'CHICKEN' : "Chicken",
-  'PORK' : "Pork"
+  'PORK' : "Pork",
+  'CARNITAS': 'Shredded pork',
+  'BUCHE': 'Pork Stomache',
+  'CHORIZO': 'Chorizo',
+  'CABEZA': 'Cheek',
 }
 
 export const MenuNameDictionary:{ [index:string]:string } = {
