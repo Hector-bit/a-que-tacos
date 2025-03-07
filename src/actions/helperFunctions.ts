@@ -47,12 +47,12 @@ export const getCurrentTime = () => {
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
 
-  console.debug(hours, minutes)
+  // console.debug(hours, minutes)
   return hours + minutes
 }
 
-export const isBusinessOpen = async():Promise<boolean> => {
-  const currDay = new Date().getDay();
+export const isBusinessOpen = ():boolean => {
+  // const currDay = new Date().getDay();
   const currTimeTemp = getCurrentTime()
   const currTime = Number(currTimeTemp)
   // console.log('current time: ', currTime)
