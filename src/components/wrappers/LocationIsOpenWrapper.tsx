@@ -11,7 +11,7 @@ const LocationIsOpenWrapper = async({ children }:LocationIsOpenWrapperInterface)
   const isOpen = await isBusinessOpen()
   // const isOpen = false
 
-  // console.log('IS MAINTENANCE: ', isMaintenance, typeof(isMaintenance), (isMaintenance === 'true'))
+  console.debug('check var: ', isOpen)
 
   return (
     isOpen?
