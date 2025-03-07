@@ -6,8 +6,6 @@ import { CartContext } from "@/context/orderContext"
 import { CartContextType, CustomerInfoType } from "../../../../utils/types"
 import { MenuNameDictionary, IngredientDictionary, ChoiceOfMeatEspanolDictionary, ChoiceOfMeatEnglishDictionary } from "../../../../utils/constants"
 import { fetchCloverLink } from "@/actions/actions"
-import MaintenanceWrapper from "@/components/wrappers/Maintenancewrappers"
-import LocatoinIsOpenWrapper from "@/components/wrappers/LocationIsOpenWrapper"
 
 
 const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-100 text-white'

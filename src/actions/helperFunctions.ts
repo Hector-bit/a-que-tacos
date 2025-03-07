@@ -47,7 +47,7 @@ export const getCurrentTime = () => {
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
 
-  // console.log(hours, minutes)
+  console.debug(hours, minutes)
   return hours + minutes
 }
 
@@ -57,24 +57,20 @@ export const isBusinessOpen = async():Promise<boolean> => {
   const currTime = Number(currTimeTemp)
   // console.log('current time: ', currTime)
 
-  try{
-    let res:Response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/clover/business-hours`)
-    const businessHours = await res.json()
+    // let res:Response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/clover/business-hours`)
+    // const businessHours = await res.json()
     // setHours(info.toString())
     // console.log(businessHours)
-    let currHours = businessHours[daysOfWeek[currDay]].elements[0]
+    // let currHours = businessHours[daysOfWeek[currDay]].elements[0]
     // console.log(currHours, 'current hours')
-    const startTime = Number(currHours.start) + 15 //15 minute padding for parents to open
-    const endTime = Number(currHours.end) - 250 //2.5 hr padding bc they close early
-    // console.log('start time: ', startTime, ' end time: ', endTime)
-    if(startTime < currTime && currTime < endTime){
-      return true
-    } else {
-      return false
-    }
-  }
-  catch(err){
-    console.error('error fetching hours: ', err)
+    // const startTime = Number(currHours.start) + 15 //15 minute padding for parents to open
+    // const endTime = Number(currHours.end) - 250 //2.5 hr padding bc they close early
+  const startTime = 1412 //15 minute padding for parents to open
+  const endTime = 1745 //2.5 hr padding bc they close early
+  // console.log('start time: ', startTime, ' curr time: ', currTime, ' end time: ', endTime)
+  if(startTime <= currTime && currTime <= endTime){
+    return true
+  } else {
     return false
   }
 

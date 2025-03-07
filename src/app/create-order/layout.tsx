@@ -9,11 +9,11 @@ export default function OrderPickupLayout({
 }>) {
   return (
     <MaintenanceWrapper>
-      <LocationIsOpenWrapper>
-        <CartProvider>
-          {children}
-        </CartProvider>
-      </LocationIsOpenWrapper>
+        <LocationIsOpenWrapper>
+          <CartProvider>
+            {children}
+          </CartProvider>
+        </LocationIsOpenWrapper>
     </MaintenanceWrapper>
   )
 }

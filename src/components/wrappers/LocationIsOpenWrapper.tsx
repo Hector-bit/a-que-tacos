@@ -9,12 +9,12 @@ type LocationIsOpenWrapperInterface = {
 const LocationIsOpenWrapper = async({ children }:LocationIsOpenWrapperInterface) => {
 
   const isOpen = await isBusinessOpen()
-  // const isOpen = true
+  // const isOpen = false
 
   // console.log('IS MAINTENANCE: ', isMaintenance, typeof(isMaintenance), (isMaintenance === 'true'))
 
   return (
-    isOpen === true ?
+    isOpen?
     <>{children}</>
     :
     <div className="flex justify-center">
