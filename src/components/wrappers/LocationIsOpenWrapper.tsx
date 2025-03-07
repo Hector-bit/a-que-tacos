@@ -21,7 +21,7 @@ const LocationIsOpenWrapper = async({ children }:LocationIsOpenWrapperInterface)
       <div className="text-2xl my-4 text-center">
         {`Sorry online ordering is closed for the day come back tomorrow!`}
         <br/>
-        {`Online ordering closes earlier while we're testing`}
+        {`Online ordering closes a bit earlier while we're testing`}
       </div>
     </div>
   )
