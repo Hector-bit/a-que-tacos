@@ -47,7 +47,7 @@ export const getCurrentTime = () => {
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
 
-  console.log(hours, minutes)
+  // console.log(hours, minutes)
   return hours + minutes
 }
 
@@ -58,8 +58,8 @@ export const isBusinessOpen = async():Promise<boolean> => {
   // console.log('current time: ', currTime)
 
   try{
-    const res = await fetch('/api/clover/business-hours')
-    let businessHours = await res.json()
+    let res:Response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/clover/business-hours`)
+    const businessHours = await res.json()
     // setHours(info.toString())
     // console.log(businessHours)
     let currHours = businessHours[daysOfWeek[currDay]].elements[0]

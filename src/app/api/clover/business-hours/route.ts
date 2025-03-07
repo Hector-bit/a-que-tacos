@@ -10,7 +10,7 @@ const hosted_token = process.env.API_KEY || ""
 
 export async function GET() {
   const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/opening_hours`
-  console.debug('HOURS IS RUNNING')
+  // console.debug('HOURS IS RUNNING')
 
   try {
 

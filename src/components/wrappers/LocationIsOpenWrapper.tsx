@@ -8,8 +8,8 @@ type LocationIsOpenWrapperInterface = {
 
 const LocationIsOpenWrapper = async({ children }:LocationIsOpenWrapperInterface) => {
 
-  // const isOpen = await isBusinessOpen()
-  const isOpen = true
+  const isOpen = await isBusinessOpen()
+  // const isOpen = true
 
   // console.log('IS MAINTENANCE: ', isMaintenance, typeof(isMaintenance), (isMaintenance === 'true'))
 
