@@ -65,9 +65,9 @@ export const isBusinessOpen = async():Promise<boolean> => {
     // console.log(currHours, 'current hours')
     // const startTime = Number(currHours.start) + 15 //15 minute padding for parents to open
     // const endTime = Number(currHours.end) - 250 //2.5 hr padding bc they close early
-  const startTime = 1412 //15 minute padding for parents to open
+  const startTime = 1115 //15 minute padding for parents to open
   const endTime = 1745 //2.5 hr padding bc they close early
-  // console.log('start time: ', startTime, ' curr time: ', currTime, ' end time: ', endTime)
+  console.log('start time: ', startTime, ' curr time: ', currTime, ' end time: ', endTime)
   if(startTime <= currTime && currTime <= endTime){
     return true
   } else {
