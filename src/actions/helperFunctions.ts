@@ -1,5 +1,5 @@
 import { MerchantLocations } from "@utils/mercchantTypes";
-import { resolveNaptr } from "dns";
+import { daysOfWeek } from "@utils/constants";
 import { NextResponse } from "next/server";
 
 const isProduction = process.env.NEXT_PUBLIC_IS_PRODUCTION
@@ -51,3 +51,31 @@ export const getCurrentTime = () => {
   return hours + minutes
 }
 
+export const isBusinessOpen = async():Promise<boolean> => {
+  const currDay = new Date().getDay();
+  const currTimeTemp = getCurrentTime()
+  const currTime = Number(currTimeTemp)
+  // console.log('current time: ', currTime)
+
+  try{
+    const res = await fetch('/api/clover/business-hours')
+    let businessHours = await res.json()
+    // setHours(info.toString())
+    // console.log(businessHours)
+    let currHours = businessHours[daysOfWeek[currDay]].elements[0]
+    // console.log(currHours, 'current hours')
+    const startTime = Number(currHours.start) + 15 //15 minute padding for parents to open
+    const endTime = Number(currHours.end) - 250 //2.5 hr padding bc they close early
+    // console.log('start time: ', startTime, ' end time: ', endTime)
+    if(startTime < currTime && currTime < endTime){
+      return true
+    } else {
+      return false
+    }
+  }
+  catch(err){
+    console.error('error fetching hours: ', err)
+    return false
+  }
+
+}

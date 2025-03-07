@@ -30,7 +30,7 @@ export default function RootLayout({
         <CartProvider>
           <UIProvider>
             <HeaderMenu />
-            <div className="grow min-h-[80vh]">
+            <div className="grow min-h-[74vh]">
               {children}  
             </div>
             <Footer/>

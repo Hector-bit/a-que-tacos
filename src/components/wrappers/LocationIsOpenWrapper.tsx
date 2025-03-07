@@ -1,17 +1,20 @@
 import React, { ReactNode } from "react"
+import { isBusinessOpen } from "@/actions/helperFunctions"
 
-type LocatoinIsOpenWrapperInterface = {
-  isLocationOpen: boolean,
+type LocationIsOpenWrapperInterface = {
   children: ReactNode
 }
 
 
-const LocatoinIsOpenWrapper = ({ isLocationOpen, children }:LocatoinIsOpenWrapperInterface) => {
+const LocationIsOpenWrapper = async({ children }:LocationIsOpenWrapperInterface) => {
+
+  // const isOpen = await isBusinessOpen()
+  const isOpen = true
 
   // console.log('IS MAINTENANCE: ', isMaintenance, typeof(isMaintenance), (isMaintenance === 'true'))
 
   return (
-    isLocationOpen === true ?
+    isOpen === true ?
     <>{children}</>
     :
     <div className="flex justify-center">
@@ -24,4 +27,4 @@ const LocatoinIsOpenWrapper = ({ isLocationOpen, children }:LocatoinIsOpenWrappe
   )
 }
 
-export default LocatoinIsOpenWrapper
+export default LocationIsOpenWrapper

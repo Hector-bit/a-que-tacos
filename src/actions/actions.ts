@@ -47,29 +47,6 @@ const CustomerScheme = z.object({
   }).gt(0)
 });
 
-const dummyData =  {
-  "shoppingCart": {
-  "lineItems": [
-      {
-      "name": "Taco",
-      "unitQty": 4,
-      "price": 200
-      },
-      {
-      "name": "Orange",
-      "unitQty": 2,
-      "price": 75
-      }
-  ]
-  },
-  "customer": {
-  "email": "email@example.com",
-  "firstName" : "Example",
-  "lastName": "Customer",
-  "phoneNumber": "223-555-0002"
-  }
-}
-
 const CreateOrder = CustomerScheme.omit({})
 
 export const fetchCloverLink = async(cartData: OrderItem[], customerData: CustomerInfoType):Promise<ErrorState> => {
@@ -103,9 +80,9 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
           "name": `${MenuNameDictionary[item.orderItem]}${meatChoice}`,
           "unitQty": item.amount,
           "price": itemToPriceObj[item.orderItem],
-          "note": "No: " + item.removeIngredients.map(ing => {
+          "note": item.removeIngredients.length > 0 ? "No: " + item.removeIngredients.map(ing => {
             return `${IngredientDictionary[ing]}`
-          }),
+          }) : null,
           "taxRates": [
             {
               "name": "Whatcom Sales Tax",
@@ -150,41 +127,6 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
   
   redirect(link)
 }
-
-export const getIsOpen = async():Promise<boolean> => {
-  const res = await axios.get(
-    `${clover_url}/invoicingcheckoutservice/v1/checkouts`,
-    // JSON.stringify(formatData),
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Clover-Merchant-ID': merchant_id, 
-        'Authorization': `Bearer ${hosted_token}`
-      }
-    }
-  )
-  return false
-}
-
-// export const waitToRunNextRoute = async(requestUrl: string) => {
-
-//   const siteUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`
-//   console.debug('site url: ', siteUrl)
-
-//   // await new Promise(resolve => setTimeout(resolve, 10000));
-//   try {
-//     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/printOrder`, {
-//       method: 'POST',
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ url: requestUrl })
-//     })
-//     return NextResponse.json({ message: 'made fetch to printOrder '}, { status: 200 })
-//   } catch(err) {
-//     return NextResponse.json({ message: 'could not call printOrder'}, { status: 500 })
-//   }
-// }
 
 export const getOrderId = async (requestUrl: string) => {
   console.debug('STARTING GET REQ: ', requestUrl);
