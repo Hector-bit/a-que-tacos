@@ -1,22 +1,17 @@
 import React, { ReactNode } from "react"
-import { getCurrentTime } from "@/actions/helperFunctions"
+import { isBusinessOpen } from "@/actions/helperFunctions"
 
 type LocationIsOpenWrapperInterface = {
   children: ReactNode
 }
 
 
-const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
-  const currTimeTemp = getCurrentTime()
-  const currTime = Number(currTimeTemp)
-  const startTime = 1115 //15 minute padding for parents to open
-  const endTime = 1745 //2.5 hr padding bc they close early
-  // console.debug('start time: ', startTime, ' curr time: ', currTime, ' end time: ', endTime)
+const LocationIsOpenWrapper = async({ children }:LocationIsOpenWrapperInterface) => {
 
-  const isOpen = startTime <= currTime && currTime <= endTime
+  const isOpen = await isBusinessOpen()
   // const isOpen = false
 
-  // console.debug('check vars: ', isOpen)
+  console.debug('check var: ', isOpen)
 
   return (
     isOpen?
