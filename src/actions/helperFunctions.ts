@@ -52,26 +52,38 @@ export const getCurrentTime = () => {
 }
 
 export const isBusinessOpen = async():Promise<boolean> => {
+  // const now = new Date();
+  // const laHour = new Intl.DateTimeFormat("en-US", {
+  //   timeZone: "America/Los_Angeles",
+  //   hour: "numeric",
+  //   hour12: false, // 24-hour format
+  // }).format(now);
+
+
   const currDay = new Date().getDay();
   const currTimeTemp = getCurrentTime()
   const currTime = Number(currTimeTemp)
-  // console.log('current time: ', currTime)
 
-    // let res:Response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/clover/business-hours`)
-    // const businessHours = await res.json()
-    // setHours(info.toString())
-    // console.log(businessHours)
-    // let currHours = businessHours[daysOfWeek[currDay]].elements[0]
-    // console.log(currHours, 'current hours')
-    // const startTime = Number(currHours.start) + 15 //15 minute padding for parents to open
-    // const endTime = Number(currHours.end) - 250 //2.5 hr padding bc they close early
   const startTime = 1412 //15 minute padding for parents to open
   const endTime = 1745 //2.5 hr padding bc they close early
-  // console.log('start time: ', startTime, ' curr time: ', currTime, ' end time: ', endTime)
+  console.log('start time: ', startTime, ' curr time: ', currTime, ' end time: ', endTime)
   if(startTime <= currTime && currTime <= endTime){
     return true
   } else {
     return false
   }
 
+}
+
+export function sum(a:number, b:number) {
+  return a + b;
+}
+
+export function isBetween11And6(date: Date): boolean {
+  //11pm is 18 in utc
+  //6pm is 1 in utc
+  const hours = date.getUTCHours();
+  const localHour = date.getHours();
+  console.log('hours: ', hours, ' local hour: ', localHour)
+  return hours >= 18 || hours < 1
 }

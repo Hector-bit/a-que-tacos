@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react"
-import { isBusinessOpen } from "@/actions/helperFunctions"
+import { isBusinessOpen, isBetween11And6 } from "@/actions/helperFunctions"
 
 type LocationIsOpenWrapperInterface = {
   children: ReactNode
@@ -8,7 +8,8 @@ type LocationIsOpenWrapperInterface = {
 
 const LocationIsOpenWrapper = async({ children }:LocationIsOpenWrapperInterface) => {
 
-  const isOpen = await isBusinessOpen()
+  const currDate = new Date()
+  const isOpen = isBetween11And6(currDate)
   // const isOpen = false
 
   // console.log('IS MAINTENANCE: ', isMaintenance, typeof(isMaintenance), (isMaintenance === 'true'))
