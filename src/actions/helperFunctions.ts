@@ -82,8 +82,10 @@ export function sum(a:number, b:number) {
 export function isBetween11And6(date: Date): boolean {
   //11pm is 18 in utc
   //6pm is 1 in utc
-  const hours = date.getUTCHours();
-  const localHour = date.getHours();
+  const currDate = new Date(date.toUTCString())
+  const hours = currDate.getUTCHours();
+  const localHour = currDate.getHours();
   console.log('hours: ', hours, ' local hour: ', localHour)
+  console.log('curr date: ', date.toUTCString(), ' other: ', date)
   return hours >= 18 || hours < 1
 }
