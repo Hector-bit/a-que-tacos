@@ -6,13 +6,18 @@ type LocationIsOpenWrapperInterface = {
 }
 
 
+
 const LocationIsOpenWrapper = async({ children }:LocationIsOpenWrapperInterface) => {
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+  const currDateApi = await fetch(`${baseUrl}/api/clover/business-hours`)
 
   const currDate = new Date()
   const isOpen = isBetween11And6(currDate)
   // const isOpen = false
 
   console.debug('check var: ', isOpen)
+  console.log('check date:', currDateApi)
 
   return (
     isOpen?
