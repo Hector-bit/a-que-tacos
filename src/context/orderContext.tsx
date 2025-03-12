@@ -8,6 +8,8 @@ import { stat } from 'fs'
 let initialErrorMsgs:OrderErrorState = { errors: [] }
 
 export const CartContext = createContext<CartContextType>({
+  onlineOrdering: false,
+  handleOnlineOrdering: () => console.log('handler for setting bool'),
   orderTotal: 0,
   cart: [],
   addToCart: (item) => console.log('add to cart fn missing'),
@@ -50,6 +52,7 @@ export const CartProvider = ({ children }:any) => {
   // }
 
   // ORDER CONTEXT 
+  const [onlineOrdering, setOnlineOrdering] = useState<boolean>(false)
   const [orderTotal, setOrderTotal] = useState<number>(0)
   const [cart, setCart] = useState<OrderItem[]>([])
   const [customerInfo, setCustomerInfo] = useState<CustomerInfoType>(initialCustomerInfo)
@@ -70,6 +73,10 @@ export const CartProvider = ({ children }:any) => {
 
     // console.log('updated cart[remove]:', [...cart, item])
   };
+
+  const handleOnlineOrdering = (onlineOrderingBool: boolean) => {
+    setOnlineOrdering(onlineOrderingBool)
+  }
 
   const clearCart = () => {
     setCart([]);
@@ -109,7 +116,7 @@ export const CartProvider = ({ children }:any) => {
 
   return (
     <div>
-    <CartContext.Provider value={{ orderTotal, cart, addToCart, removeFromCart, clearCart, saveCustomerInfo, customerInfo, OrderErrorState, OrderErrorDispatch }}>
+    <CartContext.Provider value={{ onlineOrdering, handleOnlineOrdering, orderTotal, cart, addToCart, removeFromCart, clearCart, saveCustomerInfo, customerInfo, OrderErrorState, OrderErrorDispatch }}>
       {children}
     </CartContext.Provider>
     </div>

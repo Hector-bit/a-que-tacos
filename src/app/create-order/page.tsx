@@ -4,16 +4,11 @@ import { CartContext } from "@/context/orderContext";
 
 import { CartContextType, menuItemType } from "@utils/types";
 import { MerchantLocations } from "@utils/mercchantTypes";
-import { menu_items, daysOfWeek } from "@utils/constants";
+import { menu_items } from "@utils/constants";
 
 import OrderCard from "@/components/ordering/OrderCard";
 import ItemModal from "@/components/ordering/ItemModal";
-import BottomNav from "@/components/ordering/BottomNav";
-import MaintenanceWrapper from "@/components/wrappers/Maintenancewrappers";
-import { getCurrentTime } from "@/actions/helperFunctions";
-import { NextResponse } from "next/server";
-import LocationIsOpenWrapper from "@/components/wrappers/LocationIsOpenWrapper";
-import { isBusinessOpen } from "@/actions/helperFunctions";
+import CheckoutBottomNav from "@/components/ordering/CheckoutBottomNav";
 
 
 export default function CreateOrderPage() {
@@ -59,7 +54,7 @@ export default function CreateOrderPage() {
           </div>
         </div>
       </main>
-      <BottomNav/>
+      <CheckoutBottomNav/>
     </>
   );
 }
