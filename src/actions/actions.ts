@@ -193,3 +193,13 @@ export const requestPrint = async (orderId: string) => {
     return NextResponse.json({ error: "Could not post print request" }, { status: 500 });
   }
 };
+
+export const fetchMyHours = async () => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+  try{
+    let fetchingHours = fetch(`${baseUrl}/api/clover/business-hours`)
+    
+  } catch {
+    console.error('error fetching if we are open')
+  }
+}

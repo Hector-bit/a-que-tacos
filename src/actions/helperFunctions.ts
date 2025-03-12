@@ -51,41 +51,10 @@ export const getCurrentTime = () => {
   return hours + minutes
 }
 
-export const isBusinessOpen = async():Promise<boolean> => {
-  // const now = new Date();
-  // const laHour = new Intl.DateTimeFormat("en-US", {
-  //   timeZone: "America/Los_Angeles",
-  //   hour: "numeric",
-  //   hour12: false, // 24-hour format
-  // }).format(now);
-
-
-  const currDay = new Date().getDay();
-  const currTimeTemp = getCurrentTime()
-  const currTime = Number(currTimeTemp)
-
-  const startTime = 1412 //15 minute padding for parents to open
-  const endTime = 1745 //2.5 hr padding bc they close early
-  console.log('start time: ', startTime, ' curr time: ', currTime, ' end time: ', endTime)
-  if(startTime <= currTime && currTime <= endTime){
-    return true
-  } else {
-    return false
-  }
-
-}
-
-export function sum(a:number, b:number) {
-  return a + b;
-}
-
 export function isBetween11And6(date: Date): boolean {
   //11pm is 18 in utc
   //6pm is 1 in utc
   const currDate = new Date(date.toUTCString())
   const hours = currDate.getUTCHours();
-  const localHour = currDate.getHours();
-  console.log('hours: ', hours, ' local hour: ', localHour)
-  console.log('curr date: ', date.toUTCString(), ' other: ', date)
   return hours >= 18 || hours < 1
 }

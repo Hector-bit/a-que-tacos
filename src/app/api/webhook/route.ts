@@ -1,6 +1,5 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-import axios from "axios";
 import { getOrderId, requestPrint } from "@/actions/actions";
 
 const WEBHOOK = process.env.WEBHOOK || "";
@@ -21,7 +20,7 @@ export async function POST(req: NextRequest) {
     // Data from webhook 
     const body = await req.text();
     const parsedBody = JSON.parse(body)
-    console.log('PARSED BODY; ', parsedBody)
+    // console.log('PARSED BODY; ', parsedBody)
     const signatureData = req.headers.get("clover-signature") || "";
     const { timeStamp, signature } = getTimeFromSig(signatureData)
 
@@ -38,8 +37,8 @@ export async function POST(req: NextRequest) {
     NextResponse.json({ message: "Processing in background" }, { status: 200 });
     // PAYMENT IS APPROVED GET TO PRINTING THE RECIEPT ON THE CLOVER MAHCINE
     if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
-      console.debug('parsed', parsedBody)
-      console.debug('payment id', parsedBody.id)
+      // console.debug('parsed', parsedBody)
+      // console.debug('payment id', parsedBody.id)
 
       const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
       // console.debug('request url:', requestUrl)
@@ -53,31 +52,6 @@ export async function POST(req: NextRequest) {
       // console.debug('client order id', clientOrderId)
       // console.debug('starting print request', orderId)
       await requestPrint(clientOrderId)
-      // const printBody = {
-      //   "orderRef": {
-      //     "id": clientOrderId
-      //   }
-      // }
-    
-      // axios.post(
-      //   `${clover_url}/v3/merchants/${merchant_id}/print_event`,
-      //   JSON.stringify(printBody),
-      //   {
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //       'X-Clover-Merchant-ID': merchant_id, 
-      //       'Authorization': `Bearer ${hosted_token}`
-      //     }
-      //   }
-      // ) .then((res) => {
-      //     console.debug('MADE IT TO THE END', res)
-      //     return NextResponse.json({ message: 'posted print request'}, {status: 200})
-      // })
-      //   .catch((err) => {
-      //     console.debug('error printing', err.response.data)
-      //     return NextResponse.json({ error: `could not post print request`}, { status: 500 });
-      // })
-
     }
 
 

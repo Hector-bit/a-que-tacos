@@ -11,8 +11,7 @@ import { fetchCloverLink } from "@/actions/actions"
 const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-100 text-white'
 
 export default function CheckoutPage() {
-  const onlineOrderingMaintence = process.env.NEXT_PUBLIC_ONLINE_ORDERING_FEAT
-  const { cart, orderTotal, removeFromCart, clearCart, OrderErrorState, OrderErrorDispatch, customerInfo } = useContext<CartContextType>(CartContext)
+  const { cart, orderTotal, removeFromCart, clearCart, onlineOrdering, customerInfo } = useContext<CartContextType>(CartContext)
   
   const [customerState, setCustomerState] = useState<CustomerInfoType>(customerInfo)
   const [errorMessages, setErrorMessages] = useState<any>([])
@@ -182,10 +181,12 @@ export default function CheckoutPage() {
         <div className="flex flex-row justify-between items-center mt-4">
           <div className="font-bold text-lg">Total: ${orderTotal.toFixed(2)}</div>
           <button 
-            className={`text-lg bg-flagGreen py-2 px-5  ${btnCheckout}`} 
+            className={`text-lg bg-flagGreen py-2 px-5  
+              ${btnCheckout}
+            `} 
             onClick={async() => {
               let testing = await fetchCloverLink(cart, customerState);
-              console.log('testing thingy: ', typeof(testing), testing)
+              // console.log('testing thingy: ', typeof(testing), testing)
               if(testing){
                 setErrorMessages(testing)
               }

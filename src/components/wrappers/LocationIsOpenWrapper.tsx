@@ -1,35 +1,67 @@
-import React, { ReactNode } from "react"
-import { isBusinessOpen, isBetween11And6 } from "@/actions/helperFunctions"
+"use client"
+import React, { ReactNode, useContext, useEffect, useState } from "react"
+import { isBetween11And6 } from "@/actions/helperFunctions"
+import { CartContext } from "@/context/orderContext"
+import { CartContextType } from "@utils/types"
+import Image from "next/image"
 
 type LocationIsOpenWrapperInterface = {
   children: ReactNode
 }
 
+const checkIfOpen = () => {
+  return 'null'
+}
 
+const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
+  // const [onlineOrdering, setOnlineOrdering] = useState<boolean>(true)
+  const { onlineOrdering, handleOnlineOrdering } = useContext<CartContextType>(CartContext)
 
-const LocationIsOpenWrapper = async({ children }:LocationIsOpenWrapperInterface) => {
+  useEffect(() => {
+    const currDate = new Date
+    const currDay = currDate.getDay()
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-  const currDateApi = await fetch(`${baseUrl}/api/clover/business-hours`)
+    console.log('curr day: ', currDay)
+    if(currDay !== 0){
+      //check if within hours
+      const isOpen = isBetween11And6(currDate)
+      handleOnlineOrdering(isOpen)
+  
+      const interval = setInterval(() => {
+        const now = new Date();
+        const isOpen = isBetween11And6(now)
+        // handleOnlineOrdering(true)
+        handleOnlineOrdering(isOpen)
+      }, 60 * 1000);
+  
+      return () => clearInterval(interval);
 
-  const currDate = new Date()
-  const isOpen = isBetween11And6(currDate)
-  // const isOpen = false
+    } else {
+      // its sunday
+      handleOnlineOrdering(false)
+    }
 
-  console.debug('check var: ', isOpen)
-  console.log('check date:', currDateApi)
+  }, []);
+  
 
   return (
-    isOpen?
+
+    onlineOrdering
+    ?
     <>{children}</>
     :
-    <div className="flex justify-center">
-      <div className="text-2xl my-4 text-center">
-        {`Sorry online ordering is closed for the day come back tomorrow!`}
-        <br/>
-        {`Online ordering closes a bit earlier while we're testing`}
+    <>
+      <div className="flex flex-col items-center justify-center pb-12">
+        <div className="text-2xl">Online ordering for Everson available from 11:15pm to 6pm</div>
+        <Image 
+          src={"/assets/ui/sign-close.svg"} 
+          alt={"closed"}
+          width={200}
+          height={200}
+        />
       </div>
-    </div>
+      {children}
+    </>
   )
 }
 

@@ -106,6 +106,8 @@ export type OrderErrorAction =
 
 // CONTEXT TYPES 
 export type CartContextType = {
+  onlineOrdering: boolean
+  handleOnlineOrdering: (onlineOrderingBool:boolean) => void
   orderTotal: number
   cart: OrderItem[]
   addToCart: (item:OrderItem) => void

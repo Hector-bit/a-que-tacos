@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import Image from "next/image";
 import { ingredientsType, menuItemType, ChoiceOfMeatType } from "../../../utils/types";
 import { IngredientDictionary, MenuNameDictionary, ChoiceOfMeatEspanolDictionary, itemToPriceObj, meatOptions, ChoiceOfMeatEnglishDictionary } from "@utils/constants";
-import IngredientButton from "./IngredientButton";
+import IngredientButton from "../buttons/IngredientButton";
 import { CartContext } from "@/context/orderContext";
 
 const btn_one = 'rounded-[20px] py-3 px-5 text-white duration-300 brightness-90 hover:brightness-100'
