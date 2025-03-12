@@ -8,12 +8,12 @@ export default function OrderPickupLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <MaintenanceWrapper>
+    <CartProvider>
+      <MaintenanceWrapper>
         <LocationIsOpenWrapper>
-          <CartProvider>
             {children}
-          </CartProvider>
         </LocationIsOpenWrapper>
-    </MaintenanceWrapper>
+      </MaintenanceWrapper>
+    </CartProvider>
   )
 }
