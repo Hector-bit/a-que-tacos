@@ -112,10 +112,6 @@ export const CartProvider = ({ children }:any) => {
     // console.log('local storage customer info: ', retrievedCustomerInfo)
   },[])
 
-  useEffect(() => {
-    console.log('is online closed? ', onlineOrdering)
-  },[onlineOrdering])
-
 
 
   return (

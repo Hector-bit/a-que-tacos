@@ -9,14 +9,12 @@ type LocationIsOpenWrapperInterface = {
   children: ReactNode
 }
 
-const checkIfOpen = () => {
-  return 'null'
-}
 
 const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
   // const [onlineOrdering, setOnlineOrdering] = useState<boolean>(true)
   const { onlineOrdering, handleOnlineOrdering } = useContext<CartContextType>(CartContext)
 
+  // sets closed or open UI if within business hours
   useEffect(() => {
     const currDate = new Date
     const currDay = currDate.getDay()
