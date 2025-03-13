@@ -148,7 +148,7 @@ export const menu_items:menuItemType[] = [
     menu_id: 5,
     img: `${imgBase}/nacho3Final.webp`,
     name: 'NACHOS', 
-    description: 'Choice of meat, cheese, sourcream, pico de gallo, jalepenos',
+    description: 'Choice of meat, cheese, sourcream, pico de gallo, jalapenos',
     ingredients: ['JALAPENOS', 'PICO_DE_GALLO', 'CHEESE', 'SOURCREAM'],
     choiceOfMeat: true,
     sideOption: false,
@@ -269,6 +269,7 @@ export const IngredientDictionary:{ [index:string]:string } = {
   'PICO_DE_GALLO' : "Pico de gallo",
   'CILANTRO' : "Cilantro",
   'ONIONS' : "Onions",
+  'JALAPENOS': 'Jalapenos'
 }
 
 export const meatOptions = [

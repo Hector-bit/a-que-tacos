@@ -50,7 +50,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     :
     <>
       <div className="flex flex-col items-center justify-center pb-12">
-        <div className="text-2xl">Online ordering for Everson available from 11:15pm to 6pm</div>
+        <div className="text-2xl p-4">Online ordering for Everson available from 11:15am to 6pm</div>
         <Image 
           src={"/assets/ui/sign-close.svg"} 
           alt={"closed"}

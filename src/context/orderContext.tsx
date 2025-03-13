@@ -61,7 +61,7 @@ export const CartProvider = ({ children }:any) => {
   const addToCart = (item:OrderItem) => {
     setCart([...cart, item])
     localStorage.setItem('CLIENT_ORDER', JSON.stringify([...cart, item]))
-    // console.log('updated cart[add]:', [...cart, item])
+    console.log('updated cart[add]:', [...cart, item])
   }
 
   const removeFromCart = (orderIndex:number) => {
@@ -69,7 +69,7 @@ export const CartProvider = ({ children }:any) => {
     // console.log('filtered cart state: ', cartRemovedItem)
     setCart(cartRemovedItem);
     let localCart = localStorage.setItem('CLIENT_ORDER', JSON.stringify(cartRemovedItem))
-    // console.log('cart from storage: ', localCart)
+    console.log('cart from storage: ', localCart)
 
     // console.log('updated cart[remove]:', [...cart, item])
   };

@@ -101,9 +101,8 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
   }
 
   // console.log('LINE ITEMS', formatData.shoppingCart.lineItems)
-  // console.log('running on server', formatData)
-  // return formatData
-  // console.debug('post info: ', clover_url, merchant_id, hosted_token)
+  console.log('running on server', formatData)
+  console.debug('post info: ', clover_url, merchant_id, hosted_token)
   await axios.post(
     `${clover_url}/invoicingcheckoutservice/v1/checkouts`,
     JSON.stringify(formatData),
@@ -121,7 +120,7 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
       link = res.data.href
       return link
   }).catch((error) => {
-    // console.error('MY_ERROR_P:', error)
+    console.error('Error getting checkout link:', error)
       return error
   }) 
   

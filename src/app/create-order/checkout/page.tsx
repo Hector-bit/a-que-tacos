@@ -185,6 +185,7 @@ export default function CheckoutPage() {
               ${btnCheckout}
             `} 
             onClick={async() => {
+              // console.log('my cart: ', cart)
               let testing = await fetchCloverLink(cart, customerState);
               // console.log('testing thingy: ', typeof(testing), testing)
               if(testing){
