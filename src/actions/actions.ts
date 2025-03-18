@@ -6,12 +6,12 @@ import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { MenuNameDictionary, IngredientDictionary, itemToPriceObj, ChoiceOfMeatEspanolDictionary } from '@utils/constants';
-import { MerchantLocationsType } from '@utils/merchantConstants';
+import { MerchantLocationsType, MID_TO_LOCATION } from '@utils/merchantConstants';
 import { LOCATION_CREDS } from '@utils/merchantConstants';
 
-const clover_url = process.env.CLOVER_BASE_URL
-const merchant_id = process.env.MERCHANT_ID
-const hosted_token = process.env.API_KEY
+// const clover_url = process.env.CLOVER_BASE_URL
+// const merchant_id = process.env.MERCHANT_ID
+// const hosted_token = process.env.API_KEY
 
 export type CustomerState = {
   errors?: {
@@ -130,9 +130,9 @@ export const fetchCloverLink = async(location: MerchantLocationsType, cartData: 
   redirect(link)
 }
 
-export const getOrderId = async (requestUrl: string) => {
-  // const LOCATION = LOCATION_CREDS[location]
-  console.debug('STARTING GET REQ: ', requestUrl);
+export const getOrderId = async (merchant_id:string, requestUrl: string) => {
+  const LOCATION = LOCATION_CREDS[MID_TO_LOCATION[merchant_id]] 
+  console.debug('STARTING GET REQ: ', requestUrl, LOCATION);
   // await new Promise(resolve => setTimeout(resolve, 2000));
   // console.debug('after delay', requestUrl);
 
@@ -140,7 +140,7 @@ export const getOrderId = async (requestUrl: string) => {
     const response = await fetch(requestUrl, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${hosted_token}`
+        'Authorization': `Bearer ${LOCATION.MID}`
       }
     });
 
@@ -164,20 +164,21 @@ export const getOrderId = async (requestUrl: string) => {
 };
 
 // REQUEST CLOVER MACHINE TO PRINT RECIEPT
-export const requestPrint = async ( orderId: string) => {
-  console.debug("Starting print request", orderId);
+export const requestPrint = async ( merchant_id: string, orderId: string) => {
+  const LOCATION = LOCATION_CREDS[MID_TO_LOCATION[merchant_id]] 
+  console.debug("Starting print request", orderId, LOCATION);
 
   const printBody = {
     orderRef: { id: orderId },
   };
 
   try {
-    const response = await fetch(`${clover_url}/v3/merchants/${merchant_id}/print_event`, {
+    const response = await fetch(`${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/print_event`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Clover-Merchant-ID": `${merchant_id}`,
-        "Authorization": `Bearer ${hosted_token}`,
+        "X-Clover-Merchant-ID": `${LOCATION.MID}`,
+        "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
       },
       body: JSON.stringify(printBody),
     });
