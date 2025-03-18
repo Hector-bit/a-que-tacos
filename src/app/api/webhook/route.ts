@@ -9,7 +9,7 @@ import { MID_TO_SIGNAGE, LOCATION_CREDS, MID_TO_LOCATION } from "@utils/merchant
 // const hosted_token = process.env.API_KEY || ""
 
 const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => {
-  console.log(str, 'LOOK HERE')
+  // console.log(str, 'LOOK HERE')
   const sliced = str.slice(2)
   const spliced = sliced.split(',')
   return { timeStamp: spliced[0], signature: spliced[1].slice(3)}
@@ -21,10 +21,10 @@ export async function POST(req: NextRequest) {
     // Data from webhook 
     const body = await req.text();
     const parsedBody = await JSON.parse(body)
-    console.log('PARSED BODY; ', parsedBody)
     const merchantId = parsedBody.merchantId
     const signatureData = req.headers.get("clover-signature") || "";
     const { timeStamp, signature } = getTimeFromSig(signatureData)
+    console.log('PARSED BODY; ', parsedBody, '\n merchantId: ', merchantId, typeof(merchantId), "\n signage:", MID_TO_SIGNAGE[merchantId], '\n ')
 
     const dateAndBody = `${timeStamp}.${body}`;
 
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
       // console.debug('parsed', parsedBody)
       // console.debug('payment id', parsedBody.id)
 
-      const requestUrl = `${LOCATION_CREDS[MID_TO_LOCATION[merchantId]]}/v3/merchants/${merchantId}/payments/${parsedBody.id}`
+      const requestUrl = `${LOCATION_CREDS[MID_TO_LOCATION[merchantId]].APIROUTE}/v3/merchants/${merchantId}/payments/${parsedBody.id}`
       console.debug('request url:', requestUrl)
 
       await new Promise(resolve => setTimeout(resolve, 15000));
