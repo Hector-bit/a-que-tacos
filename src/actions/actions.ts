@@ -6,6 +6,8 @@ import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { MenuNameDictionary, IngredientDictionary, itemToPriceObj, ChoiceOfMeatEspanolDictionary } from '@utils/constants';
+import { MerchantLocationsType } from '@utils/mercchantConstants';
+import { LOCATION_CREDS } from '@utils/mercchantConstants';
 
 const clover_url = process.env.CLOVER_BASE_URL
 const merchant_id = process.env.MERCHANT_ID
@@ -49,8 +51,9 @@ const CustomerScheme = z.object({
 
 const CreateOrder = CustomerScheme.omit({})
 
-export const fetchCloverLink = async(cartData: OrderItem[], customerData: CustomerInfoType):Promise<ErrorState> => {
+export const fetchCloverLink = async(location: MerchantLocationsType, cartData: OrderItem[], customerData: CustomerInfoType):Promise<ErrorState> => {
   // console.debug('start fetchclover link call')
+  const LOCATION = LOCATION_CREDS[location]
   let link = 'undefined'
 
   const validatedFields = CreateOrder.safeParse({
@@ -102,15 +105,15 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
 
   // console.log('LINE ITEMS', formatData.shoppingCart.lineItems)
   console.log('running on server', formatData)
-  console.debug('post info: ', clover_url, merchant_id, hosted_token)
+  console.debug('post info: ', clover_url, LOCATION.MID, LOCATION.HOSTED_TOKEN)
   await axios.post(
     `${clover_url}/invoicingcheckoutservice/v1/checkouts`,
     JSON.stringify(formatData),
     {
       headers: {
         'Content-Type': 'application/json',
-        'X-Clover-Merchant-ID': merchant_id, 
-        'Authorization': `Bearer ${hosted_token}`
+        'X-Clover-Merchant-ID': LOCATION.MID, 
+        'Authorization': `Bearer ${LOCATION.HOSTED_TOKEN}`
       }
     }
     ).then ((res) => {
@@ -128,6 +131,7 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
 }
 
 export const getOrderId = async (requestUrl: string) => {
+  // const LOCATION = LOCATION_CREDS[location]
   console.debug('STARTING GET REQ: ', requestUrl);
   // await new Promise(resolve => setTimeout(resolve, 2000));
   // console.debug('after delay', requestUrl);
@@ -160,7 +164,7 @@ export const getOrderId = async (requestUrl: string) => {
 };
 
 // REQUEST CLOVER MACHINE TO PRINT RECIEPT
-export const requestPrint = async (orderId: string) => {
+export const requestPrint = async ( orderId: string) => {
   console.debug("Starting print request", orderId);
 
   const printBody = {
@@ -193,12 +197,12 @@ export const requestPrint = async (orderId: string) => {
   }
 };
 
-export const fetchMyHours = async () => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-  try{
-    let fetchingHours = fetch(`${baseUrl}/api/clover/business-hours`)
+// export const fetchMyHours = async () => {
+//   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+//   try{
+//     let fetchingHours = fetch(`${baseUrl}/api/clover/business-hours`)
     
-  } catch {
-    console.error('error fetching if we are open')
-  }
-}
+//   } catch {
+//     console.error('error fetching if we are open')
+//   }
+// }

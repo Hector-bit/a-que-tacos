@@ -4,10 +4,13 @@ import { OrderItem } from '../../utils/types'
 import { CartContextType, CustomerInfoType, OrderErrorAction, OrderErrorState } from '../../utils/types'
 import { error } from 'console'
 import { stat } from 'fs'
+import { MerchantLocationsType } from '@utils/mercchantConstants'
 
 let initialErrorMsgs:OrderErrorState = { errors: [] }
 
 export const CartContext = createContext<CartContextType>({
+  location: 'SELECT',
+  handleLocation: () => console.log('location handler'),
   onlineOrdering: false,
   handleOnlineOrdering: () => console.log('handler for setting bool'),
   orderTotal: 0,
@@ -52,12 +55,19 @@ export const CartProvider = ({ children }:any) => {
   // }
 
   // ORDER CONTEXT 
+  const [location, setLocation] = useState<MerchantLocationsType>('SELECT')
   const [onlineOrdering, setOnlineOrdering] = useState<boolean>(false)
   const [orderTotal, setOrderTotal] = useState<number>(0)
   const [cart, setCart] = useState<OrderItem[]>([])
   const [customerInfo, setCustomerInfo] = useState<CustomerInfoType>(initialCustomerInfo)
   const [OrderErrorState, OrderErrorDispatch] = useReducer(orderErrorReducer, initialErrorMsgs)
 
+  // LOCATION FUNCTIONS
+  const handleLocation = (location: MerchantLocationsType) => {
+    setLocation(location)
+  }
+
+  // CART FUNCTIONS 
   const addToCart = (item:OrderItem) => {
     setCart([...cart, item])
     localStorage.setItem('CLIENT_ORDER', JSON.stringify([...cart, item]))
@@ -69,28 +79,25 @@ export const CartProvider = ({ children }:any) => {
     // console.log('filtered cart state: ', cartRemovedItem)
     setCart(cartRemovedItem);
     let localCart = localStorage.setItem('CLIENT_ORDER', JSON.stringify(cartRemovedItem))
-    console.log('cart from storage: ', localCart)
-
+    // console.log('cart from storage: ', localCart)
     // console.log('updated cart[remove]:', [...cart, item])
   };
-
-  const handleOnlineOrdering = (onlineOrderingBool: boolean) => {
-    setOnlineOrdering(onlineOrderingBool)
-  }
-
+  
   const clearCart = () => {
     setCart([]);
   };
+  
+  const handleOnlineOrdering = (onlineOrderingBool: boolean) => {
+    setOnlineOrdering(onlineOrderingBool)
+  }
 
   const saveCustomerInfo = (customerInfo:CustomerInfoType) => {
     // console.log('updating customer info: ', customerInfo)
     localStorage.setItem('CLIENT_CUSTOMER_INFO', JSON.stringify(customerInfo))
   }
 
-  // USING LOCAL STORAGE WE WILL SAVE THE USERS ORDER 
+  // DOES MATH TO SHOW TOTAL
   useEffect(() => {
-    // console.log('updated cart:', cart)
-    // SUMS UP ORDER TOTAL 
     let tempTotal = 0
     cart.forEach((order) => {
       tempTotal += order.price
@@ -98,25 +105,34 @@ export const CartProvider = ({ children }:any) => {
     let withTax = tempTotal + (tempTotal * 0.088)
     setOrderTotal(withTax)
   },[cart])
-
+  
+  // USING LOCAL STORAGE WE WILL SAVE THE USERS ORDER 
   useEffect(() => {
-    // RETRIVE CUSTOMER ORDER 
     let retrivedOrderCart = localStorage.getItem('CLIENT_ORDER')
     retrivedOrderCart ? setCart(JSON.parse(retrivedOrderCart)) : null
-    // console.log('local storage order cart: ', retrivedOrderCart)
-
-    //todo setup customer info saving???
-    //RETRIEVE CUSTOMER INFO
-    // let retrievedCustomerInfo = localStorage.getItem('CLIENT_CUSTOMER_INFO')
-    // retrievedCustomerInfo ? setCustomerInfo(JSON.parse(retrievedCustomerInfo)) : null
-    // console.log('local storage customer info: ', retrievedCustomerInfo)
   },[])
 
 
 
   return (
     <div>
-    <CartContext.Provider value={{ onlineOrdering, handleOnlineOrdering, orderTotal, cart, addToCart, removeFromCart, clearCart, saveCustomerInfo, customerInfo, OrderErrorState, OrderErrorDispatch }}>
+    <CartContext.Provider 
+      value={{ 
+        location, 
+        handleLocation,
+        onlineOrdering, 
+        handleOnlineOrdering, 
+        orderTotal, 
+        cart, 
+        addToCart, 
+        removeFromCart, 
+        clearCart, 
+        saveCustomerInfo, 
+        customerInfo, 
+        OrderErrorState, 
+        OrderErrorDispatch 
+      }}
+    >
       {children}
     </CartContext.Provider>
     </div>

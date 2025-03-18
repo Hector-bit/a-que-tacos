@@ -1,4 +1,5 @@
 import { Dispatch } from "react"
+import { MerchantLocationsType } from "./mercchantConstants"
 
 export type SideOptionType = 'TORTILLA' | 'CHIPS'
 
@@ -106,6 +107,8 @@ export type OrderErrorAction =
 
 // CONTEXT TYPES 
 export type CartContextType = {
+  location: MerchantLocationsType
+  handleLocation: (location: MerchantLocationsType) => void
   onlineOrdering: boolean
   handleOnlineOrdering: (onlineOrderingBool:boolean) => void
   orderTotal: number
