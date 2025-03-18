@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
   try {
     // Data from webhook 
     const body = await req.text();
-    const parsedBody = JSON.parse(body)
+    const parsedBody = await JSON.parse(body)
     console.log('PARSED BODY; ', parsedBody)
     const merchantId = parsedBody.merchantId
     const signatureData = req.headers.get("clover-signature") || "";
