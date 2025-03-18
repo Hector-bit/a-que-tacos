@@ -18,6 +18,8 @@ export default function CheckoutPage() {
   const [customerState, setCustomerState] = useState<CustomerInfoType>(customerInfo)
   const [errorMessages, setErrorMessages] = useState<any>([])
 
+  // console.log('locatoin', location)
+
 
   return (
     <div className="flex flex-col p-3">

@@ -12,7 +12,7 @@ type LocationIsOpenWrapperInterface = {
 
 const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
   // const [onlineOrdering, setOnlineOrdering] = useState<boolean>(true)
-  const { onlineOrdering, handleOnlineOrdering } = useContext<CartContextType>(CartContext)
+  const { location, onlineOrdering, handleOnlineOrdering } = useContext<CartContextType>(CartContext)
 
   // sets closed or open UI if within business hours
   useEffect(() => {
@@ -22,12 +22,12 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     // console.log('curr day: ', currDay)
     if(currDay !== 0){
       //check if within hours
-      const isOpen = isBetween11And6(currDate)
+      const isOpen = isBetween11And6(currDate, location)
       handleOnlineOrdering(isOpen)
   
       const interval = setInterval(() => {
         const now = new Date();
-        const isOpen = isBetween11And6(now)
+        const isOpen = isBetween11And6(now, location)
         // handleOnlineOrdering(true)
         handleOnlineOrdering(isOpen)
       }, 60 * 1000);

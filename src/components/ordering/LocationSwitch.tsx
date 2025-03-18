@@ -1,7 +1,7 @@
 'use client'
 import { useState, useContext } from "react";
 import { CartContext } from "@/context/orderContext";
-import { LOCATION_CREDS, LOCATION_HOURS, LOCATIONS, location_address } from "@utils/mercchantConstants";
+import { LOCATION_CREDS, location_hours, LOCATIONS, location_address, MerchantLocationsType } from "@utils/mercchantConstants";
 
 const LocationSwitch = () => {
 
@@ -13,14 +13,19 @@ const LocationSwitch = () => {
   return (
     <div className="text-2xl font-bold">
       <label className='mr-2'>Location:</label>
-      <select className="p-2 font-medium" name="locations" id="locations">
+      <select 
+        id="locations"
+        name="locations" 
+        className="p-2 font-medium" 
+        value={location} 
+        onChange={(e) => handleLocation(e.target.value as MerchantLocationsType)}
+      >
         {LOCATIONS.map((location, index) => {
           return (
             <option
-              className="p-2 font-medium font"
               key={`${index}-${location}`} 
+              className="p-2 font-medium font"
               value={location}
-              onClick={() => handleLocation(location)}
             >
               {location}
             </option>

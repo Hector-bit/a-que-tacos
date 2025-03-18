@@ -70,7 +70,7 @@ export const fetchCloverLink = async(location: MerchantLocationsType, cartData: 
     // console.log('ERRORS', validatedFields.error)
     return validatedFields.error.flatten().fieldErrors
   }
-  // console.log('testing note')
+  console.log('testing note', LOCATION)
 
 
   const formatData = {
@@ -96,23 +96,23 @@ export const fetchCloverLink = async(location: MerchantLocationsType, cartData: 
       })
       },
       "customer": {
-      "email": customerData.email,
-      "firstName" : customerData.firstName,
-      "lastName": customerData.lastName,
-      "phoneNumber": customerData.phoneNumber
+        "email": customerData.email,
+        "firstName" : customerData.firstName,
+        "lastName": customerData.lastName,
+        "phoneNumber": customerData.phoneNumber
       }
   }
 
   // console.log('LINE ITEMS', formatData.shoppingCart.lineItems)
-  console.log('running on server', formatData)
-  console.debug('post info: ', clover_url, LOCATION.MID, LOCATION.HOSTED_TOKEN)
+  // console.log('running on server', formatData)
+  // console.debug('post info: ', clover_url, LOCATION.MID, LOCATION.HOSTED_TOKEN)
   await axios.post(
-    `${clover_url}/invoicingcheckoutservice/v1/checkouts`,
+    `${LOCATION.APIROUTE}/invoicingcheckoutservice/v1/checkouts`,
     JSON.stringify(formatData),
     {
       headers: {
         'Content-Type': 'application/json',
-        'X-Clover-Merchant-ID': LOCATION.MID, 
+        'X-Clover-Merchant-ID': `${LOCATION.MID}`, 
         'Authorization': `Bearer ${LOCATION.HOSTED_TOKEN}`
       }
     }
