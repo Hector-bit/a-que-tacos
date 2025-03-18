@@ -19,7 +19,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     const currDate = new Date
     const currDay = currDate.getDay()
 
-    console.log('curr day: ', currDay)
+    // console.log('curr day: ', currDay)
     if(currDay !== 0){
       //check if within hours
       const isOpen = isBetween11And6(currDate)
