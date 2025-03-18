@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/orderContext";
 
 import { CartContextType, menuItemType } from "@utils/types";
-import { MerchantLocationsType } from "@utils/mercchantConstants";
+import { MerchantLocationsType } from "@utils/merchantConstants";
 import { menu_items } from "@utils/constants";
 
 import OrderCard from "@/components/ordering/OrderCard";

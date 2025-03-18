@@ -1,11 +1,12 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { getOrderId, requestPrint } from "@/actions/actions";
+import { MID_TO_SIGNAGE, LOCATION_CREDS, MID_TO_LOCATION } from "@utils/merchantConstants";
 
-const WEBHOOK = process.env.WEBHOOK || "";
-const clover_url = process.env.CLOVER_BASE_URL || ""
-const merchant_id = process.env.MERCHANT_ID || ""
-const hosted_token = process.env.API_KEY || ""
+// const WEBHOOK = process.env.WEBHOOK || "";
+// const clover_url = process.env.CLOVER_BASE_URL || ""
+// const merchant_id = process.env.MERCHANT_ID || ""
+// const hosted_token = process.env.API_KEY || ""
 
 const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => {
   console.log(str, 'LOOK HERE')
@@ -21,13 +22,14 @@ export async function POST(req: NextRequest) {
     const body = await req.text();
     const parsedBody = JSON.parse(body)
     console.log('PARSED BODY; ', parsedBody)
+    const merchantId = parsedBody.merchantId
     const signatureData = req.headers.get("clover-signature") || "";
     const { timeStamp, signature } = getTimeFromSig(signatureData)
 
     const dateAndBody = `${timeStamp}.${body}`;
 
-    const expectedSignature = crypto.createHmac("sha256", WEBHOOK).update(dateAndBody).digest("hex");
-    // console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
+    const expectedSignature = crypto.createHmac("sha256", MID_TO_SIGNAGE[merchantId]).update(dateAndBody).digest("hex");
+    console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
 
     if (signature !== expectedSignature) {
       // console.debug('WRONG SIGNING KEY')
@@ -40,8 +42,8 @@ export async function POST(req: NextRequest) {
       // console.debug('parsed', parsedBody)
       // console.debug('payment id', parsedBody.id)
 
-      const requestUrl = `${clover_url}/v3/merchants/${merchant_id}/payments/${parsedBody.id}`
-      // console.debug('request url:', requestUrl)
+      const requestUrl = `${LOCATION_CREDS[MID_TO_LOCATION[merchantId]]}/v3/merchants/${merchantId}/payments/${parsedBody.id}`
+      console.debug('request url:', requestUrl)
 
       await new Promise(resolve => setTimeout(resolve, 15000));
 

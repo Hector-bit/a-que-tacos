@@ -6,7 +6,7 @@ import { CartContext } from "@/context/orderContext"
 import { CartContextType, CustomerInfoType } from "../../../../utils/types"
 import { MenuNameDictionary, IngredientDictionary, ChoiceOfMeatEspanolDictionary, ChoiceOfMeatEnglishDictionary } from "../../../../utils/constants"
 import { fetchCloverLink } from "@/actions/actions"
-import { location_address } from "@utils/mercchantConstants"
+import { location_address } from "@utils/merchantConstants"
 import LocationSwitch from "@/components/ordering/LocationSwitch"
 
 

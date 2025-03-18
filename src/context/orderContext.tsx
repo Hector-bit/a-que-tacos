@@ -4,7 +4,7 @@ import { OrderItem } from '../../utils/types'
 import { CartContextType, CustomerInfoType, OrderErrorAction, OrderErrorState } from '../../utils/types'
 import { error } from 'console'
 import { stat } from 'fs'
-import { MerchantLocationsType } from '@utils/mercchantConstants'
+import { MerchantLocationsType } from '@utils/merchantConstants'
 
 let initialErrorMsgs:OrderErrorState = { errors: [] }
 

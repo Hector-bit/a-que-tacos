@@ -6,8 +6,8 @@ import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { MenuNameDictionary, IngredientDictionary, itemToPriceObj, ChoiceOfMeatEspanolDictionary } from '@utils/constants';
-import { MerchantLocationsType } from '@utils/mercchantConstants';
-import { LOCATION_CREDS } from '@utils/mercchantConstants';
+import { MerchantLocationsType } from '@utils/merchantConstants';
+import { LOCATION_CREDS } from '@utils/merchantConstants';
 
 const clover_url = process.env.CLOVER_BASE_URL
 const merchant_id = process.env.MERCHANT_ID

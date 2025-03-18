@@ -33,6 +33,21 @@ export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, M
   }
 }
 
+export const MID_TO_LOCATION: Record<string, MerchantLocationsType> = {
+  [process.env.TEST_WEBHOOK as string]: 'TEST',
+  [process.env.BELLINGHAM_WEBHOOK as string]: 'BELLINGHAM',
+  [process.env.EVERSON_WEBHOOK as string]: 'EVERSON',
+  [process.env.BLAINE_WEBHOOK as string]: 'BLAINE'
+}
+
+
+export const MID_TO_SIGNAGE = {
+  [process.env.TEST_WEBHOOK as string]: 'hcp_6c0606b209b26b499dc474ece677ada7',
+  [process.env.BELLINGHAM_WEBHOOK as string]: 'hcp_395f957a367d0b359cd58ba37faadcc9',
+  [process.env.EVERSON_WEBHOOK as string]: 'hcp_379287c7e9050611aafccca5e24477e7',
+  [process.env.BLAINE_WEBHOOK as string]: 'hcp_1e32e112cc70c0b093e5bcd7e20af1af'
+}
+
 // TIMES ARE IN UTC/Z TIME
 export const location_hours: Record<MerchantLocationsType, { opening: number, closing: number }> = {
   //11pm is 18 in utc
@@ -43,7 +58,7 @@ export const location_hours: Record<MerchantLocationsType, { opening: number, cl
   },
   'TEST': {
     opening: 18,
-    closing: 5
+    closing: 17
   },
   'BELLINGHAM': {
     opening: 18,

@@ -1,4 +1,4 @@
-import { MerchantLocationsType, location_hours } from "@utils/mercchantConstants";
+import { MerchantLocationsType, location_hours } from "@utils/merchantConstants";
 import { daysOfWeek } from "@utils/constants";
 import { NextResponse } from "next/server";
 

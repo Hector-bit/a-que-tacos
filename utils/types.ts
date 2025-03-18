@@ -1,5 +1,5 @@
 import { Dispatch } from "react"
-import { MerchantLocationsType } from "./mercchantConstants"
+import { MerchantLocationsType } from "./merchantConstants"
 
 export type SideOptionType = 'TORTILLA' | 'CHIPS'
 

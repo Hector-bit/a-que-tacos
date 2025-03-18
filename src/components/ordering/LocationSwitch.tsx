@@ -1,7 +1,7 @@
 'use client'
 import { useState, useContext } from "react";
 import { CartContext } from "@/context/orderContext";
-import { LOCATION_CREDS, location_hours, LOCATIONS, location_address, MerchantLocationsType } from "@utils/mercchantConstants";
+import { LOCATION_CREDS, location_hours, LOCATIONS, location_address, MerchantLocationsType } from "@utils/merchantConstants";
 
 const LocationSwitch = () => {
 
