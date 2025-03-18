@@ -53,7 +53,7 @@ export const location_hours: Record<MerchantLocationsType, { opening: number, cl
   //11pm is 18 in utc
   //6pm is 1 in utc
   'SELECT': {
-    opening: 18,
+    opening: 23,
     closing: 1
   },
   'TEST': {
