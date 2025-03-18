@@ -15,12 +15,12 @@ const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => 
 }
 
 export async function POST(req: NextRequest) {
-  // console.debug('ROUTE IS RUNNING')
+  console.debug('ROUTE IS RUNNING')
   try {
     // Data from webhook 
     const body = await req.text();
     const parsedBody = JSON.parse(body)
-    // console.log('PARSED BODY; ', parsedBody)
+    console.log('PARSED BODY; ', parsedBody)
     const signatureData = req.headers.get("clover-signature") || "";
     const { timeStamp, signature } = getTimeFromSig(signatureData)
 
