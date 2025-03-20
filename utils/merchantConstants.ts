@@ -3,10 +3,10 @@ export type MerchantLocationsType = 'EVERSON' | 'BLAINE' | 'BELLINGHAM' | 'TEST'
 
 export const LOCATIONS:MerchantLocationsType[] = ['SELECT', 'TEST', 'BELLINGHAM', 'BLAINE', 'EVERSON']
 
-const testWebhook = process.env.TEST_WEBHOOK!;
-const bellinghamWebhook = process.env.BELLINGHAM_WEBHOOK!;
-const eversonWebhook = process.env.EVERSON_WEBHOOK!;
-const blaineWebhook = process.env.BLAINE_WEBHOOK!;
+const testMID = process.env.TEST_MERCHANT_ID!;
+const bellinghamMID = process.env.BELLINGHAM_MERCHANT_ID!;
+const eversonMID = process.env.EVERSON_MERCHANT_ID!;
+const blaineMID = process.env.BLAINE_MERCHANT_ID!;
 
 export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, MID: string, HOSTED_TOKEN: string, SIGNATURE: string }> = {
   'SELECT': {
@@ -42,18 +42,18 @@ export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, M
 }
 
 export const MID_TO_LOCATION: Record<string, MerchantLocationsType> = {
-  [testWebhook]: 'TEST',
-  [bellinghamWebhook]: 'BELLINGHAM',
-  [eversonWebhook]: 'EVERSON',
-  [blaineWebhook]: 'BLAINE'
+  [testMID]: 'TEST',
+  [bellinghamMID]: 'BELLINGHAM',
+  [eversonMID]: 'EVERSON',
+  [blaineMID]: 'BLAINE'
 }
 
 
 export const MID_TO_SIGNAGE = {
-  [testWebhook]: 'hcp_6c0606b209b26b499dc474ece677ada7',
-  [bellinghamWebhook]: 'hcp_395f957a367d0b359cd58ba37faadcc9',
-  [eversonWebhook]: 'hcp_379287c7e9050611aafccca5e24477e7',
-  [blaineWebhook]: 'hcp_1e32e112cc70c0b093e5bcd7e20af1af',
+  [testMID]: 'hcp_6c0606b209b26b499dc474ece677ada7',
+  [bellinghamMID]: 'hcp_395f957a367d0b359cd58ba37faadcc9',
+  [eversonMID]: 'hcp_379287c7e9050611aafccca5e24477e7',
+  [blaineMID]: 'hcp_1e32e112cc70c0b093e5bcd7e20af1af',
 }
 
 // export const getMIDFromLocation = (MID: string) => {
