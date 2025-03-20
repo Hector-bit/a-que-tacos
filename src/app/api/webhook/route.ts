@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
     const dateAndBody = `${timeStamp}.${body}`;
 
-    const expectedSignature = crypto.createHmac("sha256", MID_TO_LOCATION[merchantId]).update(dateAndBody).digest("hex");
+    const expectedSignature = crypto.createHmac("sha256", localCredentials.SIGNATURE).update(dateAndBody).digest("hex");
     console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
 
     if (signature !== expectedSignature) {
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       // console.debug('parsed', parsedBody)
       // console.debug('payment id', parsedBody.id)
 
-      const requestUrl = `${LOCATION_CREDS[MID_TO_LOCATION[merchantId]].APIROUTE}/v3/merchants/${merchantId}/payments/${parsedBody.id}`
+      const requestUrl = `${localCredentials.SIGNATURE}/v3/merchants/${merchantId}/payments/${parsedBody.id}`
       console.debug('request url:', requestUrl)
 
       await new Promise(resolve => setTimeout(resolve, 15000));
