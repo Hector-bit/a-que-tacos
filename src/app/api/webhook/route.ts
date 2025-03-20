@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
     const dateAndBody = `${timeStamp}.${body}`;
 
-    const expectedSignature = crypto.createHmac("sha256", localCredentials.SIGNATURE).update(dateAndBody).digest("hex");
+    const expectedSignature = crypto.createHmac("sha256", MID_TO_LOCATION[merchantId]).update(dateAndBody).digest("hex");
     console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
 
     if (signature !== expectedSignature) {

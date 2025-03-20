@@ -13,15 +13,15 @@ const LocationSwitch = () => {
 
   // console.log('location:', location, '\nMID: ', merchant_id, '\nsignage:', signage, '\n testing: ', testServer)
 
-  useEffect(() => {
-    const getShtuff = async() => {
-      const merchant_id = LOCATION_CREDS[location].MID
-      const signage = await getLocationFromMID(merchant_id)
-      const testServer = await getCredentialsFromLocation(location)
-      console.log('location:', location, '\nMID: ', merchant_id, '\nsignage:', signage, '\n testing: ', testServer)
-    }
-    getShtuff()
-  },[location])
+  // useEffect(() => {
+  //   const getShtuff = async() => {
+  //     const merchant_id = LOCATION_CREDS[location].MID
+  //     const signage = await getLocationFromMID(merchant_id)
+  //     const testServer = await getCredentialsFromLocation(location)
+  //     console.log('location:', location, '\nMID: ', merchant_id, '\nsignage:', signage, '\n testing: ', testServer)
+  //   }
+  //   getShtuff()
+  // },[location])
 
 
   return (
