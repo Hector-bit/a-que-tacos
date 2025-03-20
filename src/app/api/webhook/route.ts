@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     // Data from webhook 
     const body = await req.text();
     const parsedBody = await JSON.parse(body)
-    const merchantId:string = parsedBody.merchantId
+    const merchantId = parsedBody.merchantId
     const signatureData = req.headers.get("clover-signature") || "";
     const { timeStamp, signature } = getTimeFromSig(signatureData)
     console.log('PARSED BODY; ', parsedBody, '\n merchantId: ', merchantId, typeof(merchantId), "\n signage:", MID_TO_SIGNAGE[merchantId], '\n ')
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
     const dateAndBody = `${timeStamp}.${body}`;
 
-    const expectedSignature = crypto.createHmac("sha256", MID_TO_SIGNAGE[merchantId]).update(dateAndBody).digest("hex");
+    const expectedSignature = crypto.createHmac("sha256", localCredentials.SIGNATURE).update(dateAndBody).digest("hex");
     console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
 
     if (signature !== expectedSignature) {
