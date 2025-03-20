@@ -210,7 +210,7 @@ export const requestPrint = async ( merchant_id: string, orderId: string) => {
 
 export const getLocationFromMID = async(MID: string) => {
   const localLocation = MID_TO_LOCATION[MID]
-  console.log('SERVER HERE: ','\nlocalLocation: ', localLocation, '\nMID: ', MID)
+  console.log('SERVER HERE: ','\nlocalLocation: ', localLocation, '\nMID: ', MID, '\n mid object: ', MID_TO_LOCATION)
   return localLocation
 }
 

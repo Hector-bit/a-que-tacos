@@ -24,14 +24,14 @@ export async function POST(req: NextRequest) {
     const merchantId = parsedBody.merchantId
     const signatureData = req.headers.get("clover-signature") || "";
     const { timeStamp, signature } = getTimeFromSig(signatureData)
-    console.log('PARSED BODY; ', parsedBody, '\n merchantId: ', merchantId, typeof(merchantId), "\n signage:", MID_TO_SIGNAGE[merchantId], '\n ')
+    console.log('PARSED BODY; ', parsedBody, '\n merchantId: ', merchantId, typeof(merchantId), "\n signage:", MID_TO_SIGNAGE[merchantId], '\nMID STORE VAL', MID_TO_SIGNAGE)
     const location = await getLocationFromMID(merchantId)
     const localCredentials = await getCredentialsFromLocation(location)
 
     const dateAndBody = `${timeStamp}.${body}`;
 
     const expectedSignature = crypto.createHmac("sha256", MID_TO_LOCATION[merchantId]).update(dateAndBody).digest("hex");
-    console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature, MID_TO_SIGNAGE)
+    console.debug('expected:', expectedSignature, '\n', 'recieved: ', signature)
 
     if (signature !== expectedSignature) {
       // console.debug('WRONG SIGNING KEY')

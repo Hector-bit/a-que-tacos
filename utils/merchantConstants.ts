@@ -42,10 +42,10 @@ export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, M
 }
 
 export const MID_TO_LOCATION: Record<string, MerchantLocationsType> = {
-  [process.env.TEST_WEBHOOK as string]: 'TEST',
-  [process.env.BELLINGHAM_WEBHOOK as string]: 'BELLINGHAM',
-  [process.env.EVERSON_WEBHOOK as string]: 'EVERSON',
-  [process.env.BLAINE_WEBHOOK as string]: 'BLAINE'
+  [testWebhook]: 'TEST',
+  [bellinghamWebhook]: 'BELLINGHAM',
+  [eversonWebhook]: 'EVERSON',
+  [blaineWebhook]: 'BLAINE'
 }
 
 
