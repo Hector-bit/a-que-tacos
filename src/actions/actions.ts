@@ -6,11 +6,45 @@ import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { MenuNameDictionary, IngredientDictionary, itemToPriceObj, ChoiceOfMeatEspanolDictionary } from '@utils/constants';
-import { LOCATION_CREDS, MID_TO_SIGNAGE, MID_TO_LOCATION, MerchantLocationsType } from '@utils/merchantConstants';
+import { MID_TO_SIGNAGE, MID_TO_LOCATION, MerchantLocationsType } from '@utils/merchantConstants';
 
 // const clover_url = process.env.CLOVER_BASE_URL
 // const merchant_id = process.env.MERCHANT_ID
 // const hosted_token = process.env.API_KEY
+
+const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, MID: string, HOSTED_TOKEN: string, SIGNATURE: string }> = {
+  'SELECT': {
+    APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
+    MID: 'select',
+    HOSTED_TOKEN:'select',
+    SIGNATURE: 'select'
+  },
+  'TEST': {
+    APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
+    MID: process.env.TEST_MERCHANT_ID as string,
+    HOSTED_TOKEN: process.env.TEST_API_KEY as string,
+    SIGNATURE: process.env.TEST_WEBHOOK as string
+  },
+  'BELLINGHAM': {
+    APIROUTE: process.env.CLOVER_BASE_URL as string,
+    MID: process.env.BELLINGHAM_MERCHANT_ID as string,
+    HOSTED_TOKEN: process.env.BELLINGHAM_API_KEY as string,
+    SIGNATURE: process.env.BELLINGHAM_WEBHOOK as string
+  },
+  'EVERSON': {
+    APIROUTE: process.env.CLOVER_BASE_URL as string,
+    MID: process.env.EVERSON_MERCHANT_ID as string,
+    HOSTED_TOKEN: process.env.EVERSON_API_KEY as string,
+    SIGNATURE: process.env.EVERSON_WEBHOOK as string
+  },
+  'BLAINE': {
+    APIROUTE: process.env.CLOVER_BASE_URL as string,
+    MID: process.env.BLAINE_MERCHANT_ID as string,
+    HOSTED_TOKEN: process.env.BLAINE_API_KEY as string,
+    SIGNATURE: process.env.BLAINE_WEBHOOK as string
+  }
+}
+
 
 export type CustomerState = {
   errors?: {
