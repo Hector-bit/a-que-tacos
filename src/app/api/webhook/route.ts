@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-import { getOrderId, requestPrint } from "@/actions/actions";
+import { getOrderId, requestPrint, getCredentialsFromLocation, getLocationFromMID } from "@/actions/actions";
 import { MID_TO_SIGNAGE, LOCATION_CREDS, MID_TO_LOCATION } from "@utils/merchantConstants";
 
 // const WEBHOOK = process.env.WEBHOOK || "";
@@ -25,6 +25,8 @@ export async function POST(req: NextRequest) {
     const signatureData = req.headers.get("clover-signature") || "";
     const { timeStamp, signature } = getTimeFromSig(signatureData)
     console.log('PARSED BODY; ', parsedBody, '\n merchantId: ', merchantId, typeof(merchantId), "\n signage:", MID_TO_SIGNAGE[merchantId], '\n ')
+    const location = await getLocationFromMID(merchantId)
+    const localCredentials = await getCredentialsFromLocation(location)
 
     const dateAndBody = `${timeStamp}.${body}`;
 

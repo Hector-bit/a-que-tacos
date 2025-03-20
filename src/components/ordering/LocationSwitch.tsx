@@ -1,13 +1,27 @@
 'use client'
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { CartContext } from "@/context/orderContext";
 import { LOCATION_CREDS, location_hours, LOCATIONS, location_address, MerchantLocationsType, MID_TO_SIGNAGE } from "@utils/merchantConstants";
+import { getLocationFromMID, getCredentialsFromLocation } from "@/actions/actions";
 
 const LocationSwitch = () => {
 
   const { location, handleLocation } = useContext(CartContext)
+  // const merchant_id = LOCATION_CREDS[location].MID
+  // const signage = await getSignFromMid(merchant_id)
+  // const testServer = getMIDfromLocation(location)
 
-  // console.log('Creds?', console.log('signage', LOCATION_CREDS[location], MID_TO_SIGNAGE[LOCATION_CREDS[location].MID]))
+  // console.log('location:', location, '\nMID: ', merchant_id, '\nsignage:', signage, '\n testing: ', testServer)
+
+  useEffect(() => {
+    const getShtuff = async() => {
+      const merchant_id = LOCATION_CREDS[location].MID
+      const signage = await getLocationFromMID(merchant_id)
+      const testServer = await getCredentialsFromLocation(location)
+      console.log('location:', location, '\nMID: ', merchant_id, '\nsignage:', signage, '\n testing: ', testServer)
+    }
+    getShtuff()
+  },[location])
 
 
   return (

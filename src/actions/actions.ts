@@ -6,8 +6,7 @@ import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { MenuNameDictionary, IngredientDictionary, itemToPriceObj, ChoiceOfMeatEspanolDictionary } from '@utils/constants';
-import { MerchantLocationsType, MID_TO_LOCATION } from '@utils/merchantConstants';
-import { LOCATION_CREDS } from '@utils/merchantConstants';
+import { LOCATION_CREDS, MID_TO_SIGNAGE, MID_TO_LOCATION, MerchantLocationsType } from '@utils/merchantConstants';
 
 // const clover_url = process.env.CLOVER_BASE_URL
 // const merchant_id = process.env.MERCHANT_ID
@@ -207,3 +206,16 @@ export const requestPrint = async ( merchant_id: string, orderId: string) => {
 //     console.error('error fetching if we are open')
 //   }
 // }
+
+
+export const getLocationFromMID = async(MID: string) => {
+  const localLocation = MID_TO_LOCATION[MID]
+  console.log('SERVER HERE:  \n','localLocation: ', localLocation, '\nMID: ', MID)
+  return localLocation
+}
+
+export const getCredentialsFromLocation = async(location: MerchantLocationsType) => {
+  const localCreds = LOCATION_CREDS[location]
+  console.log('plesase what is this: ', localCreds)
+  return localCreds
+}
