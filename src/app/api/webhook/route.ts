@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { getOrderId, requestPrint, getCredentialsFromLocation, getLocationFromMID } from "@/actions/actions";
-import { MID_TO_SIGNAGE, LOCATION_CREDS, MID_TO_LOCATION } from "@utils/merchantConstants";
+import { MID_TO_SIGNAGE } from "@utils/merchantConstants";
 
 // const WEBHOOK = process.env.WEBHOOK || "";
 // const clover_url = process.env.CLOVER_BASE_URL || ""

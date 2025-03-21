@@ -197,25 +197,14 @@ export const requestPrint = async ( merchant_id: string, orderId: string) => {
   }
 };
 
-// export const fetchMyHours = async () => {
-//   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-//   try{
-//     let fetchingHours = fetch(`${baseUrl}/api/clover/business-hours`)
-    
-//   } catch {
-//     console.error('error fetching if we are open')
-//   }
-// }
-
-
 export const getLocationFromMID = async(MID: string) => {
   const localLocation = MID_TO_LOCATION[MID]
-  console.log('SERVER HERE: ','\nlocalLocation: ', localLocation, '\nMID: ', MID, '\n mid object: ', MID_TO_LOCATION)
+  // console.log('SERVER HERE: ','\nlocalLocation: ', localLocation, '\nMID: ', MID, '\n mid object: ', MID_TO_LOCATION)
   return localLocation
 }
 
 export const getCredentialsFromLocation = async(location: MerchantLocationsType) => {
   const localCreds = LOCATION_CREDS[location]
-  console.log('plesase what is this: ', localCreds)
+  // console.log('plesase what is this: ', localCreds)
   return localCreds
 }
