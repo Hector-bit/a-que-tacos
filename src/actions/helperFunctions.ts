@@ -16,18 +16,6 @@ export const getCurrentTime = () => {
   return hours + minutes
 }
 
-export function isBetween11And6(date: Date, location: MerchantLocationsType): boolean {
-  const openingTime = locationHours[location].opening
-  const closingTime = locationHours[location].closing
-  console.log('opening: ', openingTime, ' closing: ', closingTime)
-  console.log(openingTime >= 18, closingTime < 1)
-  //11am is 18 in utc
-  //6pm is 1 in utc
-  const currDate = new Date(date.toUTCString())
-  const hours = currDate.getUTCHours();
-  return openingTime >= 18 && closingTime < 1
-}
-
 export function isWitinOperatingTime(date: Date, location: MerchantLocationsType): boolean {
   const openingTime = locationOperatingTime[location].opening
   const closingTime = locationOperatingTime[location].closing

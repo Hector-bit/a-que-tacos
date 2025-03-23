@@ -1,6 +1,6 @@
 "use client"
 import React, { ReactNode, useContext, useEffect, useState } from "react"
-import { isBetween11And6, isWitinOperatingTime } from "@/actions/helperFunctions"
+import { isWitinOperatingTime } from "@/actions/helperFunctions"
 import { CartContext } from "@/context/orderContext"
 import { CartContextType } from "@utils/types"
 import Image from "next/image"

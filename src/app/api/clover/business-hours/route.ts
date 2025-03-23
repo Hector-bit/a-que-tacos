@@ -2,7 +2,6 @@ import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import { getOrderId, requestPrint } from "@/actions/actions";
-import { isBetween11And6 } from "@/actions/helperFunctions";
 
 const WEBHOOK = process.env.WEBHOOK || "";
 const clover_url = process.env.CLOVER_BASE_URL || ""
@@ -16,7 +15,6 @@ const hosted_token = process.env.API_KEY || ""
 //   try {
 //     const newDate = new Date()
 //     console.log('date from server: ', newDate)
-//     const checkIfTrue = isBetween11And6(newDate)
 //     console.log('is it true?/', checkIfTrue)
 //     return NextResponse.json({ body: checkIfTrue })
 //   }
