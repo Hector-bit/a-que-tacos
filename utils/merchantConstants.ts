@@ -81,61 +81,32 @@ export const MID_TO_SIGNAGE = {
 // }
 
 // TIMES ARE IN UTC/Z TIME
-export const locationHours: Record<MerchantLocationsType, { opening: number, closing: number }> = {
-  //11pm is 18 in utc
-  //6pm is 1 in utc
-  'SELECT': {
-    opening: 23,
-    closing: 1
-  },
-  'TEST1': {
-    opening: 18,
-    closing: 21
-  },
-  'TEST2': {
-    opening: 18,
-    closing: 19
-  },
-  'BELLINGHAM': {
-    opening: 18,
-    closing: 2
-  },
-  'EVERSON': {
-    opening: 18,
-    closing: 1
-  },
-  'BLAINE': {
-    opening: 18,
-    closing: 2
-  }
-}
-
 export const locationOperatingTime: Record<MerchantLocationsType, { opening: number, closing: number }> = {
   //11pm is 18 or 1080 min in utc
   //6pm is 1 or 60 min in utc
   'SELECT': {
-    opening: 1380,
-    closing: 60
+    opening: 1440,
+    closing: 0
   },
   'TEST1': {
     opening: 1380,
     closing: 1260
   },
   'TEST2': {
-    opening: 18,
-    closing: 19
+    opening: 1080,
+    closing: 180
   },
   'BELLINGHAM': {
     opening: 1080,
-    closing: 120
+    closing: 150
   },
   'EVERSON': {
-    opening: 1080,
+    opening: 1095,
     closing: 60
   },
   'BLAINE': {
     opening: 1080,
-    closing: 120
+    closing: 150
   }
 }
 

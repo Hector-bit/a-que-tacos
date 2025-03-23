@@ -1,4 +1,4 @@
-import { MerchantLocationsType, locationHours, locationOperatingTime } from "@utils/merchantConstants";
+import { MerchantLocationsType, locationOperatingTime } from "@utils/merchantConstants";
 import { daysOfWeek } from "@utils/constants";
 import { NextResponse } from "next/server";
 import { LOCATION_CREDS, MID_TO_SIGNAGE } from "@utils/merchantConstants";
@@ -26,9 +26,26 @@ export function isWitinOperatingTime(date: Date, location: MerchantLocationsType
   // Convert current UTC time to minutes since midnight
   const currentTime = hours * 60 + minutes;
 
+  //need to check if opening time is less than closing when crossing midnight
   if (openingTime < closingTime) {
     return currentTime >= openingTime && currentTime < closingTime;
   } else {
     return currentTime >= openingTime || currentTime < closingTime;
+  }
+}
+
+export const minutesToHoursReadable = (minutes: number): string => { 
+  // utc time is 7 hours ahead 
+  let hours = Math.abs(24 + Math.floor(minutes / 60) - 7) % 24;
+  const remainingMinutes = minutes % 60;
+
+  if(hours > 12){
+    hours = hours-12
+  }
+
+  if(remainingMinutes !== 0){
+    return `${hours}:${remainingMinutes}`
+  } else {
+    return `${hours}`
   }
 }
