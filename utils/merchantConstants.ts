@@ -110,6 +110,35 @@ export const locationHours: Record<MerchantLocationsType, { opening: number, clo
   }
 }
 
+export const locationOperatingTime: Record<MerchantLocationsType, { opening: number, closing: number }> = {
+  //11pm is 18 or 1080 min in utc
+  //6pm is 1 or 60 min in utc
+  'SELECT': {
+    opening: 1380,
+    closing: 60
+  },
+  'TEST1': {
+    opening: 1380,
+    closing: 1260
+  },
+  'TEST2': {
+    opening: 18,
+    closing: 19
+  },
+  'BELLINGHAM': {
+    opening: 1080,
+    closing: 120
+  },
+  'EVERSON': {
+    opening: 1080,
+    closing: 60
+  },
+  'BLAINE': {
+    opening: 1080,
+    closing: 120
+  }
+}
+
 export const location_address = {
   'SELECT': 'Please select a location',
   'TEST1': 'no location for test',

@@ -1,6 +1,6 @@
 "use client"
 import React, { ReactNode, useContext, useEffect, useState } from "react"
-import { isBetween11And6 } from "@/actions/helperFunctions"
+import { isBetween11And6, isWitinOperatingTime } from "@/actions/helperFunctions"
 import { CartContext } from "@/context/orderContext"
 import { CartContextType } from "@utils/types"
 import Image from "next/image"
@@ -22,13 +22,13 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     // console.log('curr day: ', currDay)
     if(currDay !== 0){
       //check if within hours
-      const isOpen = isBetween11And6(currDate, location)
+      const isOpen = isWitinOperatingTime(currDate, location)
       console.log('WE OPEN??: ', isOpen, ' location: ', location)
       handleOnlineOrdering(isOpen)
   
       const interval = setInterval(() => {
         const now = new Date();
-        const isOpen = isBetween11And6(now, location)
+        const isOpen = isWitinOperatingTime(now, location)
         // handleOnlineOrdering(true)
         handleOnlineOrdering(isOpen)
       }, 60 * 1000);

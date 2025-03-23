@@ -38,7 +38,7 @@ const CheckoutBottomNav = () => {
               ${onlineOrdering? btnCheckout : btnCheckoutClosed}`
             }
           >
-            {onlineOrdering? 'Ready' : 'Closed'}
+            {onlineOrdering? 'Cart' : 'Closed'}
           </span>
         </button>
 
