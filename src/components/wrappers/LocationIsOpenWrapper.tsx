@@ -23,6 +23,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     if(currDay !== 0){
       //check if within hours
       const isOpen = isBetween11And6(currDate, location)
+      console.log('WE OPEN??: ', isOpen, ' location: ', location)
       handleOnlineOrdering(isOpen)
   
       const interval = setInterval(() => {
@@ -39,7 +40,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
       handleOnlineOrdering(false)
     }
 
-  }, []);
+  }, [location]);
   
 
   return (
@@ -50,7 +51,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     :
     <>
       <div className="flex flex-col items-center justify-center pb-12">
-        <div className="text-2xl p-4">Online ordering for Everson available from 11:15am to 6pm</div>
+        <div className="text-2xl p-4">Online ordering for Everson available from 11am to 6pm</div>
         <Image 
           src={"/assets/ui/sign-close.svg"} 
           alt={"closed"}

@@ -1,7 +1,7 @@
-export type MerchantLocationsType = 'EVERSON' | 'BLAINE' | 'BELLINGHAM' | 'TEST' | 'SELECT'
+export type MerchantLocationsType = 'SELECT' | 'EVERSON' | 'BLAINE' | 'BELLINGHAM' | 'TEST1' | 'TEST2'
 
 export const locations:MerchantLocationsType[] = ['SELECT', 'BELLINGHAM', 'BLAINE', 'EVERSON']
-export const locationsTest:MerchantLocationsType[] = ['SELECT', 'TEST', 'BELLINGHAM', 'BLAINE', 'EVERSON']
+export const locationsTest:MerchantLocationsType[] = ['SELECT', 'TEST1', 'TEST2', 'BELLINGHAM', 'BLAINE', 'EVERSON']
 
 const testMID = process.env.TEST_MERCHANT_ID!;
 const bellinghamMID = process.env.BELLINGHAM_MERCHANT_ID!;
@@ -15,7 +15,13 @@ export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, M
     HOSTED_TOKEN:'select',
     SIGNATURE: 'select'
   },
-  'TEST': {
+  'TEST1': {
+    APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
+    MID: process.env.TEST_MERCHANT_ID as string,
+    HOSTED_TOKEN: process.env.TEST_API_KEY as string,
+    SIGNATURE: process.env.TEST_WEBHOOK as string
+  },
+  'TEST2': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: process.env.TEST_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.TEST_API_KEY as string,
@@ -42,7 +48,7 @@ export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, M
 }
 
 export const MID_TO_LOCATION: Record<string, MerchantLocationsType> = {
-  [testMID]: 'TEST',
+  [testMID]: 'TEST1',
   [bellinghamMID]: 'BELLINGHAM',
   [eversonMID]: 'EVERSON',
   [blaineMID]: 'BLAINE'
@@ -75,16 +81,20 @@ export const MID_TO_SIGNAGE = {
 // }
 
 // TIMES ARE IN UTC/Z TIME
-export const location_hours: Record<MerchantLocationsType, { opening: number, closing: number }> = {
+export const locationHours: Record<MerchantLocationsType, { opening: number, closing: number }> = {
   //11pm is 18 in utc
   //6pm is 1 in utc
   'SELECT': {
     opening: 23,
     closing: 1
   },
-  'TEST': {
+  'TEST1': {
     opening: 18,
-    closing: 17
+    closing: 21
+  },
+  'TEST2': {
+    opening: 18,
+    closing: 19
   },
   'BELLINGHAM': {
     opening: 18,
@@ -102,8 +112,9 @@ export const location_hours: Record<MerchantLocationsType, { opening: number, cl
 
 export const location_address = {
   'SELECT': 'Please select a location',
-  'TEST': 'no location for test',
-  'BELLINGHAM': '1315 W Connecticut St, Bellingham, WA 98225',
+  'TEST1': 'no location for test',
+  'TEST2': 'no location for test',
+  'BELLINGHAM': '2620 Northwest Ave, Bellingham, WA 98225',
   'EVERSON': '117 W Main St, Everson, WA 98247',
   'BLAINE': '8101 Blaine Rd, Blaine, WA 98230'
 }

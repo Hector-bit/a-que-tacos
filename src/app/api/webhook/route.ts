@@ -3,11 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { getOrderId, requestPrint, getCredentialsFromLocation, getLocationFromMID } from "@/actions/actions";
 import { MID_TO_SIGNAGE } from "@utils/merchantConstants";
 
-// const WEBHOOK = process.env.WEBHOOK || "";
-// const clover_url = process.env.CLOVER_BASE_URL || ""
-// const merchant_id = process.env.MERCHANT_ID || ""
-// const hosted_token = process.env.API_KEY || ""
-
 const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => {
   // console.log(str, 'LOOK HERE')
   const sliced = str.slice(2)
@@ -28,6 +23,8 @@ export async function POST(req: NextRequest) {
     const location = await getLocationFromMID(merchantId)
     const localCredentials = await getCredentialsFromLocation(location)
 
+    console.log(`Credientials for ${location}: ${localCredentials}`)
+
     const dateAndBody = `${timeStamp}.${body}`;
 
     const expectedSignature = crypto.createHmac("sha256", localCredentials.SIGNATURE).update(dateAndBody).digest("hex");
@@ -38,7 +35,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid Signature" }, { status: 401 });
     }
 
-    NextResponse.json({ message: "Processing in background" }, { status: 200 });
+    // NextResponse.json({ message: "Processing in background" }, { status: 200 });
     // PAYMENT IS APPROVED GET TO PRINTING THE RECIEPT ON THE CLOVER MAHCINE
     if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
       // console.debug('parsed', parsedBody)

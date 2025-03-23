@@ -1,4 +1,4 @@
-import { MerchantLocationsType, location_hours } from "@utils/merchantConstants";
+import { MerchantLocationsType, locationHours } from "@utils/merchantConstants";
 import { daysOfWeek } from "@utils/constants";
 import { NextResponse } from "next/server";
 import { LOCATION_CREDS, MID_TO_SIGNAGE } from "@utils/merchantConstants";
@@ -17,11 +17,13 @@ export const getCurrentTime = () => {
 }
 
 export function isBetween11And6(date: Date, location: MerchantLocationsType): boolean {
-  const openingTime = location_hours[location].opening
-  const closingTime = location_hours[location].closing
-  //11pm is 18 in utc
+  const openingTime = locationHours[location].opening
+  const closingTime = locationHours[location].closing
+  console.log('opening: ', openingTime, ' closing: ', closingTime)
+  console.log(openingTime >= 18, closingTime < 1)
+  //11am is 18 in utc
   //6pm is 1 in utc
   const currDate = new Date(date.toUTCString())
   const hours = currDate.getUTCHours();
-  return openingTime >= 18 || closingTime < 1
+  return openingTime >= 18 && closingTime < 1
 }
