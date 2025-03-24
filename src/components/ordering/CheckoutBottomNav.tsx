@@ -20,10 +20,6 @@ const CheckoutBottomNav = () => {
     }
   }
 
-  useEffect(() => {
-    console.log('from checkout: ', onlineOrdering)
-  },[])
-
 
   return (
     <div className="fixed max-w-[1400px] bottom-0 flex flex-row justify-between items-center h-[80px] rounded-t-[20px] px-4 p-2 bg-primary border-2 border-black w-full">
@@ -38,7 +34,7 @@ const CheckoutBottomNav = () => {
               ${onlineOrdering? btnCheckout : btnCheckoutClosed}`
             }
           >
-            {onlineOrdering? 'Ready' : 'Closed'}
+            {onlineOrdering? 'Cart' : 'Closed'}
           </span>
         </button>
 

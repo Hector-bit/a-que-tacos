@@ -1,8 +1,10 @@
 "use client"
 import React, { ReactNode, useContext, useEffect, useState } from "react"
-import { isBetween11And6 } from "@/actions/helperFunctions"
+import { isWitinOperatingTime } from "@/actions/helperFunctions"
 import { CartContext } from "@/context/orderContext"
 import { CartContextType } from "@utils/types"
+import { locationOperatingTime } from "@utils/merchantConstants"
+import { minutesToHoursReadable } from "@/actions/helperFunctions"
 import Image from "next/image"
 
 type LocationIsOpenWrapperInterface = {
@@ -12,22 +14,31 @@ type LocationIsOpenWrapperInterface = {
 
 const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
   // const [onlineOrdering, setOnlineOrdering] = useState<boolean>(true)
-  const { onlineOrdering, handleOnlineOrdering } = useContext<CartContextType>(CartContext)
+  const { location, onlineOrdering, handleOnlineOrdering } = useContext<CartContextType>(CartContext)
+  const [operatingHours, setOperatingHours] = useState<{opening:string, closing: string}>({ opening: '0', closing: '0'})
+
 
   // sets closed or open UI if within business hours
   useEffect(() => {
+    const locationTime = locationOperatingTime[location]
+    const locationClosing = minutesToHoursReadable(locationTime.closing)
+    const locationOpening = minutesToHoursReadable(locationTime.opening)
+    setOperatingHours({ opening: locationOpening, closing: locationClosing })
+    // console.log('set hours', locationClosing, locationOpening)
+
     const currDate = new Date
     const currDay = currDate.getDay()
 
-    console.log('curr day: ', currDay)
+    // console.log('curr day: ', currDay)
     if(currDay !== 0){
       //check if within hours
-      const isOpen = isBetween11And6(currDate)
+      const isOpen = isWitinOperatingTime(currDate, location)
+      // console.log('WE OPEN??: ', isOpen, ' location: ', location)
       handleOnlineOrdering(isOpen)
   
       const interval = setInterval(() => {
         const now = new Date();
-        const isOpen = isBetween11And6(now)
+        const isOpen = isWitinOperatingTime(now, location)
         // handleOnlineOrdering(true)
         handleOnlineOrdering(isOpen)
       }, 60 * 1000);
@@ -39,25 +50,24 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
       handleOnlineOrdering(false)
     }
 
-  }, []);
+  }, [location]);
   
 
   return (
-
     onlineOrdering
     ?
     <>{children}</>
     :
     <>
-      <div className="flex flex-col items-center justify-center pb-12">
-        <div className="text-2xl p-4">Online ordering for Everson available from 11:15am to 6pm</div>
+      {location !== 'SELECT' && <div className="flex flex-col items-center justify-center pb-12">
+        <div className="text-2xl p-4">Online ordering for Everson available from {operatingHours.opening}am to {operatingHours.closing}pm</div>
         <Image 
           src={"/assets/ui/sign-close.svg"} 
           alt={"closed"}
           width={200}
           height={200}
         />
-      </div>
+      </div>}
       {children}
     </>
   )

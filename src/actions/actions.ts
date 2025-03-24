@@ -6,10 +6,11 @@ import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { MenuNameDictionary, IngredientDictionary, itemToPriceObj, ChoiceOfMeatEspanolDictionary } from '@utils/constants';
+import { LOCATION_CREDS, MID_TO_SIGNAGE, MID_TO_LOCATION, MerchantLocationsType } from '@utils/merchantConstants';
 
-const clover_url = process.env.CLOVER_BASE_URL
-const merchant_id = process.env.MERCHANT_ID
-const hosted_token = process.env.API_KEY
+// const clover_url = process.env.CLOVER_BASE_URL
+// const merchant_id = process.env.MERCHANT_ID
+// const hosted_token = process.env.API_KEY
 
 export type CustomerState = {
   errors?: {
@@ -49,8 +50,9 @@ const CustomerScheme = z.object({
 
 const CreateOrder = CustomerScheme.omit({})
 
-export const fetchCloverLink = async(cartData: OrderItem[], customerData: CustomerInfoType):Promise<ErrorState> => {
+export const fetchCloverLink = async(location: MerchantLocationsType, cartData: OrderItem[], customerData: CustomerInfoType):Promise<ErrorState> => {
   // console.debug('start fetchclover link call')
+  const LOCATION = LOCATION_CREDS[location]
   let link = 'undefined'
 
   const validatedFields = CreateOrder.safeParse({
@@ -67,7 +69,6 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
     // console.log('ERRORS', validatedFields.error)
     return validatedFields.error.flatten().fieldErrors
   }
-  // console.log('testing note')
 
 
   const formatData = {
@@ -93,24 +94,24 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
       })
       },
       "customer": {
-      "email": customerData.email,
-      "firstName" : customerData.firstName,
-      "lastName": customerData.lastName,
-      "phoneNumber": customerData.phoneNumber
+        "email": customerData.email,
+        "firstName" : customerData.firstName,
+        "lastName": customerData.lastName,
+        "phoneNumber": customerData.phoneNumber
       }
   }
 
   // console.log('LINE ITEMS', formatData.shoppingCart.lineItems)
-  console.log('running on server', formatData)
-  console.debug('post info: ', clover_url, merchant_id, hosted_token)
+  // console.log('running on server', formatData)
+  // console.debug('post info: ', clover_url, LOCATION.MID, LOCATION.HOSTED_TOKEN)
   await axios.post(
-    `${clover_url}/invoicingcheckoutservice/v1/checkouts`,
+    `${LOCATION.APIROUTE}/invoicingcheckoutservice/v1/checkouts`,
     JSON.stringify(formatData),
     {
       headers: {
         'Content-Type': 'application/json',
-        'X-Clover-Merchant-ID': merchant_id, 
-        'Authorization': `Bearer ${hosted_token}`
+        'X-Clover-Merchant-ID': `${LOCATION.MID}`, 
+        'Authorization': `Bearer ${LOCATION.HOSTED_TOKEN}`
       }
     }
     ).then ((res) => {
@@ -127,8 +128,9 @@ export const fetchCloverLink = async(cartData: OrderItem[], customerData: Custom
   redirect(link)
 }
 
-export const getOrderId = async (requestUrl: string) => {
-  console.debug('STARTING GET REQ: ', requestUrl);
+export const getOrderId = async (merchant_id:string, requestUrl: string) => {
+  const LOCATION = LOCATION_CREDS[MID_TO_LOCATION[merchant_id]] 
+  console.debug('STARTING GET REQ: ', requestUrl, LOCATION);
   // await new Promise(resolve => setTimeout(resolve, 2000));
   // console.debug('after delay', requestUrl);
 
@@ -136,7 +138,7 @@ export const getOrderId = async (requestUrl: string) => {
     const response = await fetch(requestUrl, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${hosted_token}`
+        'Authorization': `Bearer ${LOCATION.HOSTED_TOKEN}`
       }
     });
 
@@ -154,33 +156,32 @@ export const getOrderId = async (requestUrl: string) => {
 
     return fetchOrderId.order.id;
   } catch (err:any) {
-    console.debug('error fetching order id', err.essage);
+    console.debug('error fetching order id', err);
     return NextResponse.json({ error: `could not get order id` }, { status: err instanceof Error ? 500 : err.status });
   }
 };
 
 // REQUEST CLOVER MACHINE TO PRINT RECIEPT
-export const requestPrint = async (orderId: string) => {
-  console.debug("Starting print request", orderId);
+export const requestPrint = async ( merchant_id: string, orderId: string) => {
+  const LOCATION = LOCATION_CREDS[MID_TO_LOCATION[merchant_id]] 
+  console.debug("Starting print request", orderId, LOCATION);
 
   const printBody = {
     orderRef: { id: orderId },
   };
 
   try {
-    const response = await fetch(`${clover_url}/v3/merchants/${merchant_id}/print_event`, {
+    const response = await fetch(`${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/print_event`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Clover-Merchant-ID": `${merchant_id}`,
-        "Authorization": `Bearer ${hosted_token}`,
+        "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
       },
       body: JSON.stringify(printBody),
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status});
-      }`);
+      throw new Error(`HTTP error! Status: ${response.status});}`);
     }
 
     const data = await response.json();
@@ -193,12 +194,14 @@ export const requestPrint = async (orderId: string) => {
   }
 };
 
-export const fetchMyHours = async () => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-  try{
-    let fetchingHours = fetch(`${baseUrl}/api/clover/business-hours`)
-    
-  } catch {
-    console.error('error fetching if we are open')
-  }
+export const getLocationFromMID = async(MID: string) => {
+  const localLocation = MID_TO_LOCATION[MID]
+  // console.log('SERVER HERE: ','\nlocalLocation: ', localLocation, '\nMID: ', MID, '\n mid object: ', MID_TO_LOCATION)
+  return localLocation
+}
+
+export const getCredentialsFromLocation = async(location: MerchantLocationsType) => {
+  const localCreds = LOCATION_CREDS[location]
+  // console.log('plesase what is this: ', localCreds)
+  return localCreds
 }

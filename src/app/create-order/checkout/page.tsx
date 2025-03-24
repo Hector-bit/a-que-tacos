@@ -6,15 +6,19 @@ import { CartContext } from "@/context/orderContext"
 import { CartContextType, CustomerInfoType } from "../../../../utils/types"
 import { MenuNameDictionary, IngredientDictionary, ChoiceOfMeatEspanolDictionary, ChoiceOfMeatEnglishDictionary } from "../../../../utils/constants"
 import { fetchCloverLink } from "@/actions/actions"
+import { location_address } from "@utils/merchantConstants"
+import LocationSwitch from "@/components/ordering/LocationSwitch"
 
 
 const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-100 text-white'
 
 export default function CheckoutPage() {
-  const { cart, orderTotal, removeFromCart, clearCart, onlineOrdering, customerInfo } = useContext<CartContextType>(CartContext)
+  const { location, cart, orderTotal, removeFromCart, clearCart, onlineOrdering, customerInfo } = useContext<CartContextType>(CartContext)
   
   const [customerState, setCustomerState] = useState<CustomerInfoType>(customerInfo)
   const [errorMessages, setErrorMessages] = useState<any>([])
+
+  // console.log('locatoin', location)
 
 
   return (
@@ -22,10 +26,7 @@ export default function CheckoutPage() {
       <Link href={"/create-order"}>
         <Image className="" src={"/assets/ui/returnArrow.svg"} alt={"return to ordering"} height={40} width={40}/>
       </Link>
-      <div className="flex flex-row justify-between mb-4">
-        <h2 className="text-3xl font-extrabold">Pick up at 117 W Main St Everson</h2>
-        {/* <button className={`bg-flagRed py-2 px-3 ${btnCheckout}`} onClick={clearCart}>Clear Cart</button> */}
-      </div>
+      <LocationSwitch/>
       <div className="flex flex-row justify-between mb-4">
         <h2 className="text-3xl font-extrabold">Review Order:</h2>
         <button className={`bg-flagRed py-2 px-3 ${btnCheckout}`} onClick={clearCart}>Clear Cart</button>
@@ -186,14 +187,14 @@ export default function CheckoutPage() {
             `} 
             onClick={async() => {
               // console.log('my cart: ', cart)
-              let testing = await fetchCloverLink(cart, customerState);
+              let testing = await fetchCloverLink(location, cart, customerState);
               // console.log('testing thingy: ', typeof(testing), testing)
               if(testing){
                 setErrorMessages(testing)
               }
             }}
           >
-              Checkout
+            Checkout
           </button>
         </div>
       </div>

@@ -1,43 +1,8 @@
-import { MerchantLocations } from "@utils/mercchantTypes";
+import { MerchantLocationsType, locationOperatingTime } from "@utils/merchantConstants";
 import { daysOfWeek } from "@utils/constants";
 import { NextResponse } from "next/server";
+import { LOCATION_CREDS, MID_TO_SIGNAGE } from "@utils/merchantConstants";
 
-const isProduction = process.env.NEXT_PUBLIC_IS_PRODUCTION
-const api_clover = process.env.CLOVER_BASE_URL
-const api_test = process.env.CLOVER_BASE_URL_TEST
-
-const testMID = process.env.MERCHANT_ID_TEST  
-const eversonMID = process.env.MERCHANT_ID_EVERSON
-const blaineMID = process.env.MERCHANT_ID_EVERSON
-const bellinghamMID = process.env.MERCHANT_ID_EVERSON
-
-const testToken = process.env.API_KEY
-const eversonToken = process.env.API_KEY_EVERSON
-const blaineToken = process.env.API_KEY_EVERSON
-const bellinghamToken = process.env.API_KEY_EVERSON
-
-// const configApiRoute = {
-
-// }
-
-const configVariables = {
-  'TEST': {
-    MID: testMID,
-    API_Token: testToken
-  },
-  'EVERSON': {
-    MID: testMID,
-    API_Token: testToken
-  },
-  'BLAINE': {
-    MID: testMID,
-    API_Token: testToken
-  },
-  'BELLINGHAM': {
-    MID: testMID,
-    API_Token: testToken
-  },
-}
 
 export const getCurrentTime = () => {
   const today = new Date();
@@ -51,10 +16,36 @@ export const getCurrentTime = () => {
   return hours + minutes
 }
 
-export function isBetween11And6(date: Date): boolean {
-  //11pm is 18 in utc
-  //6pm is 1 in utc
-  const currDate = new Date(date.toUTCString())
-  const hours = currDate.getUTCHours();
-  return hours >= 18 || hours < 1
+export function isWitinOperatingTime(date: Date, location: MerchantLocationsType): boolean {
+  const openingTime = locationOperatingTime[location].opening
+  const closingTime = locationOperatingTime[location].closing
+  const now = date
+  const hours = now.getUTCHours();
+  const minutes = now.getUTCMinutes();
+
+  // Convert current UTC time to minutes since midnight
+  const currentTime = hours * 60 + minutes;
+
+  //need to check if opening time is less than closing when crossing midnight
+  if (openingTime < closingTime) {
+    return currentTime >= openingTime && currentTime < closingTime;
+  } else {
+    return currentTime >= openingTime || currentTime < closingTime;
+  }
+}
+
+export const minutesToHoursReadable = (minutes: number): string => { 
+  // utc time is 7 hours ahead 
+  let hours = Math.abs(24 + Math.floor(minutes / 60) - 7) % 24;
+  const remainingMinutes = minutes % 60;
+
+  if(hours > 12){
+    hours = hours-12
+  }
+
+  if(remainingMinutes !== 0){
+    return `${hours}:${remainingMinutes}`
+  } else {
+    return `${hours}`
+  }
 }

@@ -3,18 +3,19 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/orderContext";
 
 import { CartContextType, menuItemType } from "@utils/types";
-import { MerchantLocations } from "@utils/mercchantTypes";
+import { MerchantLocationsType } from "@utils/merchantConstants";
 import { menu_items } from "@utils/constants";
 
 import OrderCard from "@/components/ordering/OrderCard";
 import ItemModal from "@/components/ordering/ItemModal";
 import CheckoutBottomNav from "@/components/ordering/CheckoutBottomNav";
+import LocationSwitch from "@/components/ordering/LocationSwitch";
 
 
 export default function CreateOrderPage() {
   const [menuItem, setMenuItem] = useState<menuItemType>(menu_items[0])
   const [itemModal, setItemModal] = useState<boolean>(false) 
-  const [location, setLocation] = useState<MerchantLocations>('EVERSON')
+  // const [location, setLocation] = useState<MerchantLocationsType>('EVERSON')
   const [hours, setHours] = useState<string>('')
   // const [isLocationOpen, setIsLocationOpen] = useState<boolean>(true)
 
@@ -36,9 +37,7 @@ export default function CreateOrderPage() {
       <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
       <main className={`flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px]`}>
         <div className="text-2xl font-bold">{`NOTICE: We don't do delivery, sorry!`}</div>
-        <div className="text-2xl font-bold mb-4">{`Online ordering available in Everson only at this moment. (pickup only)`}</div>
-        <div className="text-2xl font-bold mb-8">{`Pick up location: 117 W Main St, Everson, WA 98247`}</div>
-
+        <LocationSwitch/>
         <div>
           <h3 className="font-bold text-xl mb-2">ITEMS</h3>
           <div className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:md:grid-cols-5 gap-3">
