@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       // console.debug('parsed', parsedBody)
       // console.debug('payment id', parsedBody.id)
 
-      const requestUrl = `${localCredentials.SIGNATURE}/v3/merchants/${merchantId}/payments/${parsedBody.id}`
+      const requestUrl = `${localCredentials.APIROUTE}/v3/merchants/${merchantId}/payments/${parsedBody.id}`
       console.debug('request url:', requestUrl)
 
       await new Promise(resolve => setTimeout(resolve, 15000));

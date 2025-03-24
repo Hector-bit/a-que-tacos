@@ -97,7 +97,7 @@ export const locationOperatingTime: Record<MerchantLocationsType, { opening: num
     closing: 180
   },
   'BELLINGHAM': {
-    opening: 1080,
+    opening: 1095,
     closing: 150
   },
   'EVERSON': {
@@ -105,7 +105,7 @@ export const locationOperatingTime: Record<MerchantLocationsType, { opening: num
     closing: 60
   },
   'BLAINE': {
-    opening: 1080,
+    opening: 1095,
     closing: 150
   }
 }
