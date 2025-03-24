@@ -69,7 +69,6 @@ export const fetchCloverLink = async(location: MerchantLocationsType, cartData: 
     // console.log('ERRORS', validatedFields.error)
     return validatedFields.error.flatten().fieldErrors
   }
-  console.log('testing note', LOCATION)
 
 
   const formatData = {

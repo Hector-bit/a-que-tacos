@@ -1,6 +1,6 @@
 export type MerchantLocationsType = 'SELECT' | 'EVERSON' | 'BLAINE' | 'BELLINGHAM' | 'TEST1' | 'TEST2'
 
-export const locations:MerchantLocationsType[] = ['SELECT', 'BELLINGHAM', 'BLAINE', 'EVERSON']
+export const locations:MerchantLocationsType[] = ['SELECT', 'BELLINGHAM', 'EVERSON']
 export const locationsTest:MerchantLocationsType[] = ['SELECT', 'TEST1', 'TEST2', 'BELLINGHAM', 'BLAINE', 'EVERSON']
 
 const testMID = process.env.TEST_MERCHANT_ID!;
