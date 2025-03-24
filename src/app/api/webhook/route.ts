@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     // PAYMENT IS APPROVED GET TO PRINTING THE RECIEPT ON THE CLOVER MAHCINE
     if(parsedBody.type === 'PAYMENT' && parsedBody.status === 'APPROVED'){
       // console.debug('parsed', parsedBody)
-      // console.debug('payment id', parsedBody.id)
+      console.debug('payment id', parsedBody.id)
 
       const requestUrl = `${localCredentials.APIROUTE}/v3/merchants/${merchantId}/payments/${parsedBody.id}`
       console.debug('request url:', requestUrl)
@@ -49,9 +49,8 @@ export async function POST(req: NextRequest) {
       // waitToRunNextRoute(requestUrl)
 
       const clientOrderId = await getOrderId(merchantId, requestUrl)
-      // console.log('what is this', clientOrderId)
-      // console.debug('client order id', clientOrderId)
-      // console.debug('starting print request', orderId)
+      console.debug('client order id', clientOrderId)
+
       await requestPrint(merchantId, clientOrderId)
     }
 

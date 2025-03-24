@@ -176,15 +176,13 @@ export const requestPrint = async ( merchant_id: string, orderId: string) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Clover-Merchant-ID": `${LOCATION.MID}`,
         "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
       },
       body: JSON.stringify(printBody),
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status});
-      }`);
+      throw new Error(`HTTP error! Status: ${response.status});}`);
     }
 
     const data = await response.json();

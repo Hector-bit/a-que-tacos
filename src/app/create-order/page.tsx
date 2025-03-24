@@ -37,7 +37,6 @@ export default function CreateOrderPage() {
       <ItemModal isOpen={itemModal} foodItem={menuItem} closeFn={handleItemModal} />
       <main className={`flex flex-col px-3 sm:px-8 gap-x-4 mb-[100px]`}>
         <div className="text-2xl font-bold">{`NOTICE: We don't do delivery, sorry!`}</div>
-        <div className="text-2xl font-bold mb-8">{`Online ordering available in Everson only at this moment. (pickup only)`}</div>
         <LocationSwitch/>
         <div>
           <h3 className="font-bold text-xl mb-2">ITEMS</h3>
