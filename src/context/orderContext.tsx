@@ -71,7 +71,7 @@ export const CartProvider = ({ children }:any) => {
   const addToCart = (item:OrderItem) => {
     setCart([...cart, item])
     localStorage.setItem('CLIENT_ORDER', JSON.stringify([...cart, item]))
-    console.log('updated cart[add]:', [...cart, item])
+    // console.log('updated cart[add]:', [...cart, item])
   }
 
   const removeFromCart = (orderIndex:number) => {

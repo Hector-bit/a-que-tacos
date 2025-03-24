@@ -24,7 +24,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     const locationClosing = minutesToHoursReadable(locationTime.closing)
     const locationOpening = minutesToHoursReadable(locationTime.opening)
     setOperatingHours({ opening: locationOpening, closing: locationClosing })
-    console.log('set hours', locationClosing, locationOpening)
+    // console.log('set hours', locationClosing, locationOpening)
 
     const currDate = new Date
     const currDay = currDate.getDay()
@@ -33,7 +33,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     if(currDay !== 0){
       //check if within hours
       const isOpen = isWitinOperatingTime(currDate, location)
-      console.log('WE OPEN??: ', isOpen, ' location: ', location)
+      // console.log('WE OPEN??: ', isOpen, ' location: ', location)
       handleOnlineOrdering(isOpen)
   
       const interval = setInterval(() => {
