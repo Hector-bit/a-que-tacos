@@ -139,7 +139,7 @@ export const getOrderId = async (merchant_id:string, requestUrl: string) => {
     const response = await fetch(requestUrl, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${LOCATION.MID}`
+        'Authorization': `Bearer ${LOCATION.HOSTED_TOKEN}`
       }
     });
 
@@ -157,7 +157,7 @@ export const getOrderId = async (merchant_id:string, requestUrl: string) => {
 
     return fetchOrderId.order.id;
   } catch (err:any) {
-    console.debug('error fetching order id', err.essage);
+    console.debug('error fetching order id', err);
     return NextResponse.json({ error: `could not get order id` }, { status: err instanceof Error ? 500 : err.status });
   }
 };
