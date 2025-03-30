@@ -60,7 +60,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     :
     <>
       {location !== 'SELECT' && <div className="flex flex-col items-center justify-center pb-12">
-        <div className="text-2xl p-4">Online ordering for Everson available from {operatingHours.opening}am to {operatingHours.closing}pm</div>
+        <div className="text-2xl p-4">Online ordering for {location} available from {operatingHours.opening}am to {operatingHours.closing}pm</div>
         <Image 
           src={"/assets/ui/sign-close.svg"} 
           alt={"closed"}
