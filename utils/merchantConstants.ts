@@ -22,14 +22,14 @@ export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, M
     MID: process.env.TEST_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.TEST_API_KEY as string,
     SIGNATURE: process.env.TEST_WEBHOOK as string,
-    EMPLOYEE: process.env.TEST_EMPLOYEE as string
+    EMPLOYEE: process.env.EMPLOYEE_TEST as string
   },
   'TEST2': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: process.env.TEST_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.TEST_API_KEY as string,
     SIGNATURE: process.env.TEST_WEBHOOK as string,
-    EMPLOYEE: process.env.TEST_EMPLOYEE as string
+    EMPLOYEE: process.env.EMPLOYEE_TEST as string
   },
   'BELLINGHAM': {
     APIROUTE: process.env.CLOVER_BASE_URL as string,

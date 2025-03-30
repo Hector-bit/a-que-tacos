@@ -210,6 +210,8 @@ export const updateOrderEmployee = async(MID: string, orderId: string) => {
   const LOCATION = LOCATION_CREDS[MID_TO_LOCATION[MID]] 
 
   const requestUrl = `${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/orders/${orderId}`
+  const employeeBody =  JSON.stringify({ employee: { id: LOCATION.EMPLOYEE } })
+  console.log('EMPLOYEE BODY: ', employeeBody)
 
   try {
     const response = await fetch(requestUrl, {
@@ -218,7 +220,7 @@ export const updateOrderEmployee = async(MID: string, orderId: string) => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
       },
-      body: JSON.stringify( { employee: { id: LOCATION.EMPLOYEE }} ),
+      body: employeeBody,
     })
 
     const data = await response.json()

@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       // waitToRunNextRoute(requestUrl)
 
       const clientOrderId = await getOrderId(merchantId, requestUrl)
-      await updateOrderEmployee(merchantId, clientOrderId)
+      const tempres = await updateOrderEmployee(merchantId, clientOrderId)
       console.debug('client order id', clientOrderId)
 
       await requestPrint(merchantId, clientOrderId)
