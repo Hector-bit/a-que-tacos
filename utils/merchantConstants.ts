@@ -8,42 +8,49 @@ const bellinghamMID = process.env.BELLINGHAM_MERCHANT_ID!;
 const eversonMID = process.env.EVERSON_MERCHANT_ID!;
 const blaineMID = process.env.BLAINE_MERCHANT_ID!;
 
-export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, MID: string, HOSTED_TOKEN: string, SIGNATURE: string }> = {
+export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, MID: string, HOSTED_TOKEN: string, SIGNATURE: string, 
+  EMPLOYEE: string }> = {
   'SELECT': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: 'select',
     HOSTED_TOKEN:'select',
-    SIGNATURE: 'select'
+    SIGNATURE: 'select',
+    EMPLOYEE: 'select'
   },
   'TEST1': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: process.env.TEST_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.TEST_API_KEY as string,
-    SIGNATURE: process.env.TEST_WEBHOOK as string
+    SIGNATURE: process.env.TEST_WEBHOOK as string,
+    EMPLOYEE: process.env.TEST_EMPLOYEE as string
   },
   'TEST2': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: process.env.TEST_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.TEST_API_KEY as string,
-    SIGNATURE: process.env.TEST_WEBHOOK as string
+    SIGNATURE: process.env.TEST_WEBHOOK as string,
+    EMPLOYEE: process.env.TEST_EMPLOYEE as string
   },
   'BELLINGHAM': {
     APIROUTE: process.env.CLOVER_BASE_URL as string,
     MID: process.env.BELLINGHAM_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.BELLINGHAM_API_KEY as string,
-    SIGNATURE: process.env.BELLINGHAM_WEBHOOK as string
+    SIGNATURE: process.env.BELLINGHAM_WEBHOOK as string,
+    EMPLOYEE: process.env.EMPLOYEE as string
   },
   'EVERSON': {
     APIROUTE: process.env.CLOVER_BASE_URL as string,
     MID: process.env.EVERSON_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.EVERSON_API_KEY as string,
-    SIGNATURE: process.env.EVERSON_WEBHOOK as string
+    SIGNATURE: process.env.EVERSON_WEBHOOK as string,
+    EMPLOYEE: process.env.EMPLOYEE as string
   },
   'BLAINE': {
     APIROUTE: process.env.CLOVER_BASE_URL as string,
     MID: process.env.BLAINE_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.BLAINE_API_KEY as string,
-    SIGNATURE: process.env.BLAINE_WEBHOOK as string
+    SIGNATURE: process.env.BLAINE_WEBHOOK as string,
+    EMPLOYEE: process.env.EMPLOYEE as string
   }
 }
 

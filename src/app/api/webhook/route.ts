@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-import { getOrderId, requestPrint, getCredentialsFromLocation, getLocationFromMID } from "@/actions/actions";
+import { getOrderId, requestPrint, getCredentialsFromLocation, getLocationFromMID, updateOrderEmployee } from "@/actions/actions";
 import { MID_TO_SIGNAGE } from "@utils/merchantConstants";
 
 const getTimeFromSig = (str: string):{timeStamp: string, signature: string } => {
@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
       // waitToRunNextRoute(requestUrl)
 
       const clientOrderId = await getOrderId(merchantId, requestUrl)
+      await updateOrderEmployee(merchantId, clientOrderId)
       console.debug('client order id', clientOrderId)
 
       await requestPrint(merchantId, clientOrderId)

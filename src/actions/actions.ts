@@ -162,8 +162,8 @@ export const getOrderId = async (merchant_id:string, requestUrl: string) => {
 };
 
 // REQUEST CLOVER MACHINE TO PRINT RECIEPT
-export const requestPrint = async ( merchant_id: string, orderId: string) => {
-  const LOCATION = LOCATION_CREDS[MID_TO_LOCATION[merchant_id]] 
+export const requestPrint = async ( MID: string, orderId: string) => {
+  const LOCATION = LOCATION_CREDS[MID_TO_LOCATION[MID]] 
   console.debug("Starting print request", orderId, LOCATION);
 
   const printBody = {
@@ -204,4 +204,29 @@ export const getCredentialsFromLocation = async(location: MerchantLocationsType)
   const localCreds = LOCATION_CREDS[location]
   // console.log('plesase what is this: ', localCreds)
   return localCreds
+}
+
+export const updateOrderEmployee = async(MID: string, orderId: string) => {
+  const LOCATION = LOCATION_CREDS[MID_TO_LOCATION[MID]] 
+
+  const requestUrl = `${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/orders/${orderId}`
+
+  try {
+    const response = await fetch(requestUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
+      },
+      body: JSON.stringify( { employee: { id: LOCATION.EMPLOYEE }} ),
+    })
+
+    const data = await response.json()
+    console.log('employee res: ', data)
+
+    return NextResponse.json({ message: "Posted employee id" }, { status: 200 });
+  } catch(error) {
+    console.error('error posting employee id: ', error)
+    return NextResponse.json({ error: "Could not post print request" }, { status: 500 });
+  }
 }
