@@ -87,6 +87,16 @@ export const MID_TO_SIGNAGE = {
 //   return localCreds
 // }
 
+export const operatingDays: Record<MerchantLocationsType, number[]> = {
+  // 0 for Sunday, 1 for Monday, 2 for Tuesday
+  'SELECT': [0,1,2,3,4,5,6],
+  'TEST1': [0,1,2,3,4,5,6],
+  'TEST2': [0,1,2,3,4,5,6],
+  'BELLINGHAM': [0,1,2,3,4,5,6],
+  'EVERSON': [1,2,3,4,5,6],
+  'BLAINE': [1,2,3,4,5,6]
+}
+
 // TIMES ARE IN UTC/Z TIME
 export const locationOperatingTime: Record<MerchantLocationsType, { opening: number, closing: number }> = {
   //11pm is 18 or 1080 min in utc
