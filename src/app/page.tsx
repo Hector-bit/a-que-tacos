@@ -36,7 +36,7 @@ export default function Home() {
               <address>8101 Blaine Rd, Blaine, WA 98230</address>
             </div>
           </div>
-          <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right mt-6">Hours {'(for all trucks)'}</div>
+          <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right mt-6">Hours</div>
           <div className="flex flex-col text-lg sm:text-2xl gap-x-4 text-left sm:text-right my-2">
             <div>Mon: 11am - 8pm</div>
             <div>Tue: 11am - 8pm</div>
@@ -44,7 +44,9 @@ export default function Home() {
             <div>Thu: 11am - 8pm</div>
             <div>Fri: 11am - 8pm</div>
             <div>Sat: 11am - 8pm</div>
+            <div></div>
             <div>Sun: <span className="px-5">Closed</span></div>
+            <div>Sun: Bellingham Location 11am - 8pm</div>
           </div>
         </div>
       </div>

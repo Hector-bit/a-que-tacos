@@ -8,42 +8,49 @@ const bellinghamMID = process.env.BELLINGHAM_MERCHANT_ID!;
 const eversonMID = process.env.EVERSON_MERCHANT_ID!;
 const blaineMID = process.env.BLAINE_MERCHANT_ID!;
 
-export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, MID: string, HOSTED_TOKEN: string, SIGNATURE: string }> = {
+export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, MID: string, HOSTED_TOKEN: string, SIGNATURE: string, 
+  EMPLOYEE: string }> = {
   'SELECT': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: 'select',
     HOSTED_TOKEN:'select',
-    SIGNATURE: 'select'
+    SIGNATURE: 'select',
+    EMPLOYEE: 'select'
   },
   'TEST1': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: process.env.TEST_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.TEST_API_KEY as string,
-    SIGNATURE: process.env.TEST_WEBHOOK as string
+    SIGNATURE: process.env.TEST_WEBHOOK as string,
+    EMPLOYEE: process.env.EMPLOYEE_TEST as string
   },
   'TEST2': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: process.env.TEST_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.TEST_API_KEY as string,
-    SIGNATURE: process.env.TEST_WEBHOOK as string
+    SIGNATURE: process.env.TEST_WEBHOOK as string,
+    EMPLOYEE: process.env.EMPLOYEE_TEST as string
   },
   'BELLINGHAM': {
     APIROUTE: process.env.CLOVER_BASE_URL as string,
     MID: process.env.BELLINGHAM_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.BELLINGHAM_API_KEY as string,
-    SIGNATURE: process.env.BELLINGHAM_WEBHOOK as string
+    SIGNATURE: process.env.BELLINGHAM_WEBHOOK as string,
+    EMPLOYEE: process.env.EMPLOYEE as string
   },
   'EVERSON': {
     APIROUTE: process.env.CLOVER_BASE_URL as string,
     MID: process.env.EVERSON_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.EVERSON_API_KEY as string,
-    SIGNATURE: process.env.EVERSON_WEBHOOK as string
+    SIGNATURE: process.env.EVERSON_WEBHOOK as string,
+    EMPLOYEE: process.env.EMPLOYEE as string
   },
   'BLAINE': {
     APIROUTE: process.env.CLOVER_BASE_URL as string,
     MID: process.env.BLAINE_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.BLAINE_API_KEY as string,
-    SIGNATURE: process.env.BLAINE_WEBHOOK as string
+    SIGNATURE: process.env.BLAINE_WEBHOOK as string,
+    EMPLOYEE: process.env.EMPLOYEE as string
   }
 }
 
@@ -79,6 +86,16 @@ export const MID_TO_SIGNAGE = {
 //   console.log('plesase what is this: ', localCreds)
 //   return localCreds
 // }
+
+export const operatingDays: Record<MerchantLocationsType, number[]> = {
+  // 0 for Sunday, 1 for Monday, 2 for Tuesday
+  'SELECT': [0,1,2,3,4,5,6],
+  'TEST1': [0,1,2,3,4,5,6],
+  'TEST2': [0,1,2,3,4,5,6],
+  'BELLINGHAM': [0,1,2,3,4,5,6],
+  'EVERSON': [1,2,3,4,5,6],
+  'BLAINE': [1,2,3,4,5,6]
+}
 
 // TIMES ARE IN UTC/Z TIME
 export const locationOperatingTime: Record<MerchantLocationsType, { opening: number, closing: number }> = {

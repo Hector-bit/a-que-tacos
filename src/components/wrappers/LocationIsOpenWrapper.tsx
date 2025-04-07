@@ -3,7 +3,7 @@ import React, { ReactNode, useContext, useEffect, useState } from "react"
 import { isWitinOperatingTime } from "@/actions/helperFunctions"
 import { CartContext } from "@/context/orderContext"
 import { CartContextType } from "@utils/types"
-import { locationOperatingTime } from "@utils/merchantConstants"
+import { locationOperatingTime, operatingDays } from "@utils/merchantConstants"
 import { minutesToHoursReadable } from "@/actions/helperFunctions"
 import Image from "next/image"
 
@@ -21,6 +21,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
   // sets closed or open UI if within business hours
   useEffect(() => {
     const locationTime = locationOperatingTime[location]
+    const operatingDay = operatingDays[location]
     const locationClosing = minutesToHoursReadable(locationTime.closing)
     const locationOpening = minutesToHoursReadable(locationTime.opening)
     setOperatingHours({ opening: locationOpening, closing: locationClosing })
@@ -29,8 +30,8 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     const currDate = new Date
     const currDay = currDate.getDay()
 
-    // console.log('curr day: ', currDay)
-    if(currDay !== 0){
+    console.log('curr day: ', currDay)
+    if(operatingDay.includes(currDay)){
       //check if within hours
       const isOpen = isWitinOperatingTime(currDate, location)
       // console.log('WE OPEN??: ', isOpen, ' location: ', location)
@@ -46,7 +47,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
       return () => clearInterval(interval);
 
     } else {
-      // its sunday
+
       handleOnlineOrdering(false)
     }
 
