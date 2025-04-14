@@ -1,5 +1,6 @@
 'use client'
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect } from "react";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
           <Image className="" src='/assets/truck/blaine2.webp' alt="blaine food truck" width={999} height={999}/>
           <Image className="" src='/assets/truck/blaine3.webp' alt="blaine food truck" width={999} height={999}/>
         </div>
+        {/* LOCATOIN AND HOURS */}
         <div className="flex flex-col w-full md:w-auto py-4 sm:py-0">
           <div className="flex flex-col text-lg sm:text-2xl text-left md:text-right gap-3">
             <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right">Locations</div>
@@ -48,6 +50,19 @@ export default function Home() {
             <div>Sun: <span className="px-5">Closed</span></div>
             <div>Sun: Bellingham Location 11am - 8pm</div>
           </div>
+        </div>
+      </div>
+      
+      <div className="flex flex-col">
+        <div className="text-2xl sm:text-3xl font-bold text-left mb-3">Social Media</div>
+        <div className="flex flex-col p-3">
+          <Link target="_blank" className="flex flex-row gap-3" href={"https://www.facebook.com/profile.php?id=61558923898407"}>
+            <Image src={"/assets/ui/facebook.svg"} alt={"facebook"} width={30} height={30}/>
+            <div className="text-xl font-bold">A Que Tacos Facebook</div>
+          </Link>
+        </div>
+        <div>
+
         </div>
       </div>
       <iframe className="w-auto " src="https://www.google.com/maps/d/u/0/embed?mid=1QK5jmswQ16ul3zeyg7WzLFp_ncZHRQg&ehbc=2E312F" width="640" height="480"/>
