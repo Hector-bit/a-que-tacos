@@ -98,30 +98,36 @@ export const operatingDays: Record<MerchantLocationsType, number[]> = {
 }
 
 // TIMES ARE IN UTC/Z TIME
-export const locationOperatingTime: Record<MerchantLocationsType, { opening: number, closing: number }> = {
+export const locationOperatingTime: Record<MerchantLocationsType, { closed: boolean, opening: number, closing: number }> = {
   //11pm is 18 or 1080 min in utc
   //6pm is 1 or 60 min in utc
   'SELECT': {
+    closed: false,
     opening: 1440,
     closing: 0
   },
   'TEST1': {
+    closed: false,
     opening: 1380,
     closing: 1260
   },
   'TEST2': {
+    closed: false,
     opening: 1080,
     closing: 180
   },
   'BELLINGHAM': {
+    closed: false,
     opening: 1095,
     closing: 150
   },
   'EVERSON': {
+    closed: true,
     opening: 1095,
     closing: 60
   },
   'BLAINE': {
+    closed: false,
     opening: 1095,
     closing: 150
   }

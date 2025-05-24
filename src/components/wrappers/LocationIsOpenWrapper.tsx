@@ -31,7 +31,7 @@ const LocationIsOpenWrapper = ({ children }:LocationIsOpenWrapperInterface) => {
     const currDay = currDate.getDay()
 
     console.log('curr day: ', currDay)
-    if(operatingDay.includes(currDay)){
+    if(operatingDay.includes(currDay) && !locationTime.closed) {
       //check if within hours
       const isOpen = isWitinOperatingTime(currDate, location)
       // console.log('WE OPEN??: ', isOpen, ' location: ', location)
