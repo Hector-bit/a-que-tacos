@@ -122,7 +122,7 @@ export const locationOperatingTime: Record<MerchantLocationsType, { closed: bool
     closing: 150
   },
   'EVERSON': {
-    closed: true,
+    closed: false,
     opening: 1095,
     closing: 60
   },
