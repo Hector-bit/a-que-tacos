@@ -71,14 +71,14 @@ export const fetchCloverLink = async(location: MerchantLocationsType, cartData: 
   }
 
 
-  const formatData = {
+  const formatData: { shoppingCart: { lineItems: {}}, customer: {}} = {
     "shoppingCart": {
       "lineItems": cartData.map((item) => {
 
-        const meatChoice = item.meatChoice !== 'NOT_APPLICABLE' ? ` (${ChoiceOfMeatEspanolDictionary[item.meatChoice]})` : ''
+        const meatChoice = item.meatChoice !== 'NOT_APPLICABLE' ? `${ChoiceOfMeatEspanolDictionary[item.meatChoice]}` : ''
 
         return {
-          "name": `${MenuNameDictionary[item.orderItem]}${meatChoice}`,
+          "name": `${MenuNameDictionary[item.orderItem]} ${meatChoice}`,
           "unitQty": item.amount,
           "price": itemToPriceObj[item.orderItem],
           "note": item.removeIngredients.length > 0 ? "No: " + item.removeIngredients.map(ing => {
@@ -100,6 +100,8 @@ export const fetchCloverLink = async(location: MerchantLocationsType, cartData: 
         "phoneNumber": customerData.phoneNumber
       }
   }
+
+  console.log('formatData: ', formatData.shoppingCart.lineItems)
 
   // console.log('LINE ITEMS', formatData.shoppingCart.lineItems)
   // console.log('running on server', formatData)

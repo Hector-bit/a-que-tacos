@@ -154,17 +154,16 @@ export const menu_items:menuItemType[] = [
     sideOption: false,
     chooseAmount: false
   },
-  // { 
-  //   menu_id: 11,
-  //   img: `${imgBase}/taco1Final.webp`,
-  //   name: 'TACO', 
-  //   price: 2.00,
-  //   description: 'Choice of meat, onions, cilantro',
-  //   ingredients: ['ONIONS', 'CILANTRO'],
-  //   choiceOfMeat: true,
-  //   sideOption: false,
-  //   chooseAmount: true
-  // },
+  { 
+    menu_id: 11,
+    img: `${imgBase}/taco1Final.webp`,
+    name: 'TACO', 
+    description: 'Choice of meat, onions, cilantro',
+    ingredients: ['ONIONS', 'CILANTRO'],
+    choiceOfMeat: true,
+    sideOption: false,
+    chooseAmount: true
+  },
   // { 
   //   menu_id: 13,
   //   img: `${imgBase}/tacoVeggie1Final.webp`,
