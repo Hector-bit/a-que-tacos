@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { CloverInstance } from '@/app/axios';
 import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
+import { AtomicCheckoutType } from '@utils/types/atomicTypes';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { LOCATION_CREDS, MID_TO_SIGNAGE, MID_TO_LOCATION, MerchantLocationsType } from '@utils/merchantConstants';
 
@@ -23,7 +24,7 @@ export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartDa
   }
 
 
-  const data = await response.json();
+  const data:AtomicCheckoutType = await response.json();
   console.log('Order created successfully:', data);
 
   //save order id to local storage
