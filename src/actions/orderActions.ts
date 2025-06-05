@@ -6,20 +6,94 @@ import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
 import { AtomicCheckoutType } from '@utils/types/atomicTypes';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
+import { MenuNameDictionary, IngredientDictionary, itemToPriceObj, ChoiceOfMeatEspanolDictionary } from '@utils/constants';
 import { LOCATION_CREDS, MID_TO_SIGNAGE, MID_TO_LOCATION, MerchantLocationsType } from '@utils/merchantConstants';
 
-export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartData: OrderItem[], customerData: CustomerInfoType) => {
-  const LOCATION = LOCATION_CREDS[location]
+import { ItemIdList, ItemModifierType } from '@utils/types/itemsTypes';
 
-  const response = await fetch(`${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/atomic_order/checkouts`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
+const CustomerScheme = z.object({
+  firstname: z.string({
+    invalid_type_error: 'Please enter a first name'
+  }).min(2),
+  lastname: z.string({
+    invalid_type_error: 'Please enter a last name'
+  }).min(2),
+  email: z.string({
+    invalid_type_error: 'Please enter an email'
+  }).email("Invalid email"),
+  phoneNumber: z.string({
+    invalid_type_error: 'Please enter a phone number'
+  }).min(10, 'Phone number must be at least 10 digits'),
+  cart: z.number({
+    invalid_type_error: 'Please add orders to your cart'
+  }).gt(0)
+});
+
+const CreateOrder = CustomerScheme.omit({})
+
+export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartData: OrderItem[]) => {
+  // console.debug('start fetchclover link call')
+  const LOCATION = LOCATION_CREDS[location]
+  // let link = 'undefined'
+
+  // const validatedFields = CreateOrder.safeParse({
+  //   firstname: customerData.firstName,
+  //   lastname: customerData.lastName,
+  //   email: customerData.email,
+  //   phoneNumber: customerData.phoneNumber,
+  //   cart: cartData.length
+  // })
+
+  // // console.debug('VALIDATED FIELDS:', validatedFields)
+
+  // if(!validatedFields.success){
+  //   // console.log('ERRORS', validatedFields.error)
+  //   return validatedFields.error.flatten().fieldErrors
+  // }
+
+
+  const formatData: { orderCart: { lineItems: {}} } = {
+    "orderCart": {
+      "lineItems": cartData.map((item) => {
+
+        const meatModifier = item.meatChoice !== 'NOT_APPLICABLE' ? `${ItemModifierType[item.meatChoice]}` : ''
+
+        return {
+          "item": {
+            "id": ItemIdList[item.orderItem],
+          },
+          "unitQty": item.amount * 1000,
+          "note": item.removeIngredients.length > 0 ? "No: " + item.removeIngredients.map(ing => {
+            return `${IngredientDictionary[ing]}`
+          }) : null,
+          "modifications": [
+          item.meatChoice !== 'NOT_APPLICABLE' ? (
+            {
+              "id": meatModifier,
+            }
+          ) : null],
+        }
+      })
+      },
+  }
+
+  
+  console.log('formatData from order actions: ', formatData.orderCart.lineItems)
+
+  const response = await fetch(`${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/atomic_order/checkouts`,
+    {
+      method: 'POST',
+      body: JSON.stringify(formatData),
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
+      } 
     }
-  })
+)
 
   if (!response.ok) {
+    console.error('Error creating order:', response.statusText);
     throw new Error('Failed to create order');
   }
 

@@ -228,7 +228,10 @@ export const itemToPriceObj = {
   FISH_TACO: 300,
   RICE_BEAN_PLATE: 700,
   CHIPS_Y_PICO: 700,
-
+  //TACOS
+  TACO_BEEF: 200,
+  TACO_CHICKEN: 200,
+  TACO_PORK: 200,
 }
 
 // todo: add drinks 
@@ -236,7 +239,7 @@ const drinks = [
 
 ]
 
-export const order_items:any = {
+export const order_items:Record<number, menuItemType> = {
   1: menu_items[0],
   2: menu_items[1],
   3: menu_items[2],

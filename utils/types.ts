@@ -1,5 +1,6 @@
 import { Dispatch } from "react"
 import { MerchantLocationsType } from "./merchantConstants"
+import { ItemModifierType } from "./types/itemsTypes"
 
 export type SideOptionType = 'TORTILLA' | 'CHIPS'
 
@@ -35,6 +36,7 @@ export type menuItemType = {
   sideOption: boolean
   choiceOfMeat: boolean
   chooseAmount: boolean
+  itemId?: number
   // meatOptions?: string //TODO LATER 
 }
 
@@ -44,7 +46,6 @@ export type orderItemType =
   'REGULAR_BURRITO' |
   'SUPREME_BURRITO' |
   'SUPREME_VEGGIE_BURRITO' |
-  'REGULAR_BURRITO' |
   'KIDS_BURRITO' |
   'TORTA' |
   'QUESADILLA' |
@@ -68,7 +69,8 @@ export type OrderItem = {
   orderItem: orderItemType
   removeIngredients: ingredientsType[]
   amount: number
-  meatChoice: ChoiceOfMeatType
+  //this var is for modification for clover api
+  meatChoice: keyof typeof ItemModifierType | 'NOT_APPLICABLE'
 }
 
 export type IconType = {
