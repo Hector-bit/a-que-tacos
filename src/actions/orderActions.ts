@@ -103,7 +103,7 @@ export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartDa
   // localStorage.setItem('ORDER_ID', JSON.stringify(data.))
 
   // return data;
-  redirect(`/create-order/checkout/${data.id}`); // Redirect to the checkout page with the order ID
+  redirect(`/create-order/checkout/${data.id}?location=${location}`); // Redirect to the checkout page with the order ID
 }
 
 export const getOrderById = async (orderId: string, location: MerchantLocationsType) => {

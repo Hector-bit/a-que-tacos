@@ -1,13 +1,13 @@
-'use client';
 import React, { useContext } from "react";
 import { CartContext } from "@/context/orderContext";
 import { CartContextType } from "@utils/types";
 import { getOrderById } from "@/actions/orderActions";
+import { MerchantLocationsType } from "@utils/merchantConstants";
 
-const PayOrderPage = async(props: { parmas: Promise<{orderId:string}>}) => {
-  const { location } = useContext<CartContextType>(CartContext)
-  const { orderId } = await props.parmas;
-  const orderInfo = await getOrderById(orderId, location);
+const PayOrderPage = async(props: { params: Promise<{orderId:string}>, searchParams: { location: MerchantLocationsType}}) => {
+  // const { location } = useContext<CartContextType>(CartContext)
+  const { orderId } = await props.params;
+  const orderInfo = await getOrderById(orderId, props.searchParams.location);
 
   console.log('Order Info:', orderInfo);
 
