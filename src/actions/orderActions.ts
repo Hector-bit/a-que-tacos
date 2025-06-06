@@ -52,7 +52,7 @@ export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartDa
   // }
 
 
-  const formatData: { orderCart: { lineItems: {}} } = {
+  const formatData: { orderCart: { lineItems: { item: any, unitQty: number, modifications: any}[] } } = {
     "orderCart": {
       "lineItems": cartData.map((item) => {
 
@@ -63,9 +63,7 @@ export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartDa
             "id": ItemIdList[item.orderItem],
           },
           "unitQty": item.amount * 1000,
-          "note": item.removeIngredients.length > 0 ? "No: " + item.removeIngredients.map(ing => {
-            return `${IngredientDictionary[ing]}`
-          }) : null,
+
           "modifications": [
           item.meatChoice !== 'NOT_APPLICABLE' ? (
             {
@@ -78,9 +76,9 @@ export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartDa
   }
 
   
-  console.log('formatData from order actions: ', formatData.orderCart.lineItems)
+  console.log('formatData from order actions: ', formatData, formatData.orderCart, formatData.orderCart.lineItems, formatData.orderCart.lineItems[0].modifications, LOCATION.HOSTED_TOKEN)
 
-  const response = await fetch(`${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/atomic_order/checkouts`,
+  const response = await fetch(`${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/atomic_order/orders`,
     {
       method: 'POST',
       body: JSON.stringify(formatData),
