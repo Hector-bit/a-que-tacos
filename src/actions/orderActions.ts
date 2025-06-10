@@ -4,12 +4,15 @@ import { redirect } from 'next/navigation';
 import { CloverInstance } from '@/app/axios';
 import { NextResponse } from 'next/server';
 import axios, { AxiosResponse } from 'axios';
-import { AtomicCheckoutType } from '@utils/types/atomicTypes';
+import { AtomicCheckoutResponse } from '@utils/types/atomicTypes';
 import { CustomerInfoType, OrderItem } from '../../utils/types';
 import { MenuNameDictionary, IngredientDictionary, itemToPriceObj, ChoiceOfMeatEspanolDictionary } from '@utils/constants';
 import { LOCATION_CREDS, MID_TO_SIGNAGE, MID_TO_LOCATION, MerchantLocationsType } from '@utils/merchantConstants';
 
 import { ItemIdList, ItemModifierType } from '@utils/types/itemsTypes';
+import { CloverOrder } from '@utils/types/orderTypes';
+import { CloverOrderLineItem } from '@utils/types/lineItems';
+import { ResponseWrapper } from '@utils/types/typeHelpers';
 
 const CustomerScheme = z.object({
   firstname: z.string({
@@ -31,25 +34,9 @@ const CustomerScheme = z.object({
 
 const CreateOrder = CustomerScheme.omit({})
 
-export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartData: OrderItem[]) => {
+export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartData: OrderItem[]):Promise<AtomicCheckoutResponse | undefined> => {
   // console.debug('start fetchclover link call')
   const LOCATION = LOCATION_CREDS[location]
-  // let link = 'undefined'
-
-  // const validatedFields = CreateOrder.safeParse({
-  //   firstname: customerData.firstName,
-  //   lastname: customerData.lastName,
-  //   email: customerData.email,
-  //   phoneNumber: customerData.phoneNumber,
-  //   cart: cartData.length
-  // })
-
-  // // console.debug('VALIDATED FIELDS:', validatedFields)
-
-  // if(!validatedFields.success){
-  //   // console.log('ERRORS', validatedFields.error)
-  //   return validatedFields.error.flatten().fieldErrors
-  // }
 
 
   const formatData: { orderCart: { lineItems: { item: any, unitQty: number, modifications: any}[] } } = {
@@ -88,15 +75,16 @@ export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartDa
         "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
       } 
     }
-)
+  )
 
+  // return error if response is not ok
   if (!response.ok) {
     console.error('Error creating order:', response.statusText);
     throw new Error('Failed to create order');
   }
 
 
-  const data:AtomicCheckoutType = await response.json();
+  const data:AtomicCheckoutResponse = await response.json();
   console.log('Order created successfully:', data);
 
   //save order id to local storage
@@ -106,7 +94,7 @@ export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartDa
   redirect(`/create-order/checkout/${data.id}?location=${location}`); // Redirect to the checkout page with the order ID
 }
 
-export const getOrderById = async (orderId: string, location: MerchantLocationsType) => {
+export const getOrderById = async (orderId: string, location: MerchantLocationsType):Promise<CloverOrder | undefined> => {
   const LOCATION = LOCATION_CREDS[location];
 
   try {
@@ -130,4 +118,27 @@ export const getOrderById = async (orderId: string, location: MerchantLocationsT
   }
 }
 
+export const getOrderLineItems = async (orderId: string, location: MerchantLocationsType):Promise<ResponseWrapper<CloverOrderLineItem[]> | undefined> => {
+  const LOCATION = LOCATION_CREDS[location];
+
+  try {
+    const response = await fetch(`${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/orders/${orderId}/line_items`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch order line items');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching order line items:', error);
+    throw error;
+  }
+}
 

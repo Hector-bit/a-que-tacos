@@ -1,10 +1,10 @@
-// ATOMIC ORDER TYPES
-export type AtomicCheckoutResponse = {
+ 
+ export interface CloverOrder {
   "href": string,
   "id": string,
   "currency": string,
   "employee": {
-      "id": string
+    "id": string
   },
   "total": number,
   "paymentState": string,
@@ -14,7 +14,6 @@ export type AtomicCheckoutResponse = {
   "manualTransaction": boolean,
   "groupLineItems": boolean,
   "testMode": boolean,
-  "payType": string,
   "createdTime": number,
   "clientCreatedTime": number,
   "modifiedTime": number
