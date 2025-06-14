@@ -9,48 +9,54 @@ const eversonMID = process.env.EVERSON_MERCHANT_ID!;
 const blaineMID = process.env.BLAINE_MERCHANT_ID!;
 
 export const LOCATION_CREDS: Record<MerchantLocationsType, { APIROUTE: string, MID: string, HOSTED_TOKEN: string, SIGNATURE: string, 
-  EMPLOYEE: string }> = {
+  EMPLOYEE: string, CCAPI: String }> = {
   'SELECT': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: 'select',
     HOSTED_TOKEN:'select',
     SIGNATURE: 'select',
-    EMPLOYEE: 'select'
+    EMPLOYEE: 'select',
+    CCAPI: 'select'
   },
   'TEST1': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: process.env.TEST_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.TEST_API_KEY as string,
     SIGNATURE: process.env.TEST_WEBHOOK as string,
-    EMPLOYEE: process.env.EMPLOYEE_TEST as string
+    EMPLOYEE: process.env.EMPLOYEE_TEST as string,
+    CCAPI: process.env.TEST_CCAPI as string
   },
   'TEST2': {
     APIROUTE: process.env.CLOVER_BASE_URL_SANDBOX as string,
     MID: process.env.TEST_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.TEST_API_KEY as string,
     SIGNATURE: process.env.TEST_WEBHOOK as string,
-    EMPLOYEE: process.env.EMPLOYEE_TEST as string
+    EMPLOYEE: process.env.EMPLOYEE_TEST as string,
+    CCAPI: process.env.TEST_CCAPI as string
   },
   'BELLINGHAM': {
     APIROUTE: process.env.CLOVER_BASE_URL as string,
     MID: process.env.BELLINGHAM_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.BELLINGHAM_API_KEY as string,
     SIGNATURE: process.env.BELLINGHAM_WEBHOOK as string,
-    EMPLOYEE: process.env.EMPLOYEE as string
+    EMPLOYEE: process.env.EMPLOYEE as string,
+    CCAPI: process.env.CCAPI as string
   },
   'EVERSON': {
     APIROUTE: process.env.CLOVER_BASE_URL as string,
     MID: process.env.EVERSON_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.EVERSON_API_KEY as string,
     SIGNATURE: process.env.EVERSON_WEBHOOK as string,
-    EMPLOYEE: process.env.EMPLOYEE as string
+    EMPLOYEE: process.env.EMPLOYEE as string,
+    CCAPI: process.env.CCAPI as string
   },
   'BLAINE': {
     APIROUTE: process.env.CLOVER_BASE_URL as string,
     MID: process.env.BLAINE_MERCHANT_ID as string,
     HOSTED_TOKEN: process.env.BLAINE_API_KEY as string,
     SIGNATURE: process.env.BLAINE_WEBHOOK as string,
-    EMPLOYEE: process.env.EMPLOYEE as string
+    EMPLOYEE: process.env.EMPLOYEE as string,
+    CCAPI: process.env.CCAPI as string
   }
 }
 

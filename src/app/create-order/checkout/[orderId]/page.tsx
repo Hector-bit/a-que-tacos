@@ -5,8 +5,11 @@ import { getOrderById, getOrderLineItems } from "@/actions/orderActions";
 import { MerchantLocationsType } from "@utils/merchantConstants";
 import { CloverOrder } from "@utils/types/orderTypes";
 import { CloverOrderLineItem } from "@utils/types/lineItems";
+import { PostPayOrder } from "@/actions/orderActions";
 
-const LineItemInformationCard = (props: {CloverOrder: CloverOrder, OrderLineItems:CloverOrderLineItem[]}) => {
+const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-100 text-white'
+
+const LineItemInformationCard = (props: { CloverOrder: CloverOrder, OrderLineItems:CloverOrderLineItem[],  }) => {
   const { CloverOrder, OrderLineItems } = props;
 
   return (
@@ -26,8 +29,9 @@ const LineItemInformationCard = (props: {CloverOrder: CloverOrder, OrderLineItem
 const PayOrderPage = async(props: { params: Promise<{orderId:string}>, searchParams: { location: MerchantLocationsType}}) => {
   // const { location } = useContext<CartContextType>(CartContext)
   const { orderId } = await props.params;
-  const orderInfo = await getOrderById(orderId, props.searchParams.location);
-  const orderLineItems = await getOrderLineItems(orderId, props.searchParams.location);
+  const { location } = props.searchParams;
+  const orderInfo = await getOrderById(orderId, location);
+  const orderLineItems = await getOrderLineItems(orderId, location);
 
   console.log('Order Info:', orderInfo);
   console.log('Order Line Items:', orderLineItems);
@@ -43,9 +47,20 @@ const PayOrderPage = async(props: { params: Promise<{orderId:string}>, searchPar
           </div>
         )}
       </div>
+
+    <button 
+      className={`text-lg bg-flagGreen py-2 px-5  
+        ${btnCheckout}
+      `} 
+      onClick={async() => {
+        // console.log('my cart: ', cart)
+        let testing = await PostPayOrder(orderId, location);
+      }}
+    >
+      Checkout
+    </button>
     </div>
   );
 }
-
 
 export default PayOrderPage;

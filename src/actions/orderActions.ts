@@ -13,6 +13,7 @@ import { ItemIdList, ItemModifierType } from '@utils/types/itemsTypes';
 import { CloverOrder } from '@utils/types/orderTypes';
 import { CloverOrderLineItem } from '@utils/types/lineItems';
 import { ResponseWrapper } from '@utils/types/typeHelpers';
+import { PayOrder } from '@utils/types/payOrderTypes';
 
 const CustomerScheme = z.object({
   firstname: z.string({
@@ -142,3 +143,53 @@ export const getOrderLineItems = async (orderId: string, location: MerchantLocat
   }
 }
 
+export const createCardToken = async (orderId: string, location: MerchantLocationsType):Promise<string | undefined> => {
+  // Function to create a card token for payment processing
+  // step 1: Fetch apiKey from Clover API
+  // step 2: Use the apiKey to create a card token
+  const LOCATION = LOCATION_CREDS[location];
+  try {
+    const response = await fetch(`${LOCATION.APIROUTE}/v1/tokens`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        "apiKey": `Bearer ${LOCATION.HOSTED_TOKEN}`,
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create card token');
+    }
+
+    const data = await response.json();
+    return data.id; // Assuming the token ID is returned in the response
+  } catch (error) {
+    console.error('Error creating card token:', error);
+    throw error;
+  }
+}
+
+export const PostPayOrder = async (orderId: string, location: MerchantLocationsType):Promise<PayOrder | undefined> => {
+  const LOCATION = LOCATION_CREDS[location];
+
+  try {
+    const response = await fetch(`${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/orders/${orderId}/pay`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to pay order');
+    }
+
+    const data = await response.json();
+    console.log('Order paid successfully:', data);
+    return data;
+  } catch (error) { 
+    console.error('Error paying order:', error);
+    throw error;
+  }
+}
