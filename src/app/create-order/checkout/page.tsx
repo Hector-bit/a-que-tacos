@@ -3,26 +3,49 @@ import Link from "next/link"
 import Image from "next/image"
 import { useContext, useState, useEffect } from "react"
 import { CartContext } from "@/context/orderContext"
-import { CartContextType, CustomerInfoType } from "../../../../utils/types"
+import { CartContextType, CustomerInfoType, OrderItem } from "../../../../utils/types"
+// import { OrderItem } from "../../../../utils/types"
 import { MenuNameDictionary, IngredientDictionary, ChoiceOfMeatEspanolDictionary, ChoiceOfMeatEnglishDictionary } from "../../../../utils/constants"
 import { fetchCloverLink } from "@/actions/actions"
-import { location_address } from "@utils/merchantConstants"
+import { location_address, MerchantLocationsType } from "@utils/merchantConstants"
 import LocationSwitch from "@/components/ordering/LocationSwitch"
+import { useRouter } from "next/navigation"
 
 //new code for atomic checkout
 import { checkoutAtomicOrder } from "@/actions/orderActions"
 
 const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-100 text-white'
 
+
 export default function CheckoutPage() {
   const { location, cart, orderTotal, removeFromCart, clearCart, onlineOrdering, customerInfo } = useContext<CartContextType>(CartContext)
   
+  const router = useRouter()
   const [customerState, setCustomerState] = useState<CustomerInfoType>(customerInfo)
   const [errorMessages, setErrorMessages] = useState<any>([])
-
+  
   // console.log('locatoin', location)
-
-
+  
+  const handleCheckoutBtnClick = async (location:  MerchantLocationsType, cart: OrderItem[]) => {
+    console.log('handleCheckoutBtnClick called with location:', location, 'and cart:', cart);
+    // console.log('handleCheckoutBtnClick called with location:', location, 'and cart:', cart);
+    if (cart.length > 0) {
+      try {
+        const response = await checkoutAtomicOrder(location, cart);
+        if (response) {
+          // console.log('Clover link response:', response);
+          router.push(`/create-order/checkout/${response.id}?location=${location}`)
+        } else {
+          console.error('No response from atomic checkout');
+        }
+      }
+      catch (error) {
+        console.error('Error during checkout:', error);
+        // Handle error appropriately, e.g., show a message to the user
+      }
+    }
+  }
+  
   return (
     <div className="flex flex-col p-3">
       <Link href={"/create-order"}>
@@ -107,12 +130,7 @@ export default function CheckoutPage() {
               ${btnCheckout}
             `} 
             onClick={async() => {
-              // console.log('my cart: ', cart)
-              let testing = await checkoutAtomicOrder(location, cart);
-              // console.log('testing thingy: ', typeof(testing), testing)
-              if(testing){
-                setErrorMessages(testing)
-              }
+              await handleCheckoutBtnClick(location, cart);
             }}
           >
             Checkout

@@ -88,11 +88,13 @@ export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartDa
   const data:AtomicCheckoutResponse = await response.json();
   console.log('Order created successfully:', data);
 
+  return data
+
   //save order id to local storage
   // localStorage.setItem('ORDER_ID', JSON.stringify(data.))
 
   // return data;
-  redirect(`/create-order/checkout/${data.id}?location=${location}`); // Redirect to the checkout page with the order ID
+  // redirect(`/create-order/checkout/${data.id}?location=${location}`); // Redirect to the checkout page with the order ID
 }
 
 export const getOrderById = async (orderId: string, location: MerchantLocationsType):Promise<CloverOrder | undefined> => {
@@ -171,6 +173,15 @@ export const createCardToken = async (orderId: string, location: MerchantLocatio
 
 export const PostPayOrder = async (orderId: string, location: MerchantLocationsType):Promise<PayOrder | undefined> => {
   const LOCATION = LOCATION_CREDS[location];
+
+  const cardToken = await createCardToken(orderId, location);
+
+  if (!cardToken) {
+    console.error('Failed to create card token');
+    throw new Error('Card token creation failed');
+  } else {
+    console.log('Card token created successfully:', cardToken);
+  }
 
   try {
     const response = await fetch(`${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/orders/${orderId}/pay`, {

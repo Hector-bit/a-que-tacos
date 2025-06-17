@@ -6,6 +6,7 @@ import { MerchantLocationsType } from "@utils/merchantConstants";
 import { CloverOrder } from "@utils/types/orderTypes";
 import { CloverOrderLineItem } from "@utils/types/lineItems";
 import { PostPayOrder } from "@/actions/orderActions";
+// import CardFormComponent from "@/components/payment/CardForm";
 
 const btnCheckout = 'rounded-[20px] duration-300 brightness-90 hover:brightness-100 text-white'
 
@@ -47,18 +48,25 @@ const PayOrderPage = async(props: { params: Promise<{orderId:string}>, searchPar
           </div>
         )}
       </div>
-
-    <button 
-      className={`text-lg bg-flagGreen py-2 px-5  
-        ${btnCheckout}
-      `} 
-      onClick={async() => {
-        // console.log('my cart: ', cart)
-        let testing = await PostPayOrder(orderId, location);
-      }}
-    >
-      Checkout
-    </button>
+      <form>
+        <h2>Card Form</h2>
+        {/* Add your card form implementation here */}
+        <label>
+          Card Number:
+          <input type="text" name="cardNumber" required />
+        </label>
+        <br />
+        <label>
+          Expiration Date:
+          <input type="text" name="expirationDate" required />
+        </label>
+        <br />
+        <label>
+          CVV:
+          <input type="text" name="cvv" required />
+        </label>
+        <br />
+      </form>
     </div>
   );
 }
