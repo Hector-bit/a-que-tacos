@@ -14,6 +14,7 @@ import { CloverOrder } from '@utils/types/orderTypes';
 import { CloverOrderLineItem } from '@utils/types/lineItems';
 import { ResponseWrapper } from '@utils/types/typeHelpers';
 import { PayOrder } from '@utils/types/payOrderTypes';
+import { CardType, CreateCardTokenResponse } from '@utils/types/tokenType';
 
 const CustomerScheme = z.object({
   firstname: z.string({
@@ -32,6 +33,47 @@ const CustomerScheme = z.object({
     invalid_type_error: 'Please add orders to your cart'
   }).gt(0)
 });
+
+const PayOrderSchema = z.object({
+  cardNumber: z.string({
+    invalid_type_error: 'Please enter a card number'
+  }).min(16, 'Card number must be at least 16 digits'),
+  exp_month: z.string({
+    invalid_type_error: 'Please enter an expiration month'
+  }).min(1, 'Expiration month must be at least 1 digit'),
+  exp_year: z.string({
+    invalid_type_error: 'Please enter an expiration year'
+  }).min(2, 'Expiration year must be at least 2 digits'),
+  cvv: z.string({
+    invalid_type_error: 'Please enter a CVV'
+  }).min(3, 'CVV must be at least 3 digits'),
+  name: z.string({
+    invalid_type_error: 'Please enter a name'
+  }).min(2, 'Name must be at least 2 characters'),
+
+  orderId: z.string({
+    invalid_type_error: 'Please enter an order ID' 
+  }).min(1, 'Order ID must be at least 1 digit'),
+  location: z.string({
+    invalid_type_error: 'Please select a location'
+  })
+});
+
+export type PayOrderFormState = {
+  errors?: { 
+    //these 5 vars are used to validate the card form
+    cardNumber?: string[];
+    exp_month?: string[];
+    exp_year?: string[];
+    cvv?: string[];
+    name?: string[];
+
+    orderId?: string[];
+    location?: string[];
+  };
+  message?: string | null;
+
+}
 
 const CreateOrder = CustomerScheme.omit({})
 
@@ -145,7 +187,7 @@ export const getOrderLineItems = async (orderId: string, location: MerchantLocat
   }
 }
 
-export const createCardToken = async (orderId: string, location: MerchantLocationsType):Promise<string | undefined> => {
+export const createCardToken = async (orderId: string, location: MerchantLocationsType, card: CardType):Promise<string | undefined> => {
   // Function to create a card token for payment processing
   // step 1: Fetch apiKey from Clover API
   // step 2: Use the apiKey to create a card token
@@ -171,10 +213,39 @@ export const createCardToken = async (orderId: string, location: MerchantLocatio
   }
 }
 
-export const PostPayOrder = async (orderId: string, location: MerchantLocationsType):Promise<PayOrder | undefined> => {
-  const LOCATION = LOCATION_CREDS[location];
+export const PostPayOrder = async (prevState: PayOrderFormState, formData: FormData) => {
 
-  const cardToken = await createCardToken(orderId, location);
+  const validatedData = PayOrderSchema.safeParse({
+    cardNumber: formData.get('cardNumber')?.toString(),
+    exp_month: formData.get('exp_month')?.toString(), 
+    exp_year: formData.get('exp_year')?.toString(), 
+    cvv: formData.get('cvv')?.toString(),
+    name: formData.get('name')?.toString(),
+
+    orderId: formData.get('orderId')?.toString(),
+    location: formData.get('location')?.toString()
+  });
+
+  if (!validatedData.success) {
+    console.error('Validation failed:', validatedData.error);
+    throw new Error('Invalid card details');
+  }
+
+  const { cardNumber, exp_month, exp_year, cvv, name, orderId, location } = validatedData.data;
+
+  const LOCATION = LOCATION_CREDS[location as MerchantLocationsType];
+
+  const cardToken = await createCardToken(
+    orderId, 
+    location as MerchantLocationsType,
+    {
+      number: validatedData.data.cardNumber,
+      exp_month: validatedData.data.exp_month,
+      exp_year: validatedData.data.exp_year,
+      cvv: validatedData.data.cvv,
+      name: validatedData.data.name
+    } as CardType
+  );
 
   if (!cardToken) {
     console.error('Failed to create card token');
