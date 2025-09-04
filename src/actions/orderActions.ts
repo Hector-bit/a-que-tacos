@@ -77,10 +77,9 @@ export type PayOrderFormState = {
 
 const CreateOrder = CustomerScheme.omit({})
 
-export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartData: OrderItem[]):Promise<AtomicCheckoutResponse | undefined> => {
+export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartData: OrderItem[]):Promise<AtomicCheckoutResponse> => {
   // console.debug('start fetchclover link call')
   const LOCATION = LOCATION_CREDS[location]
-
 
   const formatData: { orderCart: { lineItems: { item: any, unitQty: number, modifications: any}[] } } = {
     "orderCart": {
@@ -104,9 +103,8 @@ export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartDa
       })
       },
   }
-
   
-  console.log('formatData from order actions: ', formatData, formatData.orderCart, formatData.orderCart.lineItems, formatData.orderCart.lineItems[0].modifications, LOCATION.HOSTED_TOKEN)
+  // console.log('forrderCart.lineItems[0].modifications, LOCATION.HOSTED_TOKEN)
 
   const response = await fetch(`${LOCATION.APIROUTE}/v3/merchants/${LOCATION.MID}/atomic_order/orders`,
     {
@@ -116,27 +114,17 @@ export const checkoutAtomicOrder = async(location: MerchantLocationsType, cartDa
         'accept': 'application/json',
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${LOCATION.HOSTED_TOKEN}`,
-      } 
+      }
     }
   )
 
   // return error if response is not ok
   if (!response.ok) {
-    console.error('Error creating order:', response.statusText);
-    throw new Error('Failed to create order');
+    throw new Error(response.status.toString());
   }
 
-
   const data:AtomicCheckoutResponse = await response.json();
-  console.log('Order created successfully:', data);
-
   return data
-
-  //save order id to local storage
-  // localStorage.setItem('ORDER_ID', JSON.stringify(data.))
-
-  // return data;
-  // redirect(`/create-order/checkout/${data.id}?location=${location}`); // Redirect to the checkout page with the order ID
 }
 
 export const getOrderById = async (orderId: string, location: MerchantLocationsType):Promise<CloverOrder | undefined> => {

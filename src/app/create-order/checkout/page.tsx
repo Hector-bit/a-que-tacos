@@ -20,27 +20,26 @@ export default function CheckoutPage() {
   const { location, cart, orderTotal, removeFromCart, clearCart, onlineOrdering, customerInfo } = useContext<CartContextType>(CartContext)
   
   const router = useRouter()
-  const [customerState, setCustomerState] = useState<CustomerInfoType>(customerInfo)
-  const [errorMessages, setErrorMessages] = useState<any>([])
+  // const [customerState, setCustomerState] = useState<CustomerInfoType>(customerInfo)
+  const [errorMessages, setErrorMessages] = useState<string>()
   
   // console.log('locatoin', location)
   
   const handleCheckoutBtnClick = async (location:  MerchantLocationsType, cart: OrderItem[]) => {
-    console.log('handleCheckoutBtnClick called with location:', location, 'and cart:', cart);
+    console.log('handleCheckoutBtnClick call with location:', location, 'and cart:', cart);
     // console.log('handleCheckoutBtnClick called with location:', location, 'and cart:', cart);
     if (cart.length > 0) {
       try {
         const response = await checkoutAtomicOrder(location, cart);
         if (response) {
-          // console.log('Clover link response:', response);
+          console.log('API create order response:', response);
           router.push(`/create-order/checkout/${response.id}?location=${location}`)
         } else {
           console.error('No response from atomic checkout');
         }
       }
-      catch (error) {
-        console.error('Error during checkout:', error);
-        // Handle error appropriately, e.g., show a message to the user
+      catch (error:any) {
+        setErrorMessages(`Failed to create order - ${error.toString()}`);
       }
     }
   }
@@ -59,12 +58,11 @@ export default function CheckoutPage() {
         <div className="text-center text-xl mx-auto my-12">
           <span>You have no orders in your cart.</span>
           <div id="customer-error" aria-live="polite" aria-atomic="true">
-              {errorMessages?.cart &&
-                errorMessages.cart.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
+
+                  <p className="mt-2 text-sm text-red-500">
+                    No Items in Cart.
                   </p>
-              ))}
+
             </div>
         </div>
       }
@@ -122,18 +120,25 @@ export default function CheckoutPage() {
           {/* <button className={`bg-flagGreen py-2 px-3 ${btnCheckout}`} onClick={() => saveCustomerInfo(customerState)}>Save Info</button> */}
         </div>
 
-        <div className="flex flex-row justify-between items-center mt-4">
+        <div className="flex flex-row justify-between mt-4">
           <div className="font-bold text-lg">Total: ${orderTotal.toFixed(2)}</div>
-          <button 
-            className={`text-lg bg-flagGreen py-2 px-5  
-              ${btnCheckout}
-            `} 
-            onClick={async() => {
-              await handleCheckoutBtnClick(location, cart);
-            }}
-          >
-            Checkout
-          </button>
+          <div className="flex flex-col items-end">
+            <button 
+              className={`text-lg w-min bg-flagGreen py-2 px-5  
+                ${btnCheckout}
+              `} 
+              onClick={async() => {
+                await handleCheckoutBtnClick(location, cart);
+              }}
+            >
+              Checkout
+            </button>
+            {errorMessages && 
+              <div className="text-red-500 font-bold my-4">
+                {errorMessages}
+              </div>
+            }
+          </div>
         </div>
       </div>
     </div>
