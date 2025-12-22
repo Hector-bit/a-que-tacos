@@ -1,4 +1,3 @@
-import { tree } from "next/dist/build/templates/app-page"
 import { menuItemType, ingredientsType } from "./types"
 
 export const daysOfWeek = [
