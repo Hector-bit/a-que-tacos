@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu — A Que Tacos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#FFBC60;--bg-dark:#F0A83E;--accent:#801313;--accent-dark:#5e0d0d;
+  --green:#52B202;--red:#FF1744;--white:#FFFFFF;
+  --charcoal:#1C1C1C;--muted:#6B3A00;--border:rgba(128,19,19,0.15);
+  --card:#fff8ee;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--charcoal);overflow-x:hidden;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:var(--accent);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--white);display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.flag-icon{display:flex;height:18px;width:30px;border-radius:2px;overflow:hidden;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.3);}
+.flag-icon span{flex:1;display:block;}
+.flag-green{background:var(--green);}
+.flag-white{background:var(--white);}
+.flag-red{background:var(--red);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,.7);transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--white);}
+.nav-links a.active{border-bottom:2px solid var(--bg);padding-bottom:2px;}
+.nav-cta{background:var(--bg)!important;color:var(--accent)!important;padding:.5rem 1.2rem;border-radius:4px;font-size:.85rem!important;font-weight:500!important;letter-spacing:.06em!important;transition:background .2s!important;}
+.nav-cta:hover{background:var(--white)!important;color:var(--accent)!important;}
+
+/* HERO BANNER */
+.menu-hero{background:var(--accent);padding:3.5rem 4rem 3rem;display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+.menu-hero-left .eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,188,96,.7);font-weight:500;margin-bottom:.6rem;}
+.menu-hero-left h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:var(--white);line-height:.95;}
+.menu-hero-left h1 em{font-style:italic;color:var(--bg);}
+.menu-hero-right{display:flex;gap:.5rem;flex-wrap:wrap;}
+.location-pill{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:var(--white);background:rgba(255,188,96,.15);border:1px solid rgba(255,188,96,.3);padding:.35rem .9rem;border-radius:100px;}
+
+/* STICKY CATEGORY NAV */
+.cat-nav-wrap{position:sticky;top:64px;z-index:100;background:var(--accent-dark);border-bottom:2px solid rgba(255,188,96,.2);}
+.cat-nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
+.cat-nav::-webkit-scrollbar{display:none;}
+.cat-btn{flex-shrink:0;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);background:none;border:none;padding:1rem 1.6rem;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;white-space:nowrap;}
+.cat-btn:hover{color:var(--white);}
+.cat-btn.active{color:var(--bg);border-bottom-color:var(--bg);}
+
+/* LAYOUT */
+.menu-body{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 130px);}
+
+/* SIDEBAR (desktop) */
+.sidebar{background:var(--accent-dark);padding:2.5rem 1.5rem;position:sticky;top:130px;align-self:start;height:calc(100vh - 130px);overflow-y:auto;}
+.sidebar-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,188,96,.4);font-weight:500;margin-bottom:1rem;padding-left:.5rem;}
+.sidebar-link{display:block;font-size:.88rem;font-weight:400;color:rgba(255,255,255,.55);text-decoration:none;padding:.65rem .75rem;border-radius:6px;margin-bottom:.2rem;transition:background .2s,color .2s;border-left:3px solid transparent;letter-spacing:.02em;}
+.sidebar-link:hover{color:var(--white);background:rgba(255,188,96,.08);}
+.sidebar-link.active{color:var(--bg);background:rgba(255,188,96,.12);border-left-color:var(--bg);font-weight:500;}
+.sidebar-divider{height:1px;background:rgba(255,188,96,.1);margin:1rem 0;}
+
+/* MAIN CONTENT */
+.menu-main{padding:3rem 3rem 5rem;}
+
+/* SECTION */
+.menu-section{margin-bottom:4rem;scroll-margin-top:140px;}
+.section-heading{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1.5px solid var(--border);}
+.section-heading h2{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--charcoal);}
+.section-heading .cat-count{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;background:rgba(128,19,19,.1);padding:.25rem .7rem;border-radius:100px;}
+
+/* GRID */
+.items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;}
+
+/* CARD */
+.item-card{background:var(--card);border-radius:10px;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:default;border:1px solid rgba(128,19,19,.08);}
+.item-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(128,19,19,.15);}
+.item-img{width:100%;height:180px;object-fit:cover;display:block;background:var(--bg-dark);}
+.item-img-placeholder{width:100%;height:180px;background:linear-gradient(135deg,var(--bg-dark) 0%,var(--bg) 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.item-img-placeholder::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(128,19,19,.04) 0px,rgba(128,19,19,.04) 1px,transparent 1px,transparent 12px);}
+.placeholder-icon{font-size:2.5rem;opacity:.35;z-index:1;}
+.item-info{padding:1rem 1.1rem 1.2rem;}
+.item-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--charcoal);margin-bottom:.3rem;}
+.item-desc{font-size:.8rem;color:var(--muted);line-height:1.5;font-weight:300;margin-bottom:.8rem;}
+.item-footer{display:flex;align-items:center;justify-content:space-between;}
+.item-price{font-size:1rem;font-weight:500;color:var(--accent);}
+.item-tag{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;padding:.2rem .6rem;border-radius:100px;background:rgba(82,178,2,.12);color:#2d6400;}
+.item-tag.spicy{background:rgba(255,23,68,.1);color:#b5001e;}
+
+/* ORDER BTN */
+.order-float{position:fixed;bottom:2rem;right:2rem;z-index:300;background:var(--accent);color:var(--white);font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:.9rem 1.8rem;border-radius:50px;box-shadow:0 6px 24px rgba(128,19,19,.4);transition:background .2s,transform .15s;display:flex;align-items:center;gap:.5rem;}
+.order-float:hover{background:var(--accent-dark);transform:translateY(-2px);}
+.order-float-dot{width:8px;height:8px;border-radius:50%;background:var(--bg);flex-shrink:0;}
+
+/* MOBILE: hide sidebar, show cat-nav */
+@media(max-width:860px){
+  .menu-body{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .menu-main{padding:2rem 1.25rem 5rem;}
+  nav{padding:0 1.25rem;}
+  .nav-links{gap:1rem;}
+  .menu-hero{padding:2.5rem 1.5rem 2rem;}
+  .items-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));}
+}
+@media(min-width:861px){
+  .cat-nav-wrap{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="flag-icon"><span class="flag-green"></span><span class="flag-white"></span><span class="flag-red"></span></div>
+    A Que Tacos
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#" class="active">Menu</a></li>
+    <li><a href="#" class="nav-cta">Order Now</a></li>
+  </ul>
+</nav>
+
+<!-- Mobile sticky category nav -->
+<div class="cat-nav-wrap">
+  <div class="cat-nav">
+    <button class="cat-btn active" onclick="scrollTo('tacos',this)">Tacos</button>
+    <button class="cat-btn" onclick="scrollTo('burritos',this)">Burritos</button>
+    <button class="cat-btn" onclick="scrollTo('quesadillas',this)">Quesadillas</button>
+    <button class="cat-btn" onclick="scrollTo('tortas',this)">Tortas</button>
+    <button class="cat-btn" onclick="scrollTo('drinks',this)">Drinks</button>
+  </div>
+</div>
+
+<div class="menu-hero">
+  <div class="menu-hero-left">
+    <p class="eyebrow">A Que Tacos</p>
+    <h1>Our <em>Menu</em></h1>
+  </div>
+  <div class="menu-hero-right">
+    <span class="location-pill">Bellingham</span>
+    <span class="location-pill">Everson</span>
+    <span class="location-pill">Blaine</span>
+  </div>
+</div>
+
+<div class="menu-body">
+  <!-- Desktop Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-label">Categories</div>
+    <a href="#tacos" class="sidebar-link active" onclick="setActive(this)">Tacos</a>
+    <a href="#burritos" class="sidebar-link" onclick="setActive(this)">Burritos</a>
+    <a href="#quesadillas" class="sidebar-link" onclick="setActive(this)">Quesadillas</a>
+    <a href="#tortas" class="sidebar-link" onclick="setActive(this)">Tortas</a>
+    <a href="#drinks" class="sidebar-link" onclick="setActive(this)">Drinks</a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-label">Locations</div>
+    <a href="#" class="sidebar-link">Bellingham</a>
+    <a href="#" class="sidebar-link">Everson</a>
+    <a href="#" class="sidebar-link">Blaine</a>
+  </aside>
+
+  <main class="menu-main">
+
+    <!-- TACOS -->
+    <section class="menu-section" id="tacos">
+      <div class="section-heading">
+        <h2>Tacos</h2>
+        <span class="cat-count">6 items</span>
+      </div>
+      <div class="items-grid">
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
+          <div class="item-info">
+            <div class="item-name">Carne Asada</div>
+            <div class="item-desc">Grilled marinated beef, cilantro, white onion, salsa verde, lime.</div>
+            <div class="item-footer"><span class="item-price">$4.50</span><span class="item-tag">Popular</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
+          <div class="item-info">
+            <div class="item-name">Al Pastor</div>
+            <div class="item-desc">Achiote-marinated pork, pineapple, onion, cilantro, salsa roja.</div>
+            <div class="item-footer"><span class="item-price">$4.50</span><span class="item-tag spicy">Spicy</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
+          <div class="item-info">
+            <div class="item-name">Pollo</div>
+            <div class="item-desc">Grilled chicken, guacamole, pico de gallo, crema, cotija.</div>
+            <div class="item-footer"><span class="item-price">$4.50</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
+          <div class="item-info">
+            <div class="item-name">Carnitas</div>
+            <div class="item-desc">Slow-braised pork, pickled onion, salsa verde, fresh lime.</div>
+            <div class="item-footer"><span class="item-price">$4.50</span><span class="item-tag">Popular</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
+          <div class="item-info">
+            <div class="item-name">Lengua</div>
+            <div class="item-desc">Tender beef tongue, cilantro, white onion, house salsa.</div>
+            <div class="item-footer"><span class="item-price">$5.00</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
+          <div class="item-info">
+            <div class="item-name">Birria</div>
+            <div class="item-desc">Braised beef in rich consommé, dipped tortilla, onion, cilantro.</div>
+            <div class="item-footer"><span class="item-price">$5.50</span><span class="item-tag">Popular</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BURRITOS -->
+    <section class="menu-section" id="burritos">
+      <div class="section-heading">
+        <h2>Burritos</h2>
+        <span class="cat-count">4 items</span>
+      </div>
+      <div class="items-grid">
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🌯</span></div>
+          <div class="item-info">
+            <div class="item-name">Carne Asada Burrito</div>
+            <div class="item-desc">Grilled beef, rice, beans, cheese, crema, pico de gallo in a flour tortilla.</div>
+            <div class="item-footer"><span class="item-price">$12.00</span><span class="item-tag">Popular</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🌯</span></div>
+          <div class="item-info">
+            <div class="item-name">Al Pastor Burrito</div>
+            <div class="item-desc">Marinated pork, pineapple, rice, beans, salsa roja, cotija cheese.</div>
+            <div class="item-footer"><span class="item-price">$12.00</span><span class="item-tag spicy">Spicy</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🌯</span></div>
+          <div class="item-info">
+            <div class="item-name">Pollo Burrito</div>
+            <div class="item-desc">Grilled chicken, rice, black beans, guac, crema, jalapeños.</div>
+            <div class="item-footer"><span class="item-price">$11.50</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🌯</span></div>
+          <div class="item-info">
+            <div class="item-name">Veggie Burrito</div>
+            <div class="item-desc">Grilled peppers, onions, zucchini, rice, beans, cheese, guacamole.</div>
+            <div class="item-footer"><span class="item-price">$10.50</span><span class="item-tag">Veggie</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- QUESADILLAS -->
+    <section class="menu-section" id="quesadillas">
+      <div class="section-heading">
+        <h2>Quesadillas</h2>
+        <span class="cat-count">3 items</span>
+      </div>
+      <div class="items-grid">
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🫓</span></div>
+          <div class="item-info">
+            <div class="item-name">Quesadilla de Pollo</div>
+            <div class="item-desc">Flour tortilla, grilled chicken, Oaxacan cheese, crema, pico de gallo.</div>
+            <div class="item-footer"><span class="item-price">$10.00</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🫓</span></div>
+          <div class="item-info">
+            <div class="item-name">Quesadilla de Carne</div>
+            <div class="item-desc">Flour tortilla, carne asada, Oaxacan cheese, jalapeños, salsa verde.</div>
+            <div class="item-footer"><span class="item-price">$11.00</span><span class="item-tag">Popular</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🫓</span></div>
+          <div class="item-info">
+            <div class="item-name">Quesadilla de Queso</div>
+            <div class="item-desc">Flour tortilla, blend of melted cheeses, guacamole, crema. Simple & delicious.</div>
+            <div class="item-footer"><span class="item-price">$8.50</span><span class="item-tag">Veggie</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TORTAS -->
+    <section class="menu-section" id="tortas">
+      <div class="section-heading">
+        <h2>Tortas</h2>
+        <span class="cat-count">3 items</span>
+      </div>
+      <div class="items-grid">
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🥪</span></div>
+          <div class="item-info">
+            <div class="item-name">Torta de Carnitas</div>
+            <div class="item-desc">Telera roll, slow-braised pork, avocado, jalapeños, tomato, crema.</div>
+            <div class="item-footer"><span class="item-price">$11.00</span><span class="item-tag">Popular</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🥪</span></div>
+          <div class="item-info">
+            <div class="item-name">Torta de Milanesa</div>
+            <div class="item-desc">Crispy breaded beef, lettuce, tomato, avocado, chipotle mayo.</div>
+            <div class="item-footer"><span class="item-price">$12.00</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🥪</span></div>
+          <div class="item-info">
+            <div class="item-name">Torta de Pollo</div>
+            <div class="item-desc">Grilled chicken breast, avocado, cheese, pickled jalapeños, crema.</div>
+            <div class="item-footer"><span class="item-price">$11.00</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DRINKS -->
+    <section class="menu-section" id="drinks">
+      <div class="section-heading">
+        <h2>Drinks</h2>
+        <span class="cat-count">4 items</span>
+      </div>
+      <div class="items-grid">
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🥤</span></div>
+          <div class="item-info">
+            <div class="item-name">Agua de Jamaica</div>
+            <div class="item-desc">Chilled hibiscus flower water, lightly sweetened. Refreshing & vibrant.</div>
+            <div class="item-footer"><span class="item-price">$3.00</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🥤</span></div>
+          <div class="item-info">
+            <div class="item-name">Agua de Horchata</div>
+            <div class="item-desc">Classic rice milk with cinnamon, vanilla, and a touch of sweetness.</div>
+            <div class="item-footer"><span class="item-price">$3.00</span><span class="item-tag">Popular</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🥤</span></div>
+          <div class="item-info">
+            <div class="item-name">Mexican Coke</div>
+            <div class="item-desc">Glass bottle Coca-Cola made with real cane sugar. Ice cold.</div>
+            <div class="item-footer"><span class="item-price">$3.50</span></div>
+          </div>
+        </div>
+
+        <div class="item-card">
+          <div class="item-img-placeholder"><span class="placeholder-icon">🥤</span></div>
+          <div class="item-info">
+            <div class="item-name">Jarritos</div>
+            <div class="item-desc">Assorted Mexican fruit sodas. Ask your server for today's flavors.</div>
+            <div class="item-footer"><span class="item-price">$3.00</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Floating Order Button -->
+<a href="https://aquetacos.com/create-order" class="order-float">
+  <span class="order-float-dot"></span>
+  Order Online
+</a>
+
+<script>
+function setActive(el){
+  document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function scrollTo(id, btn){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Highlight sidebar link on scroll
+const sections = document.querySelectorAll('.menu-section');
+const sideLinks = document.querySelectorAll('.sidebar-link[href^="#"]');
+const catBtns = document.querySelectorAll('.cat-btn');
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = e.target.id;
+      sideLinks.forEach(l=>{
+        l.classList.toggle('active', l.getAttribute('href')==='#'+id);
+      });
+      catBtns.forEach((b,i)=>{
+        const ids=['tacos','burritos','quesadillas','tortas','drinks'];
+        b.classList.toggle('active', ids[i]===id);
+      });
+    }
+  });
+},{threshold:0.35, rootMargin:'-120px 0px -40% 0px'});
+
+sections.forEach(s=>observer.observe(s));
+</script>
+</body>
+</html>
