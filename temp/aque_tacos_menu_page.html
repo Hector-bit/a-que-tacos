@@ -107,117 +107,117 @@ nav{position:sticky;top:0;z-index:200;background:var(--accent);display:flex;alig
 <body>
 
 <nav>
-  <a href="#" class="nav-logo">
-    <div class="flag-icon"><span class="flag-green"></span><span class="flag-white"></span><span class="flag-red"></span></div>
+  <a href="#" className="nav-logo">
+    <div className="flag-icon"><span className="flag-green"></span><span className="flag-white"></span><span className="flag-red"></span></div>
     A Que Tacos
   </a>
-  <ul class="nav-links">
+  <ul className="nav-links">
     <li><a href="#">Home</a></li>
-    <li><a href="#" class="active">Menu</a></li>
-    <li><a href="#" class="nav-cta">Order Now</a></li>
+    <li><a href="#" className="active">Menu</a></li>
+    <li><a href="#" className="nav-cta">Order Now</a></li>
   </ul>
 </nav>
 
 <!-- Mobile sticky category nav -->
-<div class="cat-nav-wrap">
-  <div class="cat-nav">
-    <button class="cat-btn active" onclick="scrollTo('tacos',this)">Tacos</button>
-    <button class="cat-btn" onclick="scrollTo('burritos',this)">Burritos</button>
-    <button class="cat-btn" onclick="scrollTo('quesadillas',this)">Quesadillas</button>
-    <button class="cat-btn" onclick="scrollTo('tortas',this)">Tortas</button>
-    <button class="cat-btn" onclick="scrollTo('drinks',this)">Drinks</button>
+<div className="cat-nav-wrap">
+  <div className="cat-nav">
+    <button className="cat-btn active" onclick="scrollTo('tacos',this)">Tacos</button>
+    <button className="cat-btn" onclick="scrollTo('burritos',this)">Burritos</button>
+    <button className="cat-btn" onclick="scrollTo('quesadillas',this)">Quesadillas</button>
+    <button className="cat-btn" onclick="scrollTo('tortas',this)">Tortas</button>
+    <button className="cat-btn" onclick="scrollTo('drinks',this)">Drinks</button>
   </div>
 </div>
 
-<div class="menu-hero">
-  <div class="menu-hero-left">
-    <p class="eyebrow">A Que Tacos</p>
+<div className="menu-hero">
+  <div className="menu-hero-left">
+    <p className="eyebrow">A Que Tacos</p>
     <h1>Our <em>Menu</em></h1>
   </div>
-  <div class="menu-hero-right">
-    <span class="location-pill">Bellingham</span>
-    <span class="location-pill">Everson</span>
-    <span class="location-pill">Blaine</span>
+  <div className="menu-hero-right">
+    <span className="location-pill">Bellingham</span>
+    <span className="location-pill">Everson</span>
+    <span className="location-pill">Blaine</span>
   </div>
 </div>
 
-<div class="menu-body">
+<div className="menu-body">
   <!-- Desktop Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-label">Categories</div>
-    <a href="#tacos" class="sidebar-link active" onclick="setActive(this)">Tacos</a>
-    <a href="#burritos" class="sidebar-link" onclick="setActive(this)">Burritos</a>
-    <a href="#quesadillas" class="sidebar-link" onclick="setActive(this)">Quesadillas</a>
-    <a href="#tortas" class="sidebar-link" onclick="setActive(this)">Tortas</a>
-    <a href="#drinks" class="sidebar-link" onclick="setActive(this)">Drinks</a>
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-label">Locations</div>
-    <a href="#" class="sidebar-link">Bellingham</a>
-    <a href="#" class="sidebar-link">Everson</a>
-    <a href="#" class="sidebar-link">Blaine</a>
+  <aside className="sidebar">
+    <div className="sidebar-label">Categories</div>
+    <a href="#tacos" className="sidebar-link active" onclick="setActive(this)">Tacos</a>
+    <a href="#burritos" className="sidebar-link" onclick="setActive(this)">Burritos</a>
+    <a href="#quesadillas" className="sidebar-link" onclick="setActive(this)">Quesadillas</a>
+    <a href="#tortas" className="sidebar-link" onclick="setActive(this)">Tortas</a>
+    <a href="#drinks" className="sidebar-link" onclick="setActive(this)">Drinks</a>
+    <div className="sidebar-divider"></div>
+    <div className="sidebar-label">Locations</div>
+    <a href="#" className="sidebar-link">Bellingham</a>
+    <a href="#" className="sidebar-link">Everson</a>
+    <a href="#" className="sidebar-link">Blaine</a>
   </aside>
 
-  <main class="menu-main">
+  <main className="menu-main">
 
     <!-- TACOS -->
-    <section class="menu-section" id="tacos">
-      <div class="section-heading">
+    <section className="menu-section" id="tacos">
+      <div className="section-heading">
         <h2>Tacos</h2>
-        <span class="cat-count">6 items</span>
+        <span className="cat-count">6 items</span>
       </div>
-      <div class="items-grid">
+      <div className="items-grid">
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
-          <div class="item-info">
-            <div class="item-name">Carne Asada</div>
-            <div class="item-desc">Grilled marinated beef, cilantro, white onion, salsa verde, lime.</div>
-            <div class="item-footer"><span class="item-price">$4.50</span><span class="item-tag">Popular</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🌮</span></div>
+          <div className="item-info">
+            <div className="item-name">Carne Asada</div>
+            <div className="item-desc">Grilled marinated beef, cilantro, white onion, salsa verde, lime.</div>
+            <div className="item-footer"><span className="item-price">$4.50</span><span className="item-tag">Popular</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
-          <div class="item-info">
-            <div class="item-name">Al Pastor</div>
-            <div class="item-desc">Achiote-marinated pork, pineapple, onion, cilantro, salsa roja.</div>
-            <div class="item-footer"><span class="item-price">$4.50</span><span class="item-tag spicy">Spicy</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🌮</span></div>
+          <div className="item-info">
+            <div className="item-name">Al Pastor</div>
+            <div className="item-desc">Achiote-marinated pork, pineapple, onion, cilantro, salsa roja.</div>
+            <div className="item-footer"><span className="item-price">$4.50</span><span className="item-tag spicy">Spicy</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
-          <div class="item-info">
-            <div class="item-name">Pollo</div>
-            <div class="item-desc">Grilled chicken, guacamole, pico de gallo, crema, cotija.</div>
-            <div class="item-footer"><span class="item-price">$4.50</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🌮</span></div>
+          <div className="item-info">
+            <div className="item-name">Pollo</div>
+            <div className="item-desc">Grilled chicken, guacamole, pico de gallo, crema, cotija.</div>
+            <div className="item-footer"><span className="item-price">$4.50</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
-          <div class="item-info">
-            <div class="item-name">Carnitas</div>
-            <div class="item-desc">Slow-braised pork, pickled onion, salsa verde, fresh lime.</div>
-            <div class="item-footer"><span class="item-price">$4.50</span><span class="item-tag">Popular</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🌮</span></div>
+          <div className="item-info">
+            <div className="item-name">Carnitas</div>
+            <div className="item-desc">Slow-braised pork, pickled onion, salsa verde, fresh lime.</div>
+            <div className="item-footer"><span className="item-price">$4.50</span><span className="item-tag">Popular</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
-          <div class="item-info">
-            <div class="item-name">Lengua</div>
-            <div class="item-desc">Tender beef tongue, cilantro, white onion, house salsa.</div>
-            <div class="item-footer"><span class="item-price">$5.00</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🌮</span></div>
+          <div className="item-info">
+            <div className="item-name">Lengua</div>
+            <div className="item-desc">Tender beef tongue, cilantro, white onion, house salsa.</div>
+            <div className="item-footer"><span className="item-price">$5.00</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🌮</span></div>
-          <div class="item-info">
-            <div class="item-name">Birria</div>
-            <div class="item-desc">Braised beef in rich consommé, dipped tortilla, onion, cilantro.</div>
-            <div class="item-footer"><span class="item-price">$5.50</span><span class="item-tag">Popular</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🌮</span></div>
+          <div className="item-info">
+            <div className="item-name">Birria</div>
+            <div className="item-desc">Braised beef in rich consommé, dipped tortilla, onion, cilantro.</div>
+            <div className="item-footer"><span className="item-price">$5.50</span><span className="item-tag">Popular</span></div>
           </div>
         </div>
 
@@ -225,46 +225,46 @@ nav{position:sticky;top:0;z-index:200;background:var(--accent);display:flex;alig
     </section>
 
     <!-- BURRITOS -->
-    <section class="menu-section" id="burritos">
-      <div class="section-heading">
+    <section className="menu-section" id="burritos">
+      <div className="section-heading">
         <h2>Burritos</h2>
-        <span class="cat-count">4 items</span>
+        <span className="cat-count">4 items</span>
       </div>
-      <div class="items-grid">
+      <div className="items-grid">
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🌯</span></div>
-          <div class="item-info">
-            <div class="item-name">Carne Asada Burrito</div>
-            <div class="item-desc">Grilled beef, rice, beans, cheese, crema, pico de gallo in a flour tortilla.</div>
-            <div class="item-footer"><span class="item-price">$12.00</span><span class="item-tag">Popular</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🌯</span></div>
+          <div className="item-info">
+            <div className="item-name">Carne Asada Burrito</div>
+            <div className="item-desc">Grilled beef, rice, beans, cheese, crema, pico de gallo in a flour tortilla.</div>
+            <div className="item-footer"><span className="item-price">$12.00</span><span className="item-tag">Popular</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🌯</span></div>
-          <div class="item-info">
-            <div class="item-name">Al Pastor Burrito</div>
-            <div class="item-desc">Marinated pork, pineapple, rice, beans, salsa roja, cotija cheese.</div>
-            <div class="item-footer"><span class="item-price">$12.00</span><span class="item-tag spicy">Spicy</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🌯</span></div>
+          <div className="item-info">
+            <div className="item-name">Al Pastor Burrito</div>
+            <div className="item-desc">Marinated pork, pineapple, rice, beans, salsa roja, cotija cheese.</div>
+            <div className="item-footer"><span className="item-price">$12.00</span><span className="item-tag spicy">Spicy</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🌯</span></div>
-          <div class="item-info">
-            <div class="item-name">Pollo Burrito</div>
-            <div class="item-desc">Grilled chicken, rice, black beans, guac, crema, jalapeños.</div>
-            <div class="item-footer"><span class="item-price">$11.50</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🌯</span></div>
+          <div className="item-info">
+            <div className="item-name">Pollo Burrito</div>
+            <div className="item-desc">Grilled chicken, rice, black beans, guac, crema, jalapeños.</div>
+            <div className="item-footer"><span className="item-price">$11.50</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🌯</span></div>
-          <div class="item-info">
-            <div class="item-name">Veggie Burrito</div>
-            <div class="item-desc">Grilled peppers, onions, zucchini, rice, beans, cheese, guacamole.</div>
-            <div class="item-footer"><span class="item-price">$10.50</span><span class="item-tag">Veggie</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🌯</span></div>
+          <div className="item-info">
+            <div className="item-name">Veggie Burrito</div>
+            <div className="item-desc">Grilled peppers, onions, zucchini, rice, beans, cheese, guacamole.</div>
+            <div className="item-footer"><span className="item-price">$10.50</span><span className="item-tag">Veggie</span></div>
           </div>
         </div>
 
@@ -272,37 +272,37 @@ nav{position:sticky;top:0;z-index:200;background:var(--accent);display:flex;alig
     </section>
 
     <!-- QUESADILLAS -->
-    <section class="menu-section" id="quesadillas">
-      <div class="section-heading">
+    <section className="menu-section" id="quesadillas">
+      <div className="section-heading">
         <h2>Quesadillas</h2>
-        <span class="cat-count">3 items</span>
+        <span className="cat-count">3 items</span>
       </div>
-      <div class="items-grid">
+      <div className="items-grid">
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🫓</span></div>
-          <div class="item-info">
-            <div class="item-name">Quesadilla de Pollo</div>
-            <div class="item-desc">Flour tortilla, grilled chicken, Oaxacan cheese, crema, pico de gallo.</div>
-            <div class="item-footer"><span class="item-price">$10.00</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🫓</span></div>
+          <div className="item-info">
+            <div className="item-name">Quesadilla de Pollo</div>
+            <div className="item-desc">Flour tortilla, grilled chicken, Oaxacan cheese, crema, pico de gallo.</div>
+            <div className="item-footer"><span className="item-price">$10.00</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🫓</span></div>
-          <div class="item-info">
-            <div class="item-name">Quesadilla de Carne</div>
-            <div class="item-desc">Flour tortilla, carne asada, Oaxacan cheese, jalapeños, salsa verde.</div>
-            <div class="item-footer"><span class="item-price">$11.00</span><span class="item-tag">Popular</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🫓</span></div>
+          <div className="item-info">
+            <div className="item-name">Quesadilla de Carne</div>
+            <div className="item-desc">Flour tortilla, carne asada, Oaxacan cheese, jalapeños, salsa verde.</div>
+            <div className="item-footer"><span className="item-price">$11.00</span><span className="item-tag">Popular</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🫓</span></div>
-          <div class="item-info">
-            <div class="item-name">Quesadilla de Queso</div>
-            <div class="item-desc">Flour tortilla, blend of melted cheeses, guacamole, crema. Simple & delicious.</div>
-            <div class="item-footer"><span class="item-price">$8.50</span><span class="item-tag">Veggie</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🫓</span></div>
+          <div className="item-info">
+            <div className="item-name">Quesadilla de Queso</div>
+            <div className="item-desc">Flour tortilla, blend of melted cheeses, guacamole, crema. Simple & delicious.</div>
+            <div className="item-footer"><span className="item-price">$8.50</span><span className="item-tag">Veggie</span></div>
           </div>
         </div>
 
@@ -310,37 +310,37 @@ nav{position:sticky;top:0;z-index:200;background:var(--accent);display:flex;alig
     </section>
 
     <!-- TORTAS -->
-    <section class="menu-section" id="tortas">
-      <div class="section-heading">
+    <section className="menu-section" id="tortas">
+      <div className="section-heading">
         <h2>Tortas</h2>
-        <span class="cat-count">3 items</span>
+        <span className="cat-count">3 items</span>
       </div>
-      <div class="items-grid">
+      <div className="items-grid">
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🥪</span></div>
-          <div class="item-info">
-            <div class="item-name">Torta de Carnitas</div>
-            <div class="item-desc">Telera roll, slow-braised pork, avocado, jalapeños, tomato, crema.</div>
-            <div class="item-footer"><span class="item-price">$11.00</span><span class="item-tag">Popular</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🥪</span></div>
+          <div className="item-info">
+            <div className="item-name">Torta de Carnitas</div>
+            <div className="item-desc">Telera roll, slow-braised pork, avocado, jalapeños, tomato, crema.</div>
+            <div className="item-footer"><span className="item-price">$11.00</span><span className="item-tag">Popular</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🥪</span></div>
-          <div class="item-info">
-            <div class="item-name">Torta de Milanesa</div>
-            <div class="item-desc">Crispy breaded beef, lettuce, tomato, avocado, chipotle mayo.</div>
-            <div class="item-footer"><span class="item-price">$12.00</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🥪</span></div>
+          <div className="item-info">
+            <div className="item-name">Torta de Milanesa</div>
+            <div className="item-desc">Crispy breaded beef, lettuce, tomato, avocado, chipotle mayo.</div>
+            <div className="item-footer"><span className="item-price">$12.00</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🥪</span></div>
-          <div class="item-info">
-            <div class="item-name">Torta de Pollo</div>
-            <div class="item-desc">Grilled chicken breast, avocado, cheese, pickled jalapeños, crema.</div>
-            <div class="item-footer"><span class="item-price">$11.00</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🥪</span></div>
+          <div className="item-info">
+            <div className="item-name">Torta de Pollo</div>
+            <div className="item-desc">Grilled chicken breast, avocado, cheese, pickled jalapeños, crema.</div>
+            <div className="item-footer"><span className="item-price">$11.00</span></div>
           </div>
         </div>
 
@@ -348,46 +348,46 @@ nav{position:sticky;top:0;z-index:200;background:var(--accent);display:flex;alig
     </section>
 
     <!-- DRINKS -->
-    <section class="menu-section" id="drinks">
-      <div class="section-heading">
+    <section className="menu-section" id="drinks">
+      <div className="section-heading">
         <h2>Drinks</h2>
-        <span class="cat-count">4 items</span>
+        <span className="cat-count">4 items</span>
       </div>
-      <div class="items-grid">
+      <div className="items-grid">
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🥤</span></div>
-          <div class="item-info">
-            <div class="item-name">Agua de Jamaica</div>
-            <div class="item-desc">Chilled hibiscus flower water, lightly sweetened. Refreshing & vibrant.</div>
-            <div class="item-footer"><span class="item-price">$3.00</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🥤</span></div>
+          <div className="item-info">
+            <div className="item-name">Agua de Jamaica</div>
+            <div className="item-desc">Chilled hibiscus flower water, lightly sweetened. Refreshing & vibrant.</div>
+            <div className="item-footer"><span className="item-price">$3.00</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🥤</span></div>
-          <div class="item-info">
-            <div class="item-name">Agua de Horchata</div>
-            <div class="item-desc">Classic rice milk with cinnamon, vanilla, and a touch of sweetness.</div>
-            <div class="item-footer"><span class="item-price">$3.00</span><span class="item-tag">Popular</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🥤</span></div>
+          <div className="item-info">
+            <div className="item-name">Agua de Horchata</div>
+            <div className="item-desc">Classic rice milk with cinnamon, vanilla, and a touch of sweetness.</div>
+            <div className="item-footer"><span className="item-price">$3.00</span><span className="item-tag">Popular</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🥤</span></div>
-          <div class="item-info">
-            <div class="item-name">Mexican Coke</div>
-            <div class="item-desc">Glass bottle Coca-Cola made with real cane sugar. Ice cold.</div>
-            <div class="item-footer"><span class="item-price">$3.50</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🥤</span></div>
+          <div className="item-info">
+            <div className="item-name">Mexican Coke</div>
+            <div className="item-desc">Glass bottle Coca-Cola made with real cane sugar. Ice cold.</div>
+            <div className="item-footer"><span className="item-price">$3.50</span></div>
           </div>
         </div>
 
-        <div class="item-card">
-          <div class="item-img-placeholder"><span class="placeholder-icon">🥤</span></div>
-          <div class="item-info">
-            <div class="item-name">Jarritos</div>
-            <div class="item-desc">Assorted Mexican fruit sodas. Ask your server for today's flavors.</div>
-            <div class="item-footer"><span class="item-price">$3.00</span></div>
+        <div className="item-card">
+          <div className="item-img-placeholder"><span className="placeholder-icon">🥤</span></div>
+          <div className="item-info">
+            <div className="item-name">Jarritos</div>
+            <div className="item-desc">Assorted Mexican fruit sodas. Ask your server for today's flavors.</div>
+            <div className="item-footer"><span className="item-price">$3.00</span></div>
           </div>
         </div>
 
@@ -398,8 +398,8 @@ nav{position:sticky;top:0;z-index:200;background:var(--accent);display:flex;alig
 </div>
 
 <!-- Floating Order Button -->
-<a href="https://aquetacos.com/create-order" class="order-float">
-  <span class="order-float-dot"></span>
+<a href="https://aquetacos.com/create-order" className="order-float">
+  <span className="order-float-dot"></span>
   Order Online
 </a>
 

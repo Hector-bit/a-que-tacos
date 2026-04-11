@@ -6,67 +6,154 @@ import { useEffect } from "react";
 export default function Home() {
 
   return (
-    <main className="flex flex-col px-3 sm:px-8 gap-x-4 gap-y-8 mb-6">
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="grow-0 sm:grow grid grid-cols-3 grid-rows-3 h-min md:max-w-[70%]">
-          <Image className="" src='/assets/truck/bell1.webp' alt="bellingham food truck" width={999} height={999}/>
-          <Image className="" src='/assets/truck/bell2.webp' alt="bellingham food truck" width={999} height={999}/>
-          <Image className="" src='/assets/truck/bell3.webp' alt="bellingham food truck" width={999} height={999}/>
+  <body>
 
-          <Image className="" src='/assets/truck/everson1.webp' alt="everson food truck" width={999} height={999}/>
-          <Image className="" src='/assets/truck/everson2.webp' alt="everson food truck" width={999} height={999}/>
-          <Image className="" src='/assets/truck/everson3.webp' alt="everson food truck" width={999} height={999}/>
-
-          <Image className="" src='/assets/truck/blaine1.webp' alt="blaine food truck" width={999} height={999}/>
-          <Image className="" src='/assets/truck/blaine2.webp' alt="blaine food truck" width={999} height={999}/>
-          <Image className="" src='/assets/truck/blaine3.webp' alt="blaine food truck" width={999} height={999}/>
-        </div>
-        {/* LOCATOIN AND HOURS */}
-        <div className="flex flex-col w-full md:w-auto py-4 sm:py-0">
-          <div className="flex flex-col text-lg sm:text-2xl text-left md:text-right gap-3">
-            <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right">Locations</div>
-            <div className="flex flex-col px-2 border-x-4 border-flagGreen">
-              <div>A Que Tacos:</div>
-              <address>2620 Northwest Ave, Bellingham, WA 98225</address>
-            </div>
-            <div className="flex flex-col px-2 border-x-4 border-white">
-              <div>A Que Tacos Two:</div>
-              <address>117 W Main St, Everson, WA 98247</address>
-            </div>
-            <div className="flex flex-col px-2 border-x-4 border-flagRed">
-              <div>A Que Tacos Three:</div>
-              <address>8101 Blaine Rd, Blaine, WA 98230</address>
-            </div>
-          </div>
-          <div className="text-2xl sm:text-3xl font-bold text-left sm:text-right mt-6">Hours</div>
-          <div className="flex flex-col text-lg sm:text-2xl gap-x-4 text-left sm:text-right my-2">
-            <div>Mon: 11am - 8pm</div>
-            <div>Tue: 11am - 8pm</div>
-            <div>Wed: 11am - 8pm</div>
-            <div>Thu: 11am - 8pm</div>
-            <div>Fri: 11am - 8pm</div>
-            <div>Sat: 11am - 8pm</div>
-            <div></div>
-            <div>Sun: <span className="px-5">Closed</span></div>
-            <div>Sun: Bellingham Location 11am - 8pm</div>
-          </div>
-        </div>
+  <nav>
+    <div className="nav-logo">
+      <div className="flag-icon">
+        <span className="flag-green"></span>
+        <span className="flag-white"></span>
+        <span className="flag-red"></span>
       </div>
-      
-      <div className="flex flex-col">
-        <div className="text-2xl sm:text-3xl font-bold text-left mb-3">Social Media</div>
-        <div className="flex flex-col p-3">
-          <Link target="_blank" className="flex flex-row gap-3" href={"https://www.facebook.com/profile.php?id=61558923898407"}>
-            <Image src={"/assets/ui/facebook.svg"} alt={"facebook"} width={30} height={30}/>
-            <div className="text-xl font-bold">A Que Tacos Facebook</div>
-          </Link>
-        </div>
-        <div>
+      A Que Tacos
+    </div>
+    <ul className="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#" className="nav-cta">Order Now</a></li>
+    </ul>
+  </nav>
 
-        </div>
+  <section className="hero">
+    <div className="hero-left">
+      <div className="hero-tag">
+        <div className="flag-icon"><span className="flag-green"></span><span className="flag-white"></span><span className="flag-red"></span></div>
+        Authentic Mexican · Pacific Northwest
       </div>
-      <iframe className="w-auto " src="https://www.google.com/maps/d/u/0/embed?mid=1QK5jmswQ16ul3zeyg7WzLFp_ncZHRQg&ehbc=2E312F" width="640" height="480"/>
+      <h1>Tacos<br/>Worth the <em>Drive.</em></h1>
+      <p className="hero-desc">Three locations across Bellingham, Everson, and Blaine — serving honest, bold flavors straight from the heart of Mexico.</p>
+      <div className="hero-actions">
+        <a href="https://aquetacos.com/create-order" className="btn-primary">Order Online</a>
+        <a href="https://aquetacos.com/menu" className="btn-secondary">View Menu <span className="arrow">→</span></a>
+      </div>
+    </div>
+    <div className="hero-right">
+      <div className="hero-img-grid">
+        <div className="hero-img-cell"><img src="https://aquetacos.com/_next/image?url=%2Fassets%2Ftruck%2Fbell1.webp&w=800&q=75" alt="Bellingham truck" /></div>
+        <div className="hero-img-cell"><img src="https://aquetacos.com/_next/image?url=%2Fassets%2Ftruck%2Feverson2.webp&w=800&q=75" alt="Everson truck" /></div>
+        <div className="hero-img-cell"><img src="https://aquetacos.com/_next/image?url=%2Fassets%2Ftruck%2Fblaine1.webp&w=800&q=75" alt="Blaine truck" /></div>
+        <div className="hero-img-cell"><img src="https://aquetacos.com/_next/image?url=%2Fassets%2Ftruck%2Fbell3.webp&w=800&q=75" alt="Bellingham truck 2" /></div>
+      </div>
+      <div className="hero-overlay-badge">
+        <p>Now Serving</p>
+        <strong>3 Locations</strong>
+      </div>
+    </div>
+  </section>
 
-    </main>
+  <div className="marquee-strip">
+    <div className="marquee-inner">
+      <span>Tacos</span><span className="dot">◆</span>
+      <span>Burritos</span><span className="dot">◆</span>
+      <span>Quesadillas</span><span className="dot">◆</span>
+      <span>Bellingham</span><span className="dot">◆</span>
+      <span>Everson</span><span className="dot">◆</span>
+      <span>Blaine</span><span className="dot">◆</span>
+      <span>Authentic Mexican</span><span className="dot">◆</span>
+      <span>Mon–Sat 11am–8pm</span><span className="dot">◆</span>
+      <span>Tacos</span><span className="dot">◆</span>
+      <span>Burritos</span><span className="dot">◆</span>
+      <span>Quesadillas</span><span className="dot">◆</span>
+      <span>Bellingham</span><span className="dot">◆</span>
+      <span>Everson</span><span className="dot">◆</span>
+      <span>Blaine</span><span className="dot">◆</span>
+      <span>Authentic Mexican</span><span className="dot">◆</span>
+      <span>Mon–Sat 11am–8pm</span><span className="dot">◆</span>
+    </div>
+  </div>
+
+  <section className="locations">
+    <div className="section-header">
+      <div>
+        <p className="section-label">Find Us</p>
+        <h2 className="section-title">Our <em style={{ fontStyle: 'italic', color: 'var(--muted)' }}>Locations</em></h2>
+      </div>
+    </div>
+    <div className="locations-grid">
+      <div className="location-card">
+        <div className="loc-num">01</div>
+        <div className="loc-name">A Que Tacos</div>
+        <div className="loc-addr">2620 Northwest Ave<br/>Bellingham, WA 98225</div>
+        <div className="loc-divider"></div>
+        <div className="loc-hours-label">Hours</div>
+        <div className="loc-hours-text">Mon–Sat 11am–8pm</div>
+        <div className="loc-icon">↗</div>
+      </div>
+      <div className="location-card">
+        <div className="loc-num">02</div>
+        <div className="loc-name">A Que Tacos Two</div>
+        <div className="loc-addr">117 W Main St<br/>Everson, WA 98247</div>
+        <div className="loc-divider"></div>
+        <div className="loc-hours-label">Hours</div>
+        <div className="loc-hours-text">Mon–Sat 11am–8pm</div>
+        <div className="loc-icon">↗</div>
+      </div>
+      <div className="location-card">
+        <div className="loc-num">03</div>
+        <div className="loc-name">A Que Tacos Three</div>
+        <div className="loc-addr">8101 Blaine Rd<br/>Blaine, WA 98230</div>
+        <div className="loc-divider"></div>
+        <div className="loc-hours-label">Hours</div>
+        <div className="loc-hours-text">Mon–Sat 11am–8pm</div>
+        <div className="loc-icon">↗</div>
+      </div>
+    </div>
+  </section>
+
+  <section className="hours-section">
+    <div>
+      <p className="section-label" style={{ color: 'rgba(255,188,96,0.7)' }}>When to Visit</p>
+      <h2 className="section-title" style={{ color: 'var(--bg)' }}>Hours &amp; <em style={{ fontStyle: 'italic', color: 'rgba(255,188,96,0.4)' }}>Schedule</em></h2>
+    </div>
+    <div>
+      <div className="hours-table">
+        <div className="hours-row"><span className="day-name">Monday</span><span className="day-hours">11am – 8pm</span></div>
+        <div className="hours-row"><span className="day-name">Tuesday</span><span className="day-hours">11am – 8pm</span></div>
+        <div className="hours-row"><span className="day-name">Wednesday</span><span className="day-hours">11am – 8pm</span></div>
+        <div className="hours-row"><span className="day-name">Thursday</span><span className="day-hours">11am – 8pm</span></div>
+        <div className="hours-row"><span className="day-name">Friday</span><span className="day-hours">11am – 8pm</span></div>
+        <div className="hours-row"><span className="day-name">Saturday</span><span className="day-hours">11am – 8pm</span></div>
+        <div className="hours-row"><span className="day-name">Sunday</span><span className="day-hours day-closed">Closed</span></div>
+      </div>
+      <div className="hours-note">★ Bellingham location open Sundays 11am – 8pm</div>
+    </div>
+  </section>
+
+  <section className="menu-cta">
+    <div className="menu-cta-text">
+      <p className="section-label">Hungry?</p>
+      <h2>Ready to Order? <em>Let's Eat.</em></h2>
+    </div>
+    <div className="menu-cta-actions">
+      <a href="https://aquetacos.com/menu" className="btn-outline">View Menu</a>
+      <a href="https://aquetacos.com/create-order" className="btn-primary">Order Online</a>
+    </div>
+  </section>
+
+  <footer>
+    <div className="footer-brand">
+      <div className="flag-icon"><span className="flag-green"></span><span className="flag-white"></span><span className="flag-red"></span></div>
+      A Que Tacos
+    </div>
+    <div className="footer-center">
+      <a href="https://www.facebook.com/profile.php?id=61558923898407" className="footer-link">Facebook</a>
+      <a href="mailto:contact@aquetacos.com" className="footer-link">Contact</a>
+    </div>
+    <div className="footer-right">
+      <a href="mailto:contact@aquetacos.com">contact@aquetacos.com</a>
+    </div>
+  </footer>
+
+  </body>
   );
 }
