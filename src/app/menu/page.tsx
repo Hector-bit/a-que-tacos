@@ -7,18 +7,6 @@ export default function Menu() {
   return (
 <body>
 
-<nav>
-  <a href="#" className="nav-logo">
-    <div className="flag-icon"><span className="flag-green"></span><span className="flag-white"></span><span className="flag-red"></span></div>
-    A Que Tacos
-  </a>
-  <ul className="nav-links">
-    <li><a href="#">Home</a></li>
-    <li><a href="#" className="active">Menu</a></li>
-    <li><a href="#" className="nav-cta">Order Now</a></li>
-  </ul>
-</nav>
-
 
 <div className="cat-nav-wrap">
   <div className="cat-nav">

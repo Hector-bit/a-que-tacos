@@ -7,23 +7,6 @@ export default function Home() {
 
   return (
   <body>
-
-  <nav>
-    <div className="nav-logo">
-      <div className="flag-icon">
-        <span className="flag-green"></span>
-        <span className="flag-white"></span>
-        <span className="flag-red"></span>
-      </div>
-      A Que Tacos
-    </div>
-    <ul className="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Menu</a></li>
-      <li><a href="#" className="nav-cta">Order Now</a></li>
-    </ul>
-  </nav>
-
   <section className="hero">
     <div className="hero-left">
       <div className="hero-tag">
