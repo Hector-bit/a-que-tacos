@@ -5,20 +5,7 @@ import { menu_items, MenuNameDictionary } from "../../../utils/constants";
 export default function Menu() {
 
   return (
-<body>
-
-<nav>
-  <a href="#" className="nav-logo">
-    <div className="flag-icon"><span className="flag-green"></span><span className="flag-white"></span><span className="flag-red"></span></div>
-    A Que Tacos
-  </a>
-  <ul className="nav-links">
-    <li><a href="#">Home</a></li>
-    <li><a href="#" className="active">Menu</a></li>
-    <li><a href="#" className="nav-cta">Order Now</a></li>
-  </ul>
-</nav>
-
+<>
 
 <div className="cat-nav-wrap">
   <div className="cat-nav">
@@ -35,11 +22,11 @@ export default function Menu() {
     <p className="eyebrow">A Que Tacos</p>
     <h1>Our <em>Menu</em></h1>
   </div>
-  <div className="menu-hero-right">
+  {/* <div className="menu-hero-right">
     <span className="location-pill">Bellingham</span>
     <span className="location-pill">Everson</span>
     <span className="location-pill">Blaine</span>
-  </div>
+  </div> */}
 </div>
 
 <div className="menu-body">
@@ -52,10 +39,10 @@ export default function Menu() {
     <a href="#tortas" className="sidebar-link" >Tortas</a>
     <a href="#drinks" className="sidebar-link" >Drinks</a>
     <div className="sidebar-divider"></div>
-    <div className="sidebar-label">Locations</div>
+    {/* <div className="sidebar-label">Locations</div>
     <a href="#" className="sidebar-link">Bellingham</a>
     <a href="#" className="sidebar-link">Everson</a>
-    <a href="#" className="sidebar-link">Blaine</a>
+    <a href="#" className="sidebar-link">Blaine</a> */}
   </aside>
 
   <main className="menu-main">
@@ -259,15 +246,6 @@ export default function Menu() {
         <div className="item-card">
           <div className="item-img-placeholder"><span className="placeholder-icon">🥤</span></div>
           <div className="item-info">
-            <div className="item-name">Agua de Jamaica</div>
-            <div className="item-desc">Chilled hibiscus flower water, lightly sweetened. Refreshing & vibrant.</div>
-            <div className="item-footer"><span className="item-price">$3.00</span></div>
-          </div>
-        </div>
-
-        <div className="item-card">
-          <div className="item-img-placeholder"><span className="placeholder-icon">🥤</span></div>
-          <div className="item-info">
             <div className="item-name">Agua de Horchata</div>
             <div className="item-desc">ClassNameic rice milk with cinnamon, vanilla, and a touch of sweetness.</div>
             <div className="item-footer"><span className="item-price">$3.00</span><span className="item-tag">Popular</span></div>
@@ -299,12 +277,12 @@ export default function Menu() {
 </div>
 
 {/* <!-- Floating Order Button --> */}
-<a href="https://aquetacos.com/create-order" className="order-float">
+{/* <a href="https://aquetacos.com/create-order" className="order-float">
   <span className="order-float-dot"></span>
   Order Online
-</a>
+</a> */}
 
 
-</body>
+</>
   );
 }

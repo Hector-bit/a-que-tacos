@@ -6,23 +6,8 @@ import { useEffect } from "react";
 export default function Home() {
 
   return (
-  <body>
+  <>
 
-  <nav>
-    <div className="nav-logo">
-      <div className="flag-icon">
-        <span className="flag-green"></span>
-        <span className="flag-white"></span>
-        <span className="flag-red"></span>
-      </div>
-      A Que Tacos
-    </div>
-    <ul className="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Menu</a></li>
-      <li><a href="#" className="nav-cta">Order Now</a></li>
-    </ul>
-  </nav>
 
   <section className="hero">
     <div className="hero-left">
@@ -33,8 +18,8 @@ export default function Home() {
       <h1>Tacos<br/>Worth the <em>Drive.</em></h1>
       <p className="hero-desc">Three locations across Bellingham, Everson, and Blaine — serving honest, bold flavors straight from the heart of Mexico.</p>
       <div className="hero-actions">
-        <a href="https://aquetacos.com/create-order" className="btn-primary">Order Online</a>
-        <a href="https://aquetacos.com/menu" className="btn-secondary">View Menu <span className="arrow">→</span></a>
+        {/* <a href="https://aquetacos.com/create-order" className="btn-primary">Order Online</a> */}
+        <a href="https://aquetacos.com/menu" className="btn-primary">View Menu <span className="arrow">→</span></a>
       </div>
     </div>
     <div className="hero-right">
@@ -86,7 +71,7 @@ export default function Home() {
         <div className="loc-addr">2620 Northwest Ave<br/>Bellingham, WA 98225</div>
         <div className="loc-divider"></div>
         <div className="loc-hours-label">Hours</div>
-        <div className="loc-hours-text">Mon–Sat 11am–8pm</div>
+        <div className="loc-hours-text">All Week 11am–8pm</div>
         <div className="loc-icon">↗</div>
       </div>
       <div className="location-card">
@@ -136,7 +121,7 @@ export default function Home() {
     </div>
     <div className="menu-cta-actions">
       <a href="https://aquetacos.com/menu" className="btn-outline">View Menu</a>
-      <a href="https://aquetacos.com/create-order" className="btn-primary">Order Online</a>
+      {/* <a href="https://aquetacos.com/create-order" className="btn-primary">Order Online</a> */}
     </div>
   </section>
 
@@ -154,6 +139,6 @@ export default function Home() {
     </div>
   </footer>
 
-  </body>
+  </>
   );
 }

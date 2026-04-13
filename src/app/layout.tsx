@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Oswald } from "next/font/google";
-import "./globals.css";
 import HeaderMenu from "@/components/HeaderMenu";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import UIProvider from "@/context/uicontext";
 import { CartProvider } from "@/context/orderContext";
+import "./globals.css";
 
 const inter = Oswald({ 
   subsets: ["latin", "cyrillic"] 
@@ -33,9 +33,8 @@ export default function RootLayout({
             <div className="grow min-h-[74vh]">
               {children}  
             </div>
-            <Footer/>
+            {/* <Footer/> */}
           </UIProvider>
-
         </CartProvider>
       </body>
       <GoogleAnalytics gaId='G-LTNF1EG4YR'/>
