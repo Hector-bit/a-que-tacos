@@ -29,7 +29,8 @@ export type menuItemType = {
   menu_id: number
   img: string;
   name: orderItemType
-  // price: number
+  category: string
+  price: number
   description: string
   ingredients: ingredientsType[]
   sideOption: boolean
