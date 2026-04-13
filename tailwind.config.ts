@@ -19,6 +19,15 @@ const config: Config = {
         'flagGreen': '#52B202',
         'flagRed': '#FF1744',
       },
+      keyframes: {
+      marquee: {
+        from: { transform: "translateX(0)" },
+        to: { transform: "translateX(-50%)" },
+      },
+    },
+    animation: {
+      marquee: "marquee 20s linear infinite",
+    },
     },
   },
   plugins: [],
