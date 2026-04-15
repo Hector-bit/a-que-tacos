@@ -53,7 +53,7 @@ const HeaderMenu = ({  }:HeaderMenuProps) => {
             >
               <Link className="hover:underline " href={"/"} onClick={handleAside}>Home</Link>
               <Link className="hover:underline " href={"/menu"} onClick={handleAside}>Menu</Link>
-              <Link className="hover:underline " href={"/create-order"} onClick={handleAside}>Order</Link>
+              {/* <Link className="hover:underline " href={"/create-order"} onClick={handleAside}>Order</Link> */}
             </div>
           </div>
         </div>

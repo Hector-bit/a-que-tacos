@@ -3,6 +3,7 @@ import { Oswald } from "next/font/google";
 import "./globals.css";
 import HeaderMenu from "@/components/HeaderMenu";
 import Footer from "@/components/Footer";
+import Footerv2 from "@/components/Footerv2";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import UIProvider from "@/context/uicontext";
 import { CartProvider } from "@/context/orderContext";
@@ -33,7 +34,7 @@ export default function RootLayout({
             <div className="grow min-h-[74vh]">
               {children}  
             </div>
-            <Footer/>
+            <Footerv2/>
           </UIProvider>
 
         </CartProvider>

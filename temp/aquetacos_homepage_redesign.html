@@ -1,0 +1,400 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#C0392B;--red-dark:#922B21;--red-light:#F9ECEA;
+  --green:#1B5E38;--green-mid:#2D7A52;--green-light:#E8F5ED;
+  --cream:#FDF8F2;--warm:#F5EDE0;--bark:#3B2A1A;
+  --sand:#D4B896;--text:#1A1008;--muted:#7A6A58;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 2.5rem;
+  background:rgba(253,248,242,0.88);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(196,168,140,0.25);
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--red);letter-spacing:-0.01em}
+.nav-logo span{color:var(--green)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;font-size:0.875rem;font-weight:500;color:var(--muted);letter-spacing:0.03em;transition:color 0.2s}
+.nav-links a:hover{color:var(--red)}
+.nav-order{
+  background:var(--red);color:#fff;
+  padding:0.55rem 1.4rem;border-radius:50px;
+  font-size:0.875rem;font-weight:500;text-decoration:none;
+  transition:background 0.2s,transform 0.15s;
+}
+.nav-order:hover{background:var(--red-dark);transform:scale(1.03)}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  padding-top:72px;
+  overflow:hidden;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 3rem 5rem 4rem;
+  position:relative;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--green-light);color:var(--green);
+  font-size:0.75rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;
+  padding:0.35rem 1rem;border-radius:50px;margin-bottom:1.75rem;width:fit-content;
+}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--green-mid);border-radius:50%}
+.hero-h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,5vw,4.5rem);
+  font-weight:900;line-height:1.05;letter-spacing:-0.02em;
+  color:var(--bark);margin-bottom:1.5rem;
+}
+.hero-h1 em{font-style:italic;color:var(--red)}
+.hero-sub{font-size:1.05rem;color:var(--muted);line-height:1.7;max-width:380px;margin-bottom:2.5rem}
+.hero-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.btn-primary{
+  background:var(--red);color:#fff;
+  padding:0.85rem 2rem;border-radius:50px;
+  font-size:0.95rem;font-weight:500;text-decoration:none;
+  transition:background 0.2s,transform 0.15s;
+  box-shadow:0 4px 16px rgba(192,57,43,0.28);
+}
+.btn-primary:hover{background:var(--red-dark);transform:translateY(-2px)}
+.btn-ghost{
+  color:var(--green);font-size:0.95rem;font-weight:500;text-decoration:none;
+  display:flex;align-items:center;gap:0.4rem;transition:gap 0.2s;
+}
+.btn-ghost:hover{gap:0.7rem}
+.btn-ghost::after{content:'→'}
+
+.hero-right{
+  position:relative;background:var(--warm);
+  display:grid;grid-template-rows:1fr 1fr;
+  overflow:hidden;
+}
+.hero-img-top,.hero-img-bot{
+  position:relative;overflow:hidden;
+}
+.hero-img-top{border-left:4px solid var(--red)}
+.hero-img-bot{border-left:4px solid var(--green)}
+.hero-img-top img,.hero-img-bot img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.6s ease;
+}
+.hero-img-top:hover img,.hero-img-bot:hover img{transform:scale(1.04)}
+.hero-badge{
+  position:absolute;bottom:1.25rem;left:1.25rem;
+  background:rgba(253,248,242,0.95);backdrop-filter:blur(8px);
+  border:1px solid rgba(196,168,140,0.4);
+  border-radius:10px;padding:0.6rem 1rem;
+  font-size:0.78rem;font-weight:500;color:var(--bark);
+}
+
+/* STRIP */
+.strip{
+  background:var(--green);color:#fff;
+  padding:1rem 0;overflow:hidden;
+  border-top:3px solid var(--red);border-bottom:3px solid var(--red);
+}
+.strip-inner{
+  display:flex;gap:3rem;
+  animation:marquee 20s linear infinite;white-space:nowrap;width:max-content;
+}
+.strip-item{display:flex;align-items:center;gap:0.6rem;font-size:0.85rem;font-weight:500;letter-spacing:0.04em}
+.strip-dot{width:5px;height:5px;background:var(--sand);border-radius:50%}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTION SHARED */
+section{padding:6rem 4rem}
+.section-label{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:1rem;
+}
+.section-label::before{content:'';display:block;width:24px;height:1px;background:var(--sand)}
+.section-h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,3.5vw,2.75rem);font-weight:900;
+  line-height:1.1;letter-spacing:-0.02em;color:var(--bark);
+  margin-bottom:0.75rem;
+}
+.section-h2 em{font-style:italic;color:var(--red)}
+
+/* LOCATIONS */
+.locations{background:var(--warm)}
+.loc-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
+.loc-sub{font-size:1rem;color:var(--muted);max-width:340px;line-height:1.6}
+
+.loc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+
+.loc-card{
+  background:var(--cream);border-radius:18px;
+  overflow:hidden;border:1px solid rgba(196,168,140,0.35);
+  transition:transform 0.2s,box-shadow 0.2s;
+  display:flex;flex-direction:column;
+}
+.loc-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(58,42,26,0.1)}
+
+.loc-card-accent{height:6px;background:var(--red)}
+.loc-card:nth-child(2) .loc-card-accent{background:var(--green)}
+.loc-card:nth-child(3) .loc-card-accent{background:var(--sand)}
+
+.loc-img{
+  width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;
+  background:var(--warm);
+}
+.loc-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
+.loc-card:hover .loc-img img{transform:scale(1.05)}
+
+.loc-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+.loc-num{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:0.8rem;color:var(--muted);margin-bottom:0.6rem;
+}
+.loc-name{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:1.25rem;color:var(--bark);margin-bottom:0.4rem;line-height:1.2;
+}
+.loc-address{font-size:0.85rem;color:var(--muted);line-height:1.5;margin-bottom:1.25rem;flex:1}
+
+.loc-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:1rem;border-top:1px solid rgba(196,168,140,0.3);
+}
+.loc-hours{font-size:0.78rem;color:var(--green);font-weight:500}
+.loc-hours strong{display:block;color:var(--bark);font-size:0.8rem}
+.loc-map-btn{
+  display:flex;align-items:center;gap:0.35rem;
+  background:var(--red);color:#fff;text-decoration:none;
+  font-size:0.78rem;font-weight:500;padding:0.45rem 0.9rem;
+  border-radius:50px;transition:background 0.15s;
+}
+.loc-map-btn:hover{background:var(--red-dark)}
+
+/* HOURS BANNER */
+.hours-banner{
+  background:var(--bark);color:#fff;
+  padding:4rem;
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem;
+}
+.hb-label{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sand);margin-bottom:0.75rem}
+.hb-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;line-height:1.1;margin-bottom:0.5rem}
+.hb-note{font-size:0.875rem;color:rgba(255,255,255,0.55);line-height:1.6;max-width:400px}
+.hb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.25rem 3rem;min-width:300px}
+.hb-row{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07)}
+.hb-day{font-size:0.85rem;color:rgba(255,255,255,0.6)}
+.hb-time{font-size:0.85rem;font-weight:500}
+.hb-closed{color:var(--sand)}
+
+/* CTA */
+.cta-section{
+  background:var(--red);color:#fff;
+  text-align:center;padding:6rem 4rem;
+}
+.cta-section .section-label::before{background:rgba(255,255,255,0.4)}
+.cta-section .section-label{color:rgba(255,255,255,0.7)}
+.cta-h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.1;margin-bottom:1rem}
+.cta-sub{font-size:1rem;color:rgba(255,255,255,0.75);max-width:420px;margin:0 auto 2.5rem;line-height:1.7}
+.cta-btn{
+  display:inline-block;background:#fff;color:var(--red);
+  padding:1rem 2.5rem;border-radius:50px;font-size:1rem;font-weight:500;
+  text-decoration:none;transition:transform 0.15s,box-shadow 0.15s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.15);
+}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.2)}
+
+/* FOOTER */
+footer{background:var(--bark);color:rgba(255,255,255,0.6);padding:2.5rem 4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.foot-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.1rem;color:#fff}
+.foot-copy{font-size:0.8rem}
+.foot-email a{color:var(--sand);font-size:0.85rem;text-decoration:none}
+
+/* Placeholder images using CSS */
+.img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.hero-img-top .img-placeholder{background:#D4B896}
+.hero-img-bot .img-placeholder{background:#B8A080}
+</style>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">A Que <span>Tacos</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Menu</a></li>
+    <li><a href="#">Locations</a></li>
+  </ul>
+  <a href="#" class="nav-order">Order Online</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Authentic Mexican — Bellingham, WA</div>
+    <h1 class="hero-h1">Real flavors,<br><em>straight from</em><br>the truck.</h1>
+    <p class="hero-sub">Family-made tacos, burritos & plates crafted with fresh ingredients and recipes that bring Mexico to the Pacific Northwest.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">Order now</a>
+      <a href="#" class="btn-ghost">View menu</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-top">
+      <img src="https://aquetacos.com/_next/image?url=%2Fassets%2Ftruck%2Fbell1.webp&w=1200&q=75" alt="A Que Tacos truck Bellingham" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder" style="display:none">🚚</div>
+      <div class="hero-badge">Bellingham · Est. 2024</div>
+    </div>
+    <div class="hero-img-bot">
+      <img src="https://aquetacos.com/_next/image?url=%2Fassets%2FmenuImages%2FsupremeBurrito1Final.webp&w=1200&q=75" alt="Supreme Burrito" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-placeholder" style="display:none">🌯</div>
+      <div class="hero-badge">Supreme Burrito · $13</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="strip">
+  <div class="strip-inner">
+    <div class="strip-item"><span class="strip-dot"></span> Tacos</div>
+    <div class="strip-item"><span class="strip-dot"></span> Burritos</div>
+    <div class="strip-item"><span class="strip-dot"></span> Plates</div>
+    <div class="strip-item"><span class="strip-dot"></span> Quesadillas</div>
+    <div class="strip-item"><span class="strip-dot"></span> Tortas</div>
+    <div class="strip-item"><span class="strip-dot"></span> Tamales</div>
+    <div class="strip-item"><span class="strip-dot"></span> Nachos</div>
+    <div class="strip-item"><span class="strip-dot"></span> Fresh daily</div>
+    <div class="strip-item"><span class="strip-dot"></span> Tacos</div>
+    <div class="strip-item"><span class="strip-dot"></span> Burritos</div>
+    <div class="strip-item"><span class="strip-dot"></span> Plates</div>
+    <div class="strip-item"><span class="strip-dot"></span> Quesadillas</div>
+    <div class="strip-item"><span class="strip-dot"></span> Tortas</div>
+    <div class="strip-item"><span class="strip-dot"></span> Tamales</div>
+    <div class="strip-item"><span class="strip-dot"></span> Nachos</div>
+    <div class="strip-item"><span class="strip-dot"></span> Fresh daily</div>
+  </div>
+</div>
+
+<!-- LOCATIONS -->
+<section class="locations">
+  <div class="loc-header">
+    <div>
+      <div class="section-label">Where to find us</div>
+      <h2 class="section-h2">Three locations,<br><em>one family.</em></h2>
+    </div>
+    <p class="loc-sub">From Bellingham to Blaine, find your nearest A Que Tacos truck and come hungry.</p>
+  </div>
+
+  <div class="loc-grid">
+
+    <div class="loc-card">
+      <div class="loc-card-accent"></div>
+      <div class="loc-img">
+        <img src="https://aquetacos.com/_next/image?url=%2Fassets%2Ftruck%2Fbell2.webp&w=800&q=75" alt="Bellingham location" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none;background:#E8DDD3">🌮</div>
+      </div>
+      <div class="loc-body">
+        <div class="loc-num">Location 01</div>
+        <div class="loc-name">A Que Tacos<br>Bellingham</div>
+        <div class="loc-address">2620 Northwest Ave<br>Bellingham, WA 98225</div>
+        <div class="loc-meta">
+          <div class="loc-hours">
+            <strong>Mon – Sat</strong>
+            11am – 8pm
+          </div>
+          <a href="https://maps.google.com/?q=2620+Northwest+Ave+Bellingham+WA" class="loc-map-btn" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Directions
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="loc-card">
+      <div class="loc-card-accent"></div>
+      <div class="loc-img">
+        <img src="https://aquetacos.com/_next/image?url=%2Fassets%2Ftruck%2Feverson1.webp&w=800&q=75" alt="Everson location" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none;background:#E8DDD3">🌮</div>
+      </div>
+      <div class="loc-body">
+        <div class="loc-num">Location 02</div>
+        <div class="loc-name">A Que Tacos<br>Everson</div>
+        <div class="loc-address">117 W Main St<br>Everson, WA 98247</div>
+        <div class="loc-meta">
+          <div class="loc-hours">
+            <strong>Mon – Sat</strong>
+            11am – 8pm
+          </div>
+          <a href="https://maps.google.com/?q=117+W+Main+St+Everson+WA" class="loc-map-btn" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Directions
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="loc-card">
+      <div class="loc-card-accent"></div>
+      <div class="loc-img">
+        <img src="https://aquetacos.com/_next/image?url=%2Fassets%2Ftruck%2Fblaine1.webp&w=800&q=75" alt="Blaine location" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-placeholder" style="display:none;background:#E8DDD3">🌮</div>
+      </div>
+      <div class="loc-body">
+        <div class="loc-num">Location 03</div>
+        <div class="loc-name">A Que Tacos<br>Blaine</div>
+        <div class="loc-address">8101 Blaine Rd<br>Blaine, WA 98230</div>
+        <div class="loc-meta">
+          <div class="loc-hours">
+            <strong>Mon – Sat</strong>
+            11am – 8pm
+          </div>
+          <a href="https://maps.google.com/?q=8101+Blaine+Rd+Blaine+WA" class="loc-map-btn" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Directions
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOURS BANNER -->
+<div class="hours-banner">
+  <div>
+    <div class="hb-label">Hours of operation</div>
+    <h3 class="hb-title">Come see us<br>any day but Sunday.</h3>
+    <p class="hb-note">Bellingham is open Sundays too — catch us at 2620 Northwest Ave from 11am to 8pm.</p>
+  </div>
+  <div class="hb-grid">
+    <div class="hb-row"><span class="hb-day">Monday</span><span class="hb-time">11am – 8pm</span></div>
+    <div class="hb-row"><span class="hb-day">Tuesday</span><span class="hb-time">11am – 8pm</span></div>
+    <div class="hb-row"><span class="hb-day">Wednesday</span><span class="hb-time">11am – 8pm</span></div>
+    <div class="hb-row"><span class="hb-day">Thursday</span><span class="hb-time">11am – 8pm</span></div>
+    <div class="hb-row"><span class="hb-day">Friday</span><span class="hb-time">11am – 8pm</span></div>
+    <div class="hb-row"><span class="hb-day">Saturday</span><span class="hb-time">11am – 8pm</span></div>
+    <div class="hb-row"><span class="hb-day">Sunday</span><span class="hb-time hb-closed">Bellingham only</span></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section-label">Ready to eat?</div>
+  <h2 class="cta-h2">Order ahead,<br>skip the wait.</h2>
+  <p class="cta-sub">Fresh, made-to-order food waiting for you. Place your order online and pick it up at any of our locations.</p>
+  <a href="https://aquetacos.com/create-order" class="cta-btn">Start your order</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">A Que Tacos</div>
+  <div class="foot-copy">© 2025 A Que Tacos. All rights reserved.</div>
+  <div class="foot-email"><a href="mailto:contact@aquetacos.com">contact@aquetacos.com</a></div>
+</footer>
