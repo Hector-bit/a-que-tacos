@@ -12,7 +12,7 @@ export default function FacebookBanner() {
       <div className="bg-[#801313]" />
 
       {/* Main content */}
-      <div className="flex items-center justify-between gap-8 px-12 py-10">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-8 px-12 py-10">
 
         {/* Left — branding */}
         <div className="flex flex-col gap-2">
@@ -38,7 +38,7 @@ export default function FacebookBanner() {
         </div>
 
         {/* Divider */}
-        <div className="w-px h-24 bg-[#2e1a0a] flex-shrink-0" />
+        <div className="w-px sm:h-24 bg-[#2e1a0a] flex-shrink-0" />
 
         {/* Right — Facebook CTA */}
         <div className="flex flex-col items-center gap-3 flex-shrink-0">

@@ -50,8 +50,8 @@ export default function Home() {
 
   return (
     <main className="flex flex-col px-3 sm:px-8 gap-x-4 gap-y-8 mb-6">
-      <section className="grid grid-cols-2 pt-[72px]">
-        <div className="flex flex-col justify-center px-16 py-20">
+      <section className="grid grid-cols-1 sm:grid-cols-2 ">
+        <div className="flex flex-col justify-center px-8 sm:px-16 py-20">
           <span className="inline-flex items-center gap-2 bg-[#E8F5ED] text-[#1B5E38] text-xs font-medium px-4 py-1.5 rounded-full mb-7 w-fit tracking-widest uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2D7A52]" />
             Authentic Mexican — Bellingham, WA
@@ -102,7 +102,7 @@ export default function Home() {
       </div>
 
       {/* LOCATIONS */}
-      <section className="px-16 py-24">
+      <section className=" px-8 sm:px-16 py-24">
         <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
           <div>
             <p className="flex items-center gap-3 text-xs font-medium tracking-[0.1em] uppercase mb-3">
@@ -117,7 +117,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {locations.map((loc) => (
             <div key={loc.num} className="bg-[#FDF8F2] rounded-2xl overflow-hidden border border-[#D4B896]/35 flex flex-col hover:-translate-y-1 hover:shadow-xl transition-all duration-200">
               <div className={`h-1.5 ${loc.accentColor}`} />
